@@ -1,0 +1,9 @@
+{
+  "name": "jhxcx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsencrypt": "^3.3.2"
+  }
+}

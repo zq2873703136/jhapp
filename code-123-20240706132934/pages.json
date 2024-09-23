@@ -1,0 +1,67 @@
+{
+	"globalStyle": {
+		"navigationStyle": "custom"
+	},
+	"pages": [
+		{
+			"path": "pages/Page_02_login/Page_02_login",
+			"style": {}
+		},
+		{
+			"path": "pages/Page_03_dashboard/Page_03_dashboard",
+			"style": {}
+		},
+		{
+			"path": "pages/Page_08_pay_online_edit/Page_08_pay_online",
+			"style": {}
+		},
+		{
+			"path": "pages/Page_08_pay_online_add/Page_08_pay_online",
+			"style": {}
+		},
+		{
+			"path": "pages/Page_18_events/Page_18_events",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page1/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page2/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page3/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page4/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page5/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page6/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page7/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page8/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page9/index",
+			"style": {}
+		},
+		{
+			"path": "pages/page/page10/index",
+			"style": {}
+		}
+	]
+}
