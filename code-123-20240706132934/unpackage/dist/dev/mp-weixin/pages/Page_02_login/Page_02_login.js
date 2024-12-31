@@ -174,6 +174,18 @@ var _jsencrypt = _interopRequireDefault(__webpack_require__(/*! jsencrypt */ 44)
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 // import JSEncrypt from './jsencrypt.js'
 var publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdH\n' + 'nzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==';
@@ -182,8 +194,13 @@ var _default = {
   props: {},
   data: function data() {
     return {
+      companyName: '',
+      company: '',
       userName: "shuaijiangbing",
-      pwd: "123456"
+      pwd: "123456",
+      companyNameList: ["水电", "也是水电但是不通"],
+      companyPathList: ["https://www.huoyatech.com", "https://www.huoyatech2.com"],
+      pickerIndex: 0
     };
   },
   methods: {
@@ -221,6 +238,11 @@ var _default = {
           }
         }, _callee);
       }))();
+    },
+    bindPickerChange3: function bindPickerChange3(e) {
+      this.pickerIndex = e.detail.value;
+      this.company = this.companyPathList[this.pickerIndex];
+      this.companyName = this.companyNameList[this.pickerIndex];
     }
   }
 };

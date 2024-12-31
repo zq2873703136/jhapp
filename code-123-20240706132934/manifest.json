@@ -1,6 +1,6 @@
 {
     "name" : "codefun",
-    "appid" : "testAppId",
+    "appid" : "wxb987d1af8839ad44",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -42,12 +42,9 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx6373936473939112",
+        "appid" : "wxb987d1af8839ad44",
         "setting" : {
-            "urlCheck" : true,
-            "es6" : true,
-            "postcss" : true,
-            "minified" : true
+            "urlCheck" : false
         },
         "usingComponents" : true
     },

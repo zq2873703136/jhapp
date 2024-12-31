@@ -5,6 +5,18 @@
 		<text class="text_3 pos_3">请输入账号密码</text>
 		<view class="flex-col section_3 pos_4">
 			<view class="flex-col items-start self-stretch group">
+			
+				<view class="flex-row justify-between self-stretch group_3">
+					<view class="self-start font_2">
+						<picker @change="bindPickerChange3" :value="pickerIndex" :range="companyNameList">
+							<view class="picker">
+								<text class="font text_4"><text style="color: red;">*</text>公司:</text>{{ companyName }}
+							</view>
+						</picker>
+					</view>
+				</view>
+			</view>
+			<view class="flex-col items-start self-stretch group">
 				<text class="font text_4">账号</text>
 				<input class="mt-12 font_2 text_5" v-model="userName">
 			</view>
@@ -33,14 +45,19 @@
 	import JSEncrypt from 'jsencrypt';
 	// import JSEncrypt from './jsencrypt.js'
 	const publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdH\n' +
-	  'nzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ=='
+		'nzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ=='
 	export default {
 		components: {},
 		props: {},
 		data() {
 			return {
+				companyName:'',
+				company: '',
 				userName: "shuaijiangbing",
 				pwd: "123456",
+				companyNameList: ["水电", "也是水电但是不通"],
+				companyPathList: [ "https://www.huoyatech.com", "https://www.huoyatech2.com" ],
+				pickerIndex: 0,
 			};
 		},
 
@@ -48,19 +65,24 @@
 			async login() {
 				const encryptor = new JSEncrypt()
 				encryptor.setPublicKey(publicKey)
-				console.log(encryptor.setPublicKey,'encryptor');
+				console.log(encryptor.setPublicKey, 'encryptor');
 				let user = {
 					managerName: this.userName,
 					managerPassword: encryptor.encrypt(this.pwd) // 设置公钥}
 				}
-				console.log(user,'user');
+				console.log(user, 'user');
 				const res = await managerLogin(user)
 				console.log(res);
-				console.log(res.data['X-Token'],'dadattxx');
-				uni.setStorageSync('X-Token',res.data['X-Token'])
+				console.log(res.data['X-Token'], 'dadattxx');
+				uni.setStorageSync('X-Token', res.data['X-Token'])
 				uni.navigateTo({
 					url: '/pages/Page_03_dashboard/Page_03_dashboard'
 				})
+			},
+			bindPickerChange3(e) {
+				this.pickerIndex = e.detail.value;
+				this.company = this.companyPathList[this.pickerIndex];
+				this.companyName = this.companyNameList[this.pickerIndex];
 			}
 		}
 	};

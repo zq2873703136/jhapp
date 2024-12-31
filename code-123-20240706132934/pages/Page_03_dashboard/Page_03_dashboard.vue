@@ -2,7 +2,7 @@
   <view class="flex-col page">
     <view class="flex-col section">
       <view class="flex-row justify-between items-center section_2" style="opacity:0">
-        <text class="text">9:41</text>
+        <text class="text">9:40</text>
         <view class="flex-row">
           <image
             class="image"
@@ -21,10 +21,10 @@
       <view class="flex-col group mt-25">
         <view class="flex-row justify-between items-end self-stretch">
           <view class="flex-col">
-            <text class="self-start text_2">Hi 曹工</text>
+            <text class="self-start text_2">Hi 曹工！</text>
             <view class="mt-20 flex-col self-stretch">
               <view class="flex-row items-center">
-                <text class="font text_3">xxxx 公司</text>
+                <text class="font text_3">公司</text>
                 <text class="font text_3 text_4">|</text>
                 <text class="font text_3">xxx 部门</text>
               </view>
