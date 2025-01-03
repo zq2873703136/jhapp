@@ -14,7 +14,9 @@
     "pages/page/page7/index",
     "pages/page/page8/index",
     "pages/page/page9/index",
-    "pages/page/page10/index"
+    "pages/page/page10/index",
+    "pages/sdpage/dashboard/dashboard",
+    "pages/sdpage/dashboard/kf"
   ],
   "subPackages": [],
   "window": {

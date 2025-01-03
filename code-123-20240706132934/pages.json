@@ -62,6 +62,20 @@
 		{
 			"path": "pages/page/page10/index",
 			"style": {}
+		},
+		{
+			"path" : "pages/sdpage/dashboard/dashboard",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/dashboard/kf",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	]
 }

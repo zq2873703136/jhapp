@@ -4,13 +4,10 @@ export function request(url, data = {}, method = "GET") {
 		title: '加载中',
 	});
 
-	const base_url = 'https://www.huoyatech.com'
+	const base_url = 'http://192.168.3.38:9095'
 
 	// 发起网络请求  
 	return new Promise((resolve, reject) => {
-		console.log('base_url + url', base_url + url)
-		console.log('data', data)
-		console.log('method', method)
 		uni.request({
 			url: base_url + url, // 开发者服务器接口地址  
 			data: data, // 请求的参数  
