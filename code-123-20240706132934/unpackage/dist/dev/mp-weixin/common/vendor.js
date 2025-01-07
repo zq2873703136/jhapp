@@ -10174,7 +10174,9 @@ function request(url) {
   uni.showLoading({
     title: '加载中'
   });
-  var base_url = 'http://192.168.1.33:9095';
+
+  // const base_url = 'http://192.168.1.33:9095'
+  var base_url = 'http://192.168.181.102:9095';
 
   // 发起网络请求  
   return new Promise(function (resolve, reject) {
@@ -10236,13 +10238,122 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.managerLogin3 = managerLogin3;
-var _index = __webpack_require__(/*! ./index.js */ 43);
+var _index = __webpack_require__(/*! ./index3.js */ 47);
 function managerLogin3(data) {
-  return (0, _index.request)('/erp/manager/login', data, 'post');
+  return (0, _index.request)('/hydropower/manager/login', data, 'post');
 }
 
 /***/ }),
 /* 47 */
+/*!**************************************************************!*\
+  !*** C:/erp/jhapp/code-123-20240706132934/request/index3.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.request = request;
+function request(url) {
+  var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
+  // 显示加载动画  
+  uni.showLoading({
+    title: '加载中'
+  });
+  var base_url = 'http://192.168.3.38:9095';
+
+  // 发起网络请求  
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      url: base_url + url,
+      // 开发者服务器接口地址  
+      data: data,
+      // 请求的参数  
+      method: method,
+      // HTTP 请求方法  
+      header: {
+        'content-type': 'application/json',
+        // 默认值  
+        'X-Token': uni.getStorageSync('X-Token')
+      },
+      // 设置请求的 header  
+      success: function success(res) {
+        // 隐藏加载动画  
+        uni.hideLoading();
+        if (res.statusCode === 200) {
+          // 请求成功的处理  
+          resolve(res.data);
+        } else {
+          // 处理其他状态码的情况  
+          uni.showToast({
+            title: '请求失败',
+            icon: 'none'
+          });
+          reject('请求失败');
+        }
+      },
+      fail: function fail(error) {
+        // 隐藏加载动画  
+        uni.hideLoading();
+        // 请求失败的处理  
+        uni.showToast({
+          title: '网络异常',
+          icon: 'none'
+        });
+        reject(error);
+      }
+    });
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 48 */
+/*!******************************************************************!*\
+  !*** C:/erp/jhapp/code-123-20240706132934/request/publicData.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setUserInfo = exports.getUserInfo = void 0;
+var _jsencrypt = _interopRequireDefault(__webpack_require__(/*! jsencrypt */ 49));
+var userInfo = '';
+var setUserInfo = function setUserInfo(user) {
+  return new Promise(function (resolve, reject) {
+    userInfo = user;
+    resolve({
+      code: 200,
+      data: userInfo,
+      msg: 'SUCCESS'
+    });
+  });
+};
+exports.setUserInfo = setUserInfo;
+var getUserInfo = function getUserInfo() {
+  return new Promise(function (resolve, reject) {
+    resolve({
+      code: 200,
+      data: userInfo,
+      msg: 'SUCCESS'
+    });
+  });
+};
+exports.getUserInfo = getUserInfo;
+
+/***/ }),
+/* 49 */
 /*!********************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/index.js ***!
   \********************************************************************************/
@@ -10262,12 +10373,12 @@ Object.defineProperty(exports, "JSEncrypt", {
   }
 });
 exports.default = void 0;
-var _JSEncrypt = __webpack_require__(/*! ./JSEncrypt */ 48);
+var _JSEncrypt = __webpack_require__(/*! ./JSEncrypt */ 50);
 var _default = _JSEncrypt.JSEncrypt;
 exports.default = _default;
 
 /***/ }),
-/* 48 */
+/* 50 */
 /*!************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/JSEncrypt.js ***!
   \************************************************************************************/
@@ -10281,8 +10392,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.JSEncrypt = void 0;
-var _base = __webpack_require__(/*! ./lib/jsbn/base64 */ 51);
-var _JSEncryptRSAKey = __webpack_require__(/*! ./JSEncryptRSAKey */ 53);
+var _base = __webpack_require__(/*! ./lib/jsbn/base64 */ 53);
+var _JSEncryptRSAKey = __webpack_require__(/*! ./JSEncryptRSAKey */ 55);
 var _a;
 var version = typeof process !== 'undefined' ? (_a = Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"codefun","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"})) === null || _a === void 0 ? void 0 : _a.npm_package_version : undefined;
 /**
@@ -10467,10 +10578,10 @@ var JSEncrypt = /** @class */function () {
   return JSEncrypt;
 }();
 exports.JSEncrypt = JSEncrypt;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 49)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 51)))
 
 /***/ }),
-/* 49 */
+/* 51 */
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -10501,7 +10612,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 50);
+        if (!path) path = __webpack_require__(/*! path */ 52);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -10514,7 +10625,7 @@ exports.features = {};
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -10824,10 +10935,10 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 49)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 51)))
 
 /***/ }),
-/* 51 */
+/* 53 */
 /*!******************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsbn/base64.js ***!
   \******************************************************************************************/
@@ -10843,7 +10954,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.b64toBA = b64toBA;
 exports.b64tohex = b64tohex;
 exports.hex2b64 = hex2b64;
-var _util = __webpack_require__(/*! ./util */ 52);
+var _util = __webpack_require__(/*! ./util */ 54);
 var b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 var b64pad = "=";
 function hex2b64(h) {
@@ -10917,7 +11028,7 @@ function b64toBA(s) {
 }
 
 /***/ }),
-/* 52 */
+/* 54 */
 /*!****************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsbn/util.js ***!
   \****************************************************************************************/
@@ -10997,7 +11108,7 @@ function cbit(x) {
 //#endregion BIT_OPERATIONS
 
 /***/ }),
-/* 53 */
+/* 55 */
 /*!******************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/JSEncryptRSAKey.js ***!
   \******************************************************************************************/
@@ -11011,13 +11122,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.JSEncryptRSAKey = void 0;
-var _base = __webpack_require__(/*! ./lib/jsbn/base64 */ 51);
-var _hex = __webpack_require__(/*! ./lib/asn1js/hex */ 54);
-var _base2 = __webpack_require__(/*! ./lib/asn1js/base64 */ 55);
-var _asn = __webpack_require__(/*! ./lib/asn1js/asn1 */ 56);
-var _rsa = __webpack_require__(/*! ./lib/jsbn/rsa */ 58);
-var _jsbn = __webpack_require__(/*! ./lib/jsbn/jsbn */ 59);
-var _asn2 = __webpack_require__(/*! ./lib/jsrsasign/asn1-1.0 */ 62);
+var _base = __webpack_require__(/*! ./lib/jsbn/base64 */ 53);
+var _hex = __webpack_require__(/*! ./lib/asn1js/hex */ 56);
+var _base2 = __webpack_require__(/*! ./lib/asn1js/base64 */ 57);
+var _asn = __webpack_require__(/*! ./lib/asn1js/asn1 */ 58);
+var _rsa = __webpack_require__(/*! ./lib/jsbn/rsa */ 60);
+var _jsbn = __webpack_require__(/*! ./lib/jsbn/jsbn */ 61);
+var _asn2 = __webpack_require__(/*! ./lib/jsrsasign/asn1-1.0 */ 64);
 var __extends = void 0 && (void 0).__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
@@ -11335,7 +11446,7 @@ var JSEncryptRSAKey = /** @class */function (_super) {
 exports.JSEncryptRSAKey = JSEncryptRSAKey;
 
 /***/ }),
-/* 54 */
+/* 56 */
 /*!*****************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/asn1js/hex.js ***!
   \*****************************************************************************************/
@@ -11415,7 +11526,7 @@ var Hex = {
 exports.Hex = Hex;
 
 /***/ }),
-/* 55 */
+/* 57 */
 /*!********************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/asn1js/base64.js ***!
   \********************************************************************************************/
@@ -11517,7 +11628,7 @@ var Base64 = {
 exports.Base64 = Base64;
 
 /***/ }),
-/* 56 */
+/* 58 */
 /*!******************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/asn1js/asn1.js ***!
   \******************************************************************************************/
@@ -11531,7 +11642,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Stream = exports.ASN1Tag = exports.ASN1 = void 0;
-var _int = __webpack_require__(/*! ./int10 */ 57);
+var _int = __webpack_require__(/*! ./int10 */ 59);
 // ASN.1 JavaScript decoder
 // Copyright (c) 2008-2014 Lapo Luchini <lapo@lapo.it>
 // Permission to use, copy, modify, and/or distribute this software for any
@@ -12103,7 +12214,7 @@ var ASN1Tag = /** @class */function () {
 exports.ASN1Tag = ASN1Tag;
 
 /***/ }),
-/* 57 */
+/* 59 */
 /*!*******************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/asn1js/int10.js ***!
   \*******************************************************************************************/
@@ -12204,7 +12315,7 @@ var Int10 = /** @class */function () {
 exports.Int10 = Int10;
 
 /***/ }),
-/* 58 */
+/* 60 */
 /*!***************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsbn/rsa.js ***!
   \***************************************************************************************/
@@ -12218,8 +12329,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.RSAKey = void 0;
-var _jsbn = __webpack_require__(/*! ./jsbn */ 59);
-var _rng = __webpack_require__(/*! ./rng */ 60);
+var _jsbn = __webpack_require__(/*! ./jsbn */ 61);
+var _rng = __webpack_require__(/*! ./rng */ 62);
 // Depends on jsbn.js and rng.js
 // Version 1.1: support utf-8 encoding in pkcs1pad2
 // convert a (hex) string to a bignum object
@@ -12589,7 +12700,7 @@ function removeDigestHeader(str) {
 // RSAKey.prototype.encrypt_b64 = RSAEncryptB64;
 
 /***/ }),
-/* 59 */
+/* 61 */
 /*!****************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsbn/jsbn.js ***!
   \****************************************************************************************/
@@ -12608,7 +12719,7 @@ exports.nbi = nbi;
 exports.nbits = nbits;
 exports.nbv = nbv;
 exports.parseBigInt = parseBigInt;
-var _util = __webpack_require__(/*! ./util */ 52);
+var _util = __webpack_require__(/*! ./util */ 54);
 // Copyright (c) 2005  Tom Wu
 // All Rights Reserved.
 // See "LICENSE" for details.
@@ -14308,7 +14419,7 @@ BigInteger.ZERO = nbv(0);
 BigInteger.ONE = nbv(1);
 
 /***/ }),
-/* 60 */
+/* 62 */
 /*!***************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsbn/rng.js ***!
   \***************************************************************************************/
@@ -14322,7 +14433,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SecureRandom = void 0;
-var _prng = __webpack_require__(/*! ./prng4 */ 61);
+var _prng = __webpack_require__(/*! ./prng4 */ 63);
 // Random number generator - requires a PRNG backend, e.g. prng4.js
 
 var rng_state;
@@ -14399,7 +14510,7 @@ var SecureRandom = /** @class */function () {
 exports.SecureRandom = SecureRandom;
 
 /***/ }),
-/* 61 */
+/* 63 */
 /*!*****************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsbn/prng4.js ***!
   \*****************************************************************************************/
@@ -14464,7 +14575,7 @@ var rng_psize = 256;
 exports.rng_psize = rng_psize;
 
 /***/ }),
-/* 62 */
+/* 64 */
 /*!*************************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsrsasign/asn1-1.0.js ***!
   \*************************************************************************************************/
@@ -14478,8 +14589,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.KJUR = void 0;
-var _jsbn = __webpack_require__(/*! ../jsbn/jsbn */ 59);
-var _yahoo = __webpack_require__(/*! ./yahoo */ 63);
+var _jsbn = __webpack_require__(/*! ../jsbn/jsbn */ 61);
+var _yahoo = __webpack_require__(/*! ./yahoo */ 65);
 /* asn1-1.0.13.js (c) 2013-2017 Kenji Urushima | kjur.github.com/jsrsasign/license
  */
 /*
@@ -16040,7 +16151,7 @@ KJUR.asn1.DERTaggedObject = function (params) {
 _yahoo.YAHOO.lang.extend(KJUR.asn1.DERTaggedObject, KJUR.asn1.ASN1Object);
 
 /***/ }),
-/* 63 */
+/* 65 */
 /*!**********************************************************************************************!*\
   !*** C:/erp/jhapp/code-123-20240706132934/node_modules/jsencrypt/lib/lib/jsrsasign/yahoo.js ***!
   \**********************************************************************************************/

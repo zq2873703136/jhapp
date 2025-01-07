@@ -51,6 +51,9 @@
 		managerLogin3
 	} from '@/request/api3.js'
 	
+	import {
+		setUserInfo
+	} from '@/request/publicData.js'
 	
 	import JSEncrypt from 'jsencrypt';
 	// import JSEncrypt from './jsencrypt.js'
@@ -153,7 +156,8 @@
 					managerPassword: encryptor.encrypt(this.pwd) // 设置公钥}
 				}
 				console.log(user, 'user');
-				const res = await managerLogin3(user)
+				// TODO 记得改
+				const res = await managerLogin2(user)
 				console.log(res);
 				if (res.result != 1) {
 					uni.showToast({
@@ -162,6 +166,7 @@
 					})
 					return false;
 				}
+				setUserInfo(res.data)
 				console.log(res.data['X-Token'], 'dadattxx');
 				uni.setStorageSync('X-Token', res.data['X-Token'])
 				uni.navigateTo({
