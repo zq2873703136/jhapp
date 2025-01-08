@@ -10147,9 +10147,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.managerLogin2 = managerLogin2;
+exports.taskSheetQuery = taskSheetQuery;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
 function managerLogin2(data) {
   return (0, _index.request)('/hydropower/manager/login', data, 'post');
+}
+function taskSheetQuery(data) {
+  return (0, _index.request)('/hydropower/hydropower/taskSheet/query', data, 'POST');
 }
 
 /***/ }),

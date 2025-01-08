@@ -55,7 +55,7 @@
     </view>
     <view class="flex-col justify-start relative section_3">
       <view class="grid">
-        <view class="flex-col items-start grid-item" @click="push('/pages/page/page1/index')">
+        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/rwd/index')">
           <image
             class="image_10"
             src="../../../static/page03/b4c341d080ffd38286c5d1feac29609b.png"
