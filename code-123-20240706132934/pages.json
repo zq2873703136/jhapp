@@ -83,6 +83,13 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/sdpage/rwd/TaskCreated",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	]
 }

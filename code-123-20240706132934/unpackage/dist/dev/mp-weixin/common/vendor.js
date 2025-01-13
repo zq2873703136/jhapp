@@ -10148,12 +10148,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.managerLogin2 = managerLogin2;
 exports.taskSheetQuery = taskSheetQuery;
+exports.taskSheetSave = taskSheetSave;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
 function managerLogin2(data) {
   return (0, _index.request)('/hydropower/manager/login', data, 'post');
 }
 function taskSheetQuery(data) {
   return (0, _index.request)('/hydropower/hydropower/taskSheet/query', data, 'POST');
+}
+function taskSheetSave(data) {
+  return (0, _index.request)('/hydropower/hydropower/taskSheet/save', data, 'POST');
 }
 
 /***/ }),
@@ -10180,8 +10184,8 @@ function request(url) {
   });
 
   // const base_url = 'http://192.168.1.33:9095'
-  var base_url = 'http://192.168.181.102:9095';
-
+  // const base_url = 'http://192.168.181.102:9095'
+  var base_url = 'http://192.168.181.101:9095';
   // 发起网络请求  
   return new Promise(function (resolve, reject) {
     uni.request({

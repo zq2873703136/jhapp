@@ -17,7 +17,8 @@
     "pages/page/page10/index",
     "pages/sdpage/dashboard/dashboard",
     "pages/sdpage/dashboard/kf",
-    "pages/sdpage/rwd/index"
+    "pages/sdpage/rwd/index",
+    "pages/sdpage/rwd/TaskCreated"
   ],
   "subPackages": [],
   "window": {

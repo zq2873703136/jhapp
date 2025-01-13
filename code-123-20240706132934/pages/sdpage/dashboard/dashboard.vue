@@ -62,7 +62,7 @@
           />
           <text class="font_2 text_6 mt-15">任务单查询</text>
         </view>
-		<view class="flex-col items-start grid-item" @click="push('/pages/Page_08_pay_online_add/Page_08_pay_online')">
+		<view class="flex-col items-start grid-item" @click="push('/pages/sdpage/rwd/TaskCreated')">
 		  <image
 		    class="image_10"
 		    src="../../../static/page03/0328a03fc3c8d3d8d01cc425d32d3f82.png"

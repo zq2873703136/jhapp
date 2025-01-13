@@ -7,3 +7,7 @@ export function managerLogin2(data) {
 export function taskSheetQuery(data) {
 	return request('/hydropower/hydropower/taskSheet/query', data, 'POST')
 }
+
+export function taskSheetSave(data) {
+	return request('/hydropower/hydropower/taskSheet/save', data, 'POST')
+}
