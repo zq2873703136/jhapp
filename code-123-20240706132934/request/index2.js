@@ -4,9 +4,12 @@ export function request(url, data = {}, method = "GET") {
 		title: '加载中',
 	});
 
+
+	// 这个是本地的
 	// const base_url = 'http://192.168.1.33:9095'
 	// const base_url = 'http://192.168.181.102:9095'
-	const base_url = 'http://192.168.181.101:9095'
+	// const base_url = 'http://192.168.181.101:9095'
+	const base_url = 'http://192.168.181.100:9095'
 	// 发起网络请求  
 	return new Promise((resolve, reject) => {
 		uni.request({

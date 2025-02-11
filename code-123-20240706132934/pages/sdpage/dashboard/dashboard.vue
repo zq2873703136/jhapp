@@ -71,14 +71,14 @@
 		</view>
 
 
-        <view class="flex-col items-start grid-item"  @click="push('/pages/page/page4/index')">
+        <view class="flex-col items-start grid-item"  @click="push('/pages/sdpage/jbpbd/index')">
           <image
             class="image_10"
             src="../../../static/page03/530292bbb18ea7cff45b80c1df9e218c.png"
           />
           <text class="mt-16 font_2 text_6">基本级配单</text>
         </view>
-        <view class="flex-col items-start grid-item" @click="push('/pages/page/page5/index')">
+        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/jbpbd/LaboratoryCreated')">
           <image
             class="image_10"
             src="../../../static/page03/907eb29e029f4eef674a6a2eec517cc7.png"

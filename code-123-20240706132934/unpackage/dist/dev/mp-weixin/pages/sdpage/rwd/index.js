@@ -222,15 +222,15 @@ var _default = {
   },
   methods: {
     back: function back() {
-      uni.navigateBack(1);
-      // uni.navigateTo({
-      // 	url: '/pages/sdpage/dashboard/dashboard'
-      // })
+      // uni.navigateBack(1)
+      uni.navigateTo({
+        url: '/pages/sdpage/dashboard/dashboard'
+      });
     },
     pushDetail: function pushDetail(item) {
       console.log(item, 'item');
       uni.navigateTo({
-        url: '/pages/Page_08_pay_online_edit/Page_08_pay_online' + '?data=' + JSON.stringify(item)
+        url: '/pages/sdpage/rwd/TaskEdit' + '?data=' + JSON.stringify(item)
       });
     },
     getList: function getList() {

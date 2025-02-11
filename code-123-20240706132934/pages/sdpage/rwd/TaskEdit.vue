@@ -1,9 +1,10 @@
 <template>
-
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
+
+
 		<image @click="returnList()" class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
-		<text class="text_2 pos_2">新增任务单</text>
+		<text class="text_2 pos_2">编辑任务单</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
 		<image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -11,104 +12,109 @@
 		<image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
 		<image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
 		<view class="flex-col section_3 pos_10">
+			<view class="flex-col items-start group">
+				<text class="font text_3">序号</text>
+				<text class="mt-12 font_2 text_4">{{form2.id}}</text>
+			</view>
+
 			<view class="divider view"></view>
 			<view class="flex-col group_2">
 				<text class="self-start font text_5">供货日期</text>
 				<view class="flex-row justify-between self-stretch group_3">
 					<view class="self-start font_2">
-						<picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31"
+						<picker mode="date" :value="form2.ghrq" start="1900-01-01" end="2200-12-31"
 							@change="bindDateChange">
-							<view>{{ghrq || '请选择日期'}}</view>
+							<view>{{ form2.ghrq || '请选择日期'}}</view>
 						</picker>
 					</view>
-					<image class="self-center image_7"
-						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
+					<image class="self-center image_7" src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
 				</view>
 			</view>
+<!-- 			<view class="divider view"></view>
 			<view class="flex-col group_2">
-<!-- 				<text class="self-start font text_5">预计开始时间</text>
+				<text class="self-start font text_5">预计开始时间</text>
 				<view class="flex-row justify-between self-stretch group_3">
 					<view class="self-start font_2">
-						<picker mode="date" :value="planDate" start="1900-01-01" end="2100-12-31"
+						<picker mode="date" :value="form2.planDate" start="1900-01-01" end="2100-12-31"
 							@change="bindDateChange2">
-							<view>{{planDate || '请选择日期'}}</view>
+							<view>{{form2.planDate || '请选择日期'}}</view>
 						</picker>
 					</view>
-					<image class="self-center image_7"
-						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
-				</view> -->
-<!-- 				<view class="flex-col items-start input group_4">
+					<image class="self-center image_7" src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
+				</view>
+			</view> -->
+			<view class="divider view"></view>
+			<view class="flex-col group_2">
+				<view class="flex-col items-start input group_4">
 					<text class="font text_6">任务单编号</text>
-					<input class="mt-12 font_2" v-model="rwdh" />
-				</view> -->
+					<input class="mt-12 font_2" v-model="form2.rwdh" />
+				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">合同编号</text>
-					<input class="mt-12 font_2" v-model="htbh" />
+					<input class="mt-12 font_2" v-model="form2.htbh" />
 				</view>
-<!-- 				<view class="flex-col items-start input group_4">
-					<text class="font text_6">配比审核人</text>
-					<input class="mt-12 font_2" v-model="phbshy" />
-				</view> -->
+				
+
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">用户单位</text>
-					<input class="mt-12 font_2" v-model="yhdw" />
+					<input class="mt-12 font_2" v-model="form2.yhdw" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">工程名称</text>
-					<input class="mt-12 font_2" v-model="gcmc" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">工程地址</text>
-					<input class="mt-12 font_2" v-model="gcdz" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">工程部位</text>
-					<input class="mt-12 font_2" v-model="gcbw" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">强度等级</text>
-					<input class="mt-12 font_2" v-model="qddj" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">计划方量</text>
-					<input class="mt-12 font_2" v-model="jhfl" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">运距</text>
-					<input class="mt-12 font_2" v-model="yj" />
-				</view>
-			</view>
-			<view class="flex-col group_2">
-				<text class="self-start font text_5">浇筑方式</text>
-				<view class="flex-row justify-between self-stretch group_3">
-					<view class="self-start font_2">
-						<picker @change="bindPickerChange3" :value="jzfs" :range="pickerRange">
-							<view class="picker">
-								当前选择：{{pumpingType}}
-							</view>
-						</picker>
-					</view>
-					<image class="self-center image_7"
-						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">坍落度</text>
-					<input class="mt-12 font_2" v-model="tld" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">最大粒径</text>
-					<input class="mt-12 font_2" v-model="zdlj" />
+					<input class="mt-12 font_2" v-model="form2.gcmc" />
 				</view>
 
 				<view class="flex-col items-start input group_4">
+					<text class="font text_6">工程地址</text>
+					<input class="mt-12 font_2" v-model="form2.gcdz" />
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">工程部位</text>
+					<input class="mt-12 font_2" v-model="form2.gcbw" />
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">强度等级</text>
+					<input class="mt-12 font_2" v-model="form2.qddj" />
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">计划方量</text>
+					<input class="mt-12 font_2" min="0" type="number" v-model="form2.jhfl" />
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">运距</text>
+					<input class="mt-12 font_2" v-model="form2.yj" />
+				</view>
+				
+				<text class="self-start font text_5">浇筑方式</text>
+				<view class="flex-row justify-between self-stretch group_3">
+					<view class="self-start font_2">
+						<picker @change="bindPickerChange3" :value="form2.pickerIndex" :range="form2.pickerRange">
+							<view class="picker">
+								当前选择：{{form2.jzfs}}
+							</view>
+						</picker>
+					</view>
+					<image class="self-center image_7" src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
+				</view>
+				
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">塌落度</text>
+					<input class="mt-12 font_2" v-model="form2.tld" />
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">最大粒径</text>
+					<input class="mt-12 font_2"  min="0" type="number" v-model="form2.zdlj" />
+				</view>
+				<view class="flex-col items-start input group_4">
 					<text class="font text_6">备注</text>
-					<input class="mt-12 font_2" v-model="bz" />
+					<input class="mt-12 font_2" v-model="form2.bz" />
 				</view>
 			</view>
-			<!-- 			<view class="flex-col items-start group_5">
-				<text class="font text_7">合同编号</text>
-				<text class="mt-12 font_2">24070403</text>
-			</view>
+<!-- 			<view class="flex-col group_2">
+
+
+			</view> -->
+			<!-- 			
 			<view class="flex-col justify-start">
 				<view class="flex-col items-start group_6">
 					<text class="font text_8">施工单位</text>
@@ -133,7 +139,6 @@
 </template>
 
 <script>
-	
 	import {
 		taskSheetSave
 	} from '@/request/api2.js'
@@ -143,84 +148,96 @@
 		props: {},
 		data() {
 			return {
-				pickerRange: ['汽车泵', '地泵', '非泵', '塔吊', '自备泵'],
-				jzfs: 0,
-				pumpingType: '',
-				planDate: '',
-				ghrq: '',
-				rwdh: '',
-				htbh:'',
-				phbshy:'',
-				demander: '',
-				yhdw: '',
-				gcmc: '',
-				gcdz:'',
-				gcbw: '',
-				jhfl: '',
-				yj: '',
-				qddj: '',
-				bz: '',
-				tld: '',
-				pumpingMachine: '',
-				pumpingPipe: '',
-				expansionType: '',
-				zdlj: ''
+				form2: {
+					id: 0,
+					pickerRange: ['汽车泵', '地泵', '非泵', '塔吊', '自备泵'],
+					pickerIndex: 0,
+					jzfs: '',
+					planDate: '',
+					ghrq: '',
+					rwdh: '',
+					htbh:'',
+					demander: '',
+					yhdw: '',
+					gcmc: '',
+					gcdz: '',
+					gcbw:'',
+					jhfl: '',
+					yj: '',
+					qddj: '',
+					jzfs: '',
+					tld: '',
+					zdlj:'',
+					bz:'',
+				}
 			};
 		},
-
+		onLoad(query) {
+			console.log(query,'query');
+			if (query.data) {
+				console.log(query.data,'query.data');
+				const res = JSON.parse(query.data)
+				console.log(res,'res');
+				console.log(res.ghrq,'res.ghrq');
+				if(res.ghrq && res.ghrq.indexOf('T')){
+					res.ghrq = res.ghrq.split('T')[0]
+				}
+				this.form2 = {
+					...this.form2,
+					...res
+				}
+				console.log(this.form2,'this.form2');
+			}
+			
+		},
 		methods: {
 			async save() {
 				try {
 					const res = await taskSheetSave({
-						// rwdh: this.rwdh,
-						htbh:this.htbh,
-						phbshy:this.phbshy,
+						id: this.form2.id,
+						taskSheetCode: this.form2.taskSheetCode,
+						rwdh: this.form2.rwdh,
+						htbh:this.form2.htbh,						
 						// ... 其他属性，使用 this.propertyName 来访问  
-						ghrq: this.ghrq,
-						planDate: this.planDate,
-						yhdw: this.yhdw,
-						gcmc: this.gcmc,
-						gcdz:this.gcdz,
-						gcbw: this.gcbw,
-						jhfl: this.jhfl,
-						remainConcreteQuantity: this.remainConcreteQuantity,
-						yj: this.yj,
-						qddj: this.qddj,
-						bz: this.bz,
-						phbsfsh:'0',
-						pumpingType: this.pumpingType,
-						pumpingParams: this.pumpingParams,
-						tld: this.tld,
-						invoiceDate: this.invoiceDate,
-						invoicePerson: this.invoicePerson,
-						taskSheetStatus: this.taskSheetStatus,
-						pumpingMachine: this.pumpingMachine,
-						pumpingPipe: this.pumpingPipe,
-						expansionType: this.expansionType,
-						zdlj: this.zdlj
+						ghrq: this.form2.ghrq,
+						planDate: this.form2.planDate,
+						yhdw: this.form2.yhdw,
+						gcmc: this.form2.gcmc,
+						gcdz: this.form2.gcdz,
+						gcbw: this.form2.gcbw,
+						jhfl: this.form2.jhfl,
+						remainConcreteQuantity: this.form2.remainConcreteQuantity,
+						yj: this.form2.yj,
+						qddj: this.form2.qddj,
+						jzfs: this.form2.jzfs,
+						
+						jzfs: this.form2.jzfs,
+						pumpingParams: this.form2.pumpingParams,
+						tld: this.form2.tld,
+						zdlj: this.form2.zdlj,
+						bz: this.form2.bz,
 					})
 					uni.showToast({
-						title: '创建成功'
+						title: '编辑成功'
 					})
 					uni.navigateBack()
 				} catch (e) {
 					//TODO handle the exception
 					uni.showToast({
-						title: '创建失败'
+						title: '编辑失败'
 					})
 				}
 			},
 			bindDateChange(e) {
-				
-				this.ghrq = e.detail.value
-				console.log('ghrqghrqghrq',this.ghrq)
+				console.log('e.detail.value',e.detail.value)
+				this.form2.ghrq = e.detail.value
 			},
 			bindDateChange2(e) {
-				this.planDate = e.detail.value
+				this.form2.planDate = e.detail.value
 			},
 			bindPickerChange3(e) {
-				this.jzfs = e.detail.value;
-				this.pumpingType = this.pickerRange[this.jzfs];
+				this.form2.pickerIndex = e.detail.value;
+				this.form2.jzfs = this.form2.pickerRange[this.form2.pickerIndex];
 			},
 			returnList(){
 				console.log('返回任务单列表')

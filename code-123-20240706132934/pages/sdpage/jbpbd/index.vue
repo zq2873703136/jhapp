@@ -1,16 +1,8 @@
 <template>
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<!-- <view class="flex-row justify-between items-center section_2 pos">
-			<text class="text">9:41</text>
-			<view class="flex-row">
-				<image class="image" src="../../../static/page18/53c6eeb7f3e2e414d1f8a0f28a6975b1.png" />
-				<image class="image_2 ml-5" src="../../../static/page18/f1c70d0ca1d0515ce7924b87c68e033d.png" />
-				<image class="image_3 ml-5" src="../../../static/page18/f00bac70f8143b2d222aa9e7b9a06045.png" />
-			</view>
-		</view> -->
 		<image @click="back" class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
-		<text class="text_2 pos_2">任务单查询</text>
+		<text class="text_2 pos_2">基本级配比单查询</text>
 		<image class="image_5 pos_4" src="../../../static/page18/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page18/aa53eb42545139139d2995ddcdc05da7.png" />
 		<image class="image_5 pos_6" src="../../../static/page18/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -22,7 +14,7 @@
 				<view class="flex-col justify-start list-item" v-for="(item, index) in list" :key="index"
 					@click="pushDetail(item)">
 					<view class="flex-col section_4">
-						<text class="self-start font text_3">任务单号：{{item.rwdh}}</text>
+						<text class="self-start font text_3">配比编号：{{item.pbbh}}</text>
 						<view class="mt-16 flex-row items-center self-stretch">
 							<image class="image_7" src="../../../static/page18/c5c89fc32c73b0acc4b7c0beb3d5ece3.png" />
 							<view class="ml-8 flex-col">
@@ -31,9 +23,9 @@
 										src="../../../static/page18/59cde161d653b78e114fc46715088e77.png" />
 									<text class="ml-6 self-start font_2">{{ formalData(item.gmtCreated) }}</text>
 								</view>
-								<text class="self-stretch font_3 text_4">供货日期：{{formalData2(item.ghrq)}}</text>
-								<text class="self-stretch font_3">状态：{{item.phbsfsh}}</text>
-								<text class="self-start font_3">施工单位：{{item.yhdw}}</text>
+								<text class="self-stretch font_3 text_4">强度等级：{{ item.qddj }}</text>
+								<text class="self-stretch font_3">施工部位：{{item.sgbw}}</text>
+								<text class="self-start font_3">容量：{{item.rl}}</text>
 							</view>
 						</view>
 					</view>
@@ -46,7 +38,7 @@
 
 <script>
 	import {
-		taskSheetQuery
+		ratioQuery
 	} from '@/request/api2.js'
 
 	export default {
@@ -74,7 +66,7 @@
 				})
 			},
 			async getList() {
-				const res = await taskSheetQuery()
+				const res = await ratioQuery()
 				console.log(res, 'res');
 				this.list = res.data
 			},

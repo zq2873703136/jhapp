@@ -18,7 +18,10 @@
     "pages/sdpage/dashboard/dashboard",
     "pages/sdpage/dashboard/kf",
     "pages/sdpage/rwd/index",
-    "pages/sdpage/rwd/TaskCreated"
+    "pages/sdpage/rwd/TaskCreated",
+    "pages/sdpage/rwd/TaskEdit",
+    "pages/sdpage/jbpbd/index",
+    "pages/sdpage/jbpbd/LaboratoryCreated"
   ],
   "subPackages": [],
   "window": {

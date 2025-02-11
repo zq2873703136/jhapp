@@ -11,3 +11,7 @@ export function taskSheetQuery(data) {
 export function taskSheetSave(data) {
 	return request('/hydropower/hydropower/taskSheet/save', data, 'POST')
 }
+
+export function ratioQuery(data) {
+	return request('/hydropower/hydropower/laboratory/ratio/query', data, 'POST')
+}

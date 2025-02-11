@@ -90,6 +90,27 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/sdpage/rwd/TaskEdit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "编辑任务单"
+			}
+		},
+		{
+			"path" : "pages/sdpage/jbpbd/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/jbpbd/LaboratoryCreated",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	]
 }

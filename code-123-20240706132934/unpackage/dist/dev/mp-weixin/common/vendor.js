@@ -777,7 +777,7 @@ function populateParameters(result) {
   var _SDKVersion = SDKVersion;
 
   // hostLanguage
-  var hostLanguage = language.replace(/_/g, '-');
+  var hostLanguage = (language || '').replace(/_/g, '-');
 
   // wx.getAccountInfoSync
 
@@ -787,9 +787,9 @@ function populateParameters(result) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "4.44",
-    uniCompilerVersion: "4.44",
-    uniRuntimeVersion: "4.44",
+    uniCompileVersion: "4.45",
+    uniCompilerVersion: "4.45",
+    uniRuntimeVersion: "4.45",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -881,7 +881,7 @@ var getAppBaseInfo = {
       SDKVersion = _result.SDKVersion,
       theme = _result.theme;
     var _hostName = getHostName(result);
-    var hostLanguage = language.replace('_', '-');
+    var hostLanguage = (language || '').replace('_', '-');
     result = sortObject(Object.assign(result, {
       appId: "wxb987d1af8839ad44",
       appName: "codefun",
@@ -895,9 +895,9 @@ var getAppBaseInfo = {
       hostTheme: theme,
       isUniAppX: false,
       uniPlatform: undefined || "mp-weixin",
-      uniCompileVersion: "4.44",
-      uniCompilerVersion: "4.44",
-      uniRuntimeVersion: "4.44"
+      uniCompileVersion: "4.45",
+      uniCompilerVersion: "4.45",
+      uniRuntimeVersion: "4.45"
     }));
   }
 };
@@ -10147,6 +10147,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.managerLogin2 = managerLogin2;
+exports.ratioQuery = ratioQuery;
 exports.taskSheetQuery = taskSheetQuery;
 exports.taskSheetSave = taskSheetSave;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
@@ -10158,6 +10159,9 @@ function taskSheetQuery(data) {
 }
 function taskSheetSave(data) {
   return (0, _index.request)('/hydropower/hydropower/taskSheet/save', data, 'POST');
+}
+function ratioQuery(data) {
+  return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/query', data, 'POST');
 }
 
 /***/ }),
@@ -10183,9 +10187,11 @@ function request(url) {
     title: '加载中'
   });
 
+  // 这个是本地的
   // const base_url = 'http://192.168.1.33:9095'
   // const base_url = 'http://192.168.181.102:9095'
-  var base_url = 'http://192.168.181.101:9095';
+  // const base_url = 'http://192.168.181.101:9095'
+  var base_url = 'http://192.168.181.100:9095';
   // 发起网络请求  
   return new Promise(function (resolve, reject) {
     uni.request({
@@ -10273,7 +10279,10 @@ function request(url) {
   uni.showLoading({
     title: '加载中'
   });
-  var base_url = 'http://192.168.3.38:9095';
+
+  // 测试机
+  // const base_url = 'http://192.168.3.38:9095'
+  var base_url = 'http://192.168.181.100:9095'; // 部署上线的时候换成上面那个
 
   // 发起网络请求  
   return new Promise(function (resolve, reject) {

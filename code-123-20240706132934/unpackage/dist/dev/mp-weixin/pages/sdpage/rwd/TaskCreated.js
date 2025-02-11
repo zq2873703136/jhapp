@@ -285,7 +285,7 @@ var _default = {
   data: function data() {
     return {
       pickerRange: ['汽车泵', '地泵', '非泵', '塔吊', '自备泵'],
-      pickerIndex: 0,
+      jzfs: 0,
       pumpingType: '',
       planDate: '',
       ghrq: '',
@@ -335,6 +335,7 @@ var _default = {
                   yj: _this.yj,
                   qddj: _this.qddj,
                   bz: _this.bz,
+                  phbsfsh: '0',
                   pumpingType: _this.pumpingType,
                   pumpingParams: _this.pumpingParams,
                   tld: _this.tld,
@@ -371,13 +372,20 @@ var _default = {
     },
     bindDateChange: function bindDateChange(e) {
       this.ghrq = e.detail.value;
+      console.log('ghrqghrqghrq', this.ghrq);
     },
     bindDateChange2: function bindDateChange2(e) {
       this.planDate = e.detail.value;
     },
     bindPickerChange3: function bindPickerChange3(e) {
-      this.pickerIndex = e.detail.value;
-      this.pumpingType = this.pickerRange[this.pickerIndex];
+      this.jzfs = e.detail.value;
+      this.pumpingType = this.pickerRange[this.jzfs];
+    },
+    returnList: function returnList() {
+      console.log('返回任务单列表');
+      uni.redirectTo({
+        url: '/pages/sdpage/rwd/index'
+      });
     }
   }
 };
