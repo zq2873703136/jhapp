@@ -62,7 +62,7 @@
 			pushDetail(item) {
 				console.log(item, 'item');
 				uni.navigateTo({
-					url: '/pages/sdpage/rwd/TaskEdit' + '?data=' + JSON.stringify(item)
+					url: '/pages/sdpage/jbpbd/LaboratoryEdit' + '?data=' + JSON.stringify(item)
 				})
 			},
 			async getList() {

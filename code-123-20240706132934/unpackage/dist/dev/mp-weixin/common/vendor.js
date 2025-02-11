@@ -10148,6 +10148,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.managerLogin2 = managerLogin2;
 exports.ratioQuery = ratioQuery;
+exports.ratioSave = ratioSave;
 exports.taskSheetQuery = taskSheetQuery;
 exports.taskSheetSave = taskSheetSave;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
@@ -10162,6 +10163,9 @@ function taskSheetSave(data) {
 }
 function ratioQuery(data) {
   return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/query', data, 'POST');
+}
+function ratioSave(data) {
+  return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/save', data, 'POST');
 }
 
 /***/ }),

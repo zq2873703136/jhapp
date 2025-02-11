@@ -21,7 +21,8 @@
     "pages/sdpage/rwd/TaskCreated",
     "pages/sdpage/rwd/TaskEdit",
     "pages/sdpage/jbpbd/index",
-    "pages/sdpage/jbpbd/LaboratoryCreated"
+    "pages/sdpage/jbpbd/LaboratoryCreated",
+    "pages/sdpage/jbpbd/LaboratoryEdit"
   ],
   "subPackages": [],
   "window": {

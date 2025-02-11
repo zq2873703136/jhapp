@@ -12,38 +12,44 @@
 		<image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
 		<image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
 		<view class="flex-col section_3 pos_10">
+			<view class="flex-col items-start group">
+				<text class="font text_3">序号</text>
+				<text class="mt-12 font_2 text_4">{{form2.id}}</text>
+			</view>
+			
+			<view class="divider view"></view>
 			<view class="flex-col group_2">
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">配比编号</text>
-					<input class="mt-12 font_2" v-model="pbbh" />
+					<input class="mt-12 font_2" v-model="form2.pbbh" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">施工部位</text>
-					<input class="mt-12 font_2" v-model="sgbw" />
+					<input class="mt-12 font_2" v-model="form2.sgbw" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">混凝土种类</text>
-					<input class="mt-12 font_2" v-model="hntzl" />
+					<input class="mt-12 font_2" v-model="form2.hntzl" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">强度等级</text>
-					<input class="mt-12 font_2" v-model="qddj" />
+					<input class="mt-12 font_2" v-model="form2.qddj" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">混凝土级配</text>
-					<input class="mt-12 font_2" v-model="hntjp" />
+					<input class="mt-12 font_2" v-model="form2.hntjp" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">搅拌时间</text>
-					<input class="mt-12 font_2" v-model="jbsj" />
+					<input class="mt-12 font_2" v-model="form2.jbsj" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">坍落度</text>
-					<input class="mt-12 font_2" v-model="tld" />
+					<input class="mt-12 font_2" v-model="form2.tld" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">最大粒径</text>
-					<input class="mt-12 font_2" v-model="zdlj" />
+					<input class="mt-12 font_2" v-model="form2.zdlj" />
 				</view>
 			</view>
 			<view class="flex-col group_2">
@@ -53,68 +59,68 @@
 
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">大石</text>
-					<input class="mt-12 font_2" v-model="ds" />
+					<input class="mt-12 font_2" v-model="form2.ds" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">中石1</text>
-					<input class="mt-12 font_2" v-model="zs1" />
+					<input class="mt-12 font_2" v-model="form2.zs1" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">中石2</text>
-					<input class="mt-12 font_2" v-model="zs2" />
+					<input class="mt-12 font_2" v-model="form2.zs2" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">小石</text>
-					<input class="mt-12 font_2" v-model="xs" />
+					<input class="mt-12 font_2" v-model="form2.xs" />
 				</view>
 
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">砂1</text>
-					<input class="mt-12 font_2" v-model="s1" />
+					<input class="mt-12 font_2" v-model="form2.s1" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">砂2</text>
-					<input class="mt-12 font_2" v-model="s2" />
+					<input class="mt-12 font_2" v-model="form2.s2" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">冰</text>
-					<input class="mt-12 font_2" v-model="b" />
+					<input class="mt-12 font_2" v-model="form2.b" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">水泥1</text>
-					<input class="mt-12 font_2" v-model="sn1" />
+					<input class="mt-12 font_2" v-model="form2.sn1" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">水泥2</text>
-					<input class="mt-12 font_2" v-model="sn2" />
+					<input class="mt-12 font_2" v-model="form2.sn2" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">粉煤灰1</text>
-					<input class="mt-12 font_2" v-model="fmh1" />
+					<input class="mt-12 font_2" v-model="form2.fmh1" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">粉煤灰2</text>
-					<input class="mt-12 font_2" v-model="fmh2" />
+					<input class="mt-12 font_2" v-model="form2.fmh2" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">水</text>
-					<input class="mt-12 font_2" v-model="s" />
+					<input class="mt-12 font_2" v-model="form2.s" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">外加剂1</text>
-					<input class="mt-12 font_2" v-model="wjj1" />
+					<input class="mt-12 font_2" v-model="form2.wjj1" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">外加剂2</text>
-					<input class="mt-12 font_2" v-model="wjj2" />
+					<input class="mt-12 font_2" v-model="form2.wjj2" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">外加剂3</text>
-					<input class="mt-12 font_2" v-model="wjj3" />
+					<input class="mt-12 font_2" v-model="form2.wjj3" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">容量</text>
-					<input class="mt-12 font_2" v-model="rl" />
+					<input class="mt-12 font_2" v-model="form2.rl" />
 				</view>
 
 			</view>
@@ -142,6 +148,7 @@
 		props: {},
 		data() {
 			return {
+			form2: {
 				pickerRange: ['汽车泵', '地泵', '非泵', '塔吊', '自备泵'],
 				jzfs: 0,
 				pumpingType: '',
@@ -176,56 +183,72 @@
 				wjj2: '',
 				wjj3: '',
 				rl: '',
+				}
 			};
 		},
-
+		onLoad(query) {
+			console.log(query,'query');
+			if (query.data) {
+				console.log(query.data,'query.data');
+				const res = JSON.parse(query.data)
+				console.log(res,'res');
+				console.log(res.ghrq,'res.ghrq');
+				this.form2 = {
+					...this.form2,
+					...res
+				}
+				console.log(this.form2,'this.form2');
+			}
+			
+		},
 		methods: {
 			async save() {
 				try {
 					const res = await ratioSave({
-						pbbh: this.pbbh,
-						sgbw: this.sgbw,
-						hntzl: this.hntzl,
+						id: this.form2.id,
+						pbbh: this.form2.pbbh,
+						sgbw: this.form2.sgbw,
+						hntzl: this.form2.hntzl,
 						// ... 其他属性，使用 this.propertyName 来访问  
-						ghrq: this.ghrq,
-						planDate: this.planDate,
-						zdlj: this.zdlj,
-						hntjp: this.hntjp,
-						jbsj: this.jbsj,
-						tld: this.tld,
-						ds: this.ds,
-						remainConcreteQuantity: this.remainConcreteQuantity,
-						zs1: this.zs1,
-						qddj: this.qddj,
-						bz: this.bz,
+						ghrq: this.form2.ghrq,
+						planDate: this.form2.planDate,
+						zdlj: this.form2.zdlj,
+						hntjp: this.form2.hntjp,
+						jbsj: this.form2.jbsj,
+						tld: this.form2.tld,
+						ds: this.form2.ds,
+						remainConcreteQuantity: this.form2.remainConcreteQuantity,
+						zs1: this.form2.zs1,
+						qddj: this.form2.qddj,
+						bz: this.form2.bz,
 						phbsfsh: '0',
-						pumpingType: this.pumpingType,
-						pumpingParams: this.pumpingParams,
-						zs2: this.zs2,
-						invoiceDate: this.invoiceDate,
-						invoicePerson: this.invoicePerson,
-						taskSheetStatus: this.taskSheetStatus,
-						pumpingMachine: this.pumpingMachine,
-						pumpingPipe: this.pumpingPipe,
-						expansionType: this.expansionType,
-						xs: this.xs,
-						s1: this.s1,
-						s2: this.s1,
-						b: this.b,
-						sn1: this.sn1,
-						sn2: this.sn2,
-						fmh1: this.fmh1,
-						fmh2: this.fmh2,
-						s: this.s,
-						wjj1: this.wjj1,
-						wjj2: this.wjj2,
-						wjj3: this.wjj3,
-						rl: this.rl,
+						pumpingType: this.form2.pumpingType,
+						pumpingParams: this.form2.pumpingParams,
+						zs2: this.form2.zs2,
+						invoiceDate: this.form2.invoiceDate,
+						invoicePerson: this.form2.invoicePerson,
+						taskSheetStatus: this.form2.taskSheetStatus,
+						pumpingMachine: this.form2.pumpingMachine,
+						pumpingPipe: this.form2.pumpingPipe,
+						expansionType: this.form2.expansionType,
+						xs: this.form2.xs,
+						s1: this.form2.s1,
+						s2: this.form2.s1,
+						b: this.form2.b,
+						sn1: this.form2.sn1,
+						sn2: this.form2.sn2,
+						fmh1: this.form2.fmh1,
+						fmh2: this.form2.fmh2,
+						s: this.form2.s,
+						wjj1: this.form2.wjj1,
+						wjj2: this.form2.wjj2,
+						wjj3: this.form2.wjj3,
+						rl: this.form2.rl,
 					})
 					console.log('res', res)
 					if (res.success) {
 						uni.showToast({
-							title: '创建成功'
+							title: '修改成功'
 						})
 						uni.navigateBack()
 					} else {
@@ -238,7 +261,7 @@
 				} catch (e) {
 					//TODO handle the exception
 					uni.showToast({
-						title: '创建失败'
+						title: '修改失败'
 					})
 				}
 			},
