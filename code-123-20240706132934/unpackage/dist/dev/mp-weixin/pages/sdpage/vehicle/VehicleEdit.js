@@ -221,7 +221,7 @@ var _default = {
     returnList: function returnList() {
       console.log('返回任务单列表');
       uni.redirectTo({
-        url: '/pages/sdpage/card/index'
+        url: '/pages/sdpage/vehicle/index'
       });
     }
   }
