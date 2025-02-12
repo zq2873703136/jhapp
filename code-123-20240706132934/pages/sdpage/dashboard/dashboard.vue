@@ -86,20 +86,24 @@
           <text class="mt-14 font_2 text_6">新增配比单</text>
         </view>
 
-        <view class="flex-col items-start grid-item_2">
+
+
+        <view class="flex-col items-start grid-item_2" @click="push('/pages/sdpage/card/index')">
           <image
             class="image_10"
             src="../../../static/page03/8d8de440c6f8e53066f35976bb696a4d.png"
           />
           <text class="mt-14 font_2 text_7">车辆识别卡维护</text>
         </view>
-        <view class="flex-col items-start grid-item">
+        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/card/CardCreated')">
           <image
             class="image_10"
             src="../../../static/page03/f53082c3724c81b77a3456859c8d3735.png"
           />
           <text class="mt-14 font_2 text_6">新增识别卡</text>
         </view>
+		
+		
         <view class="flex-col items-start grid-item" @click="push('/pages/page/page7/index')">
           <image
             class="image_10"

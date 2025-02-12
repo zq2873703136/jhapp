@@ -10146,6 +10146,8 @@ function request(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.cardQuery = cardQuery;
+exports.cardSave = cardSave;
 exports.managerLogin2 = managerLogin2;
 exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
@@ -10166,6 +10168,12 @@ function ratioQuery(data) {
 }
 function ratioSave(data) {
   return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/save', data, 'POST');
+}
+function cardQuery(data) {
+  return (0, _index.request)('/hydropower/hydropower/card/query', data, 'POST');
+}
+function cardSave(data) {
+  return (0, _index.request)('/hydropower/hydropower/card/save', data, 'POST');
 }
 
 /***/ }),

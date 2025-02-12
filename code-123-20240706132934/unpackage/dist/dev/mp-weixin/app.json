@@ -22,7 +22,10 @@
     "pages/sdpage/rwd/TaskEdit",
     "pages/sdpage/jbpbd/index",
     "pages/sdpage/jbpbd/LaboratoryCreated",
-    "pages/sdpage/jbpbd/LaboratoryEdit"
+    "pages/sdpage/jbpbd/LaboratoryEdit",
+    "pages/sdpage/card/index",
+    "pages/sdpage/card/CardCreated",
+    "pages/sdpage/card/CardEdit"
   ],
   "subPackages": [],
   "window": {

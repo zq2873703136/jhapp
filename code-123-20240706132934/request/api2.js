@@ -19,3 +19,11 @@ export function ratioQuery(data) {
 export function ratioSave(data) {
 	return request('/hydropower/hydropower/laboratory/ratio/save', data, 'POST')
 }
+
+export function cardQuery(data) {
+	return request('/hydropower/hydropower/card/query', data, 'POST')
+}
+
+export function cardSave(data) {
+	return request('/hydropower/hydropower/card/save', data, 'POST')
+}

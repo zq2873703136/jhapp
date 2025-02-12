@@ -118,6 +118,27 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/sdpage/card/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/card/CardCreated",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/card/CardEdit",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	]
 }
