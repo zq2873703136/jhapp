@@ -25,7 +25,10 @@
     "pages/sdpage/jbpbd/LaboratoryEdit",
     "pages/sdpage/card/index",
     "pages/sdpage/card/CardCreated",
-    "pages/sdpage/card/CardEdit"
+    "pages/sdpage/card/CardEdit",
+    "pages/sdpage/vehicle/index",
+    "pages/sdpage/vehicle/VehicleCreated",
+    "pages/sdpage/vehicle/VehicleEdit"
   ],
   "subPackages": [],
   "window": {

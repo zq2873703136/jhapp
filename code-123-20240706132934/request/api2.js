@@ -27,3 +27,11 @@ export function cardQuery(data) {
 export function cardSave(data) {
 	return request('/hydropower/hydropower/card/save', data, 'POST')
 }
+
+export function vehicleQuery(data) {
+	return request('/hydropower/hydropower/vehicle/scheduling/query', data, 'POST')
+}
+
+export function vehicleSave(data) {
+	return request('/hydropower/hydropower/vehicle/scheduling/save', data, 'POST')
+}

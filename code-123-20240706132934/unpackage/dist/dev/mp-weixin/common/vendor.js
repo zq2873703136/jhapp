@@ -10153,6 +10153,8 @@ exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
 exports.taskSheetQuery = taskSheetQuery;
 exports.taskSheetSave = taskSheetSave;
+exports.vehicleQuery = vehicleQuery;
+exports.vehicleSave = vehicleSave;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
 function managerLogin2(data) {
   return (0, _index.request)('/hydropower/manager/login', data, 'post');
@@ -10174,6 +10176,12 @@ function cardQuery(data) {
 }
 function cardSave(data) {
   return (0, _index.request)('/hydropower/hydropower/card/save', data, 'POST');
+}
+function vehicleQuery(data) {
+  return (0, _index.request)('/hydropower/hydropower/vehicle/scheduling/query', data, 'POST');
+}
+function vehicleSave(data) {
+  return (0, _index.request)('/hydropower/hydropower/vehicle/scheduling/save', data, 'POST');
 }
 
 /***/ }),

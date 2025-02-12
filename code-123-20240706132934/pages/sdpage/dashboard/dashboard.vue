@@ -104,7 +104,7 @@
         </view>
 		
 		
-        <view class="flex-col items-start grid-item" @click="push('/pages/page/page7/index')">
+        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/vehicle/index')">
           <image
             class="image_10"
             src="../../../static/page03/4c501b985b82e504750bc33ea03317e8.png"
@@ -112,7 +112,7 @@
           <text class="mt-14 font_2 text_6">调度车辆管理</text>
         </view>
 
-        <view class="flex-col items-start grid-item" @click="push('/pages/page/page9/index')">
+        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/vehicle/VehicleCreated')">
           <image
             class="image_10"
             src="../../../static/page03/b48a3f695f4da2e87892440ee0c4c6cd.png"
