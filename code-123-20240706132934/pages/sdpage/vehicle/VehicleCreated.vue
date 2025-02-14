@@ -21,9 +21,21 @@
 					<text class="font text_6">卡序号</text>
 					<input class="mt-12 font_2" v-model="kxh" />
 				</view>
-				<view class="flex-col items-start input group_4">
+<!-- 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">任务单号</text>
 					<input class="mt-12 font_2" v-model="rwdh" />
+				</view> -->
+				</view>
+				<view class="flex-col group_2">
+				<text class="self-start font text_5">任务单号</text>
+				<view class="flex-row justify-between self-stretch group_3">
+					<view class="self-start font_2">
+						<picker @change="bindPickerChangeRwdh" :value="rwdh" :range="rwdhs">
+							<view class="picker">
+								当前选择：{{rwdh}}
+							</view>
+						</picker>
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">车载方量</text>
@@ -66,7 +78,7 @@
 
 <script>
 	import {
-		vehicleSave
+		vehicleSave,taskSheetQuery
 	} from '@/request/api2.js'
 
 	export default {
@@ -74,6 +86,8 @@
 		props: {},
 		data() {
 			return {
+				allRwds:[],
+				rwdhs:[],
 				sbkh: '',
 				cph: '',
 				kxh:'',
@@ -83,9 +97,12 @@
 				gcmc:'',
 				cd1:'',
 				tbh:'',
+				
 			};
 		},
-
+		onLoad() {
+			this.taskSheetQueryList()
+		},
 		methods: {
 			async save() {
 				try {
@@ -120,6 +137,15 @@
 					})
 				}
 			},
+			async taskSheetQueryList(){
+				const res = await taskSheetQuery({"phbsfsh":1, "currentPage": "1", "pageSize": "30",})
+				for(let item of res.data){
+					console.log('taskSheetQueryList', item)
+					this.rwdhs.push(item.rwdh)
+				}
+				this.allRwds = res.data
+				// console.log('taskSheetQueryList res', res.data)
+			},
 			bindDateChange(e) {
 
 				this.ghrq = e.detail.value
@@ -128,9 +154,17 @@
 			bindDateChange2(e) {
 				this.planDate = e.detail.value
 			},
-			bindPickerChange3(e) {
+			bindPickerChangeRwdh(e) {
 				this.jzfs = e.detail.value;
-				this.pumpingType = this.pickerRange[this.jzfs];
+				this.rwdh = this.rwdhs[this.jzfs];
+				for(let item of this.allRwds){
+					if(item.rwdh == this.rwdh){
+						this.tbh = item.shtbh;
+						this.yhdw = item.yhdw;
+						this.gcmc = item.gcmc;
+						break;
+					}
+				}
 			},
 			returnList() {
 				console.log('返回任务单列表')

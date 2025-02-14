@@ -201,8 +201,8 @@ var _default = {
       company: '',
       userName: "shuaijiangbing",
       pwd: "123456",
-      companyNameList: ["https://www.huoyatech.com", "192.168.1.33", "192.168.3.38"],
-      companyPathList: ["https://www.huoyatech.com", "192.168.1.33", "192.168.3.38"],
+      companyNameList: ["水电", "火芽"],
+      companyPathList: ["水电", "火芽"],
       pickerIndex: 0
     };
   },
@@ -225,13 +225,13 @@ var _default = {
                 return _context.abrupt("return", false);
               case 3:
                 console.log('this.companyName', _this.companyName);
-                if (_this.companyName == 'https://www.huoyatech.com') {
+                if (_this.companyName == '火芽') {
                   _this.loginpc();
                 }
-                if (_this.companyName == '192.168.1.33') {
+                if (_this.companyName == '测试') {
                   _this.loginbd();
                 }
-                if (_this.companyName == '192.168.3.38') {
+                if (_this.companyName == '水电') {
                   _this.loginsd();
                 }
               case 7:

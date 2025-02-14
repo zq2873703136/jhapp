@@ -68,8 +68,8 @@
 				company: '',
 				userName: "shuaijiangbing",
 				pwd: "123456",
-				companyNameList: ["https://www.huoyatech.com", "192.168.1.33", "192.168.3.38"],
-				companyPathList: ["https://www.huoyatech.com", "192.168.1.33", "192.168.3.38"],
+				companyNameList: ["水电", "火芽"],
+				companyPathList: ["水电", "火芽"],
 				pickerIndex: 0,
 			};
 		},
@@ -84,13 +84,13 @@
 					return false;
 				}
 				console.log('this.companyName',this.companyName)
-				if(this.companyName == 'https://www.huoyatech.com'){
+				if(this.companyName == '火芽'){
 					this.loginpc();
 				}
-				if(this.companyName == '192.168.1.33'){
+				if(this.companyName == '测试'){
 					this.loginbd();
 				}
-				if(this.companyName == '192.168.3.38'){
+				if(this.companyName == '水电'){
 					this.loginsd();
 				}
 			},

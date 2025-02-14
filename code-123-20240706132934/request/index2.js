@@ -9,9 +9,14 @@ export function request(url, data = {}, method = "GET") {
 	// const base_url = 'http://192.168.1.33:9095'
 	// const base_url = 'http://192.168.181.102:9095'
 	// const base_url = 'http://192.168.181.101:9095'
-	const base_url = 'http://192.168.181.100:9095'
+	//const base_url = 'http://192.168.181.100:9095'
+	// 另一个本地  192.168.31.218
+	// const base_url = 'http://192.168.31.218:9095'
+	// 测试机外网访问
+	const base_url = 'https://erp.hzjianghe.cn'
 	// 发起网络请求  
 	return new Promise((resolve, reject) => {
+		console.log('服务器地址', base_url)
 		uni.request({
 			url: base_url + url, // 开发者服务器接口地址  
 			data: data, // 请求的参数  
