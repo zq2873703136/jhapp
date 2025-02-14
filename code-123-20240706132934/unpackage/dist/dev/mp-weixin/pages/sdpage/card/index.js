@@ -199,16 +199,34 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   props: {},
   data: function data() {
     return {
-      list: []
+      list: [],
+      searchKh1: '',
+      currentPage: 1,
+      pageSize: 10,
+      loading: false
     };
   },
   onLoad: function onLoad() {
     this.getList();
+  },
+  onPullDownRefresh: function onPullDownRefresh() {
+    this.currentPage = 1;
+    this.getList();
+    uni.stopPullDownRefresh();
   },
   methods: {
     back: function back() {
@@ -226,24 +244,55 @@ var _default = {
     getList: function getList() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var res;
+        var params, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return (0, _api.cardQuery)();
-              case 2:
+                _this.loading = true;
+                _context.prev = 1;
+                params = {
+                  kh1: _this.searchKh1,
+                  currentPage: _this.currentPage,
+                  pageSize: _this.pageSize
+                };
+                _context.next = 5;
+                return (0, _api.cardQuery)(params);
+              case 5:
                 res = _context.sent;
                 console.log(res, 'res');
-                _this.list = res.data;
-              case 5:
+                if (_this.currentPage === 1) {
+                  _this.list = res.data;
+                } else {
+                  _this.list = _this.list.concat(res.data);
+                }
+                _this.currentPage++;
+                _context.next = 14;
+                break;
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](1);
+                console.error('数据请求失败', _context.t0);
+              case 14:
+                _context.prev = 14;
+                _this.loading = false;
+                return _context.finish(14);
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[1, 11, 14, 17]]);
       }))();
+    },
+    search: function search() {
+      this.currentPage = 1;
+      this.getList();
+    },
+    loadMore: function loadMore() {
+      if (!this.loading) {
+        this.getList();
+      }
     },
     formalData: function formalData(date) {
       var thisDate = new Date(date).toISOString().split("T")[0];

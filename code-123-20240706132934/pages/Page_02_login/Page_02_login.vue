@@ -10,7 +10,7 @@
 					<view class="self-start font_2">
 						<picker @change="bindPickerChange3" :value="pickerIndex" :range="companyNameList">
 							<view class="picker">
-								<text class="font text_4"><text style="color: red;">*</text>公司:</text>{{ companyName }}
+								<text class="font text_4"><text style="color: red;">*</text>公司:</text>{{ companyName?companyName:'暂未选择公司，请先选择公司' }}
 							</view>
 						</picker>
 					</view>
