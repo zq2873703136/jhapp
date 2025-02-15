@@ -5,7 +5,7 @@
       <image @click="back" class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
       <text class="text_2 pos_2">识别卡查询</text>
       <view class="filter-container">
-        <input v-model="searchKh1" placeholder="请输入卡号" class="filter-input" />
+        <input v-model="searchKh1" placeholder="请输入识别卡号" class="filter-input" />
         <button @click="search" class="filter-button">查询</button>
       </view>
       <image class="image_5 pos_4" src="../../../static/page18/fa3babe67a5849c8174f1ef2cfde632c.png" />

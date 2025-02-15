@@ -24,6 +24,10 @@ export function ratioSave(data) {
 	return request('/hydropower/hydropower/laboratory/ratio/save', data, 'POST')
 }
 
+export function ratioDelete(data) {
+	return request('/hydropower/hydropower/laboratory/ratio/delete', data, 'POST')
+}
+
 export function cardQuery(data) {
 	return request('/hydropower/hydropower/card/query', data, 'POST')
 }

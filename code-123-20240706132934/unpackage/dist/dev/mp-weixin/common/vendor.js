@@ -10150,6 +10150,7 @@ exports.cardDelete = cardDelete;
 exports.cardQuery = cardQuery;
 exports.cardSave = cardSave;
 exports.managerLogin2 = managerLogin2;
+exports.ratioDelete = ratioDelete;
 exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
 exports.taskSheetDelete = taskSheetDelete;
@@ -10176,6 +10177,9 @@ function ratioQuery(data) {
 }
 function ratioSave(data) {
   return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/save', data, 'POST');
+}
+function ratioDelete(data) {
+  return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/delete', data, 'POST');
 }
 function cardQuery(data) {
   return (0, _index.request)('/hydropower/hydropower/card/query', data, 'POST');
@@ -10225,9 +10229,9 @@ function request(url) {
   // const base_url = 'http://192.168.181.101:9095'
   //const base_url = 'http://192.168.181.100:9095'
   // 另一个本地  192.168.31.218
-  var base_url = 'http://192.168.31.218:9095';
+  // const base_url = 'http://192.168.31.218:9095'
   // 测试机外网访问
-  // const base_url = 'https://erp.hzjianghe.cn'
+  var base_url = 'https://erp.hzjianghe.cn';
   // 发起网络请求  
   return new Promise(function (resolve, reject) {
     console.log('服务器地址', base_url);
