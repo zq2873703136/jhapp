@@ -209,16 +209,27 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
+//
 var _default = {
   components: {},
   props: {},
   data: function data() {
     return {
-      list: []
+      list: [],
+      searchRwdh: '',
+      currentPage: 1,
+      pageSize: 10,
+      loading: false
     };
   },
   onLoad: function onLoad() {
     this.getList();
+  },
+  onPullDownRefresh: function onPullDownRefresh() {
+    this.currentPage = 1;
+    this.getList();
+    uni.stopPullDownRefresh();
   },
   methods: {
     back: function back() {
@@ -236,24 +247,55 @@ var _default = {
     getList: function getList() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var res;
+        var params, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return (0, _api.taskSheetQuery)();
-              case 2:
+                _this.loading = true;
+                _context.prev = 1;
+                params = {
+                  rwdh: _this.searchRwdh,
+                  currentPage: _this.currentPage,
+                  pageSize: _this.pageSize
+                };
+                _context.next = 5;
+                return (0, _api.taskSheetQuery)(params);
+              case 5:
                 res = _context.sent;
                 console.log(res, 'res');
-                _this.list = res.data;
-              case 5:
+                if (_this.currentPage === 1) {
+                  _this.list = res.data;
+                } else {
+                  _this.list = _this.list.concat(res.data);
+                }
+                _this.currentPage++;
+                _context.next = 14;
+                break;
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](1);
+                console.error('数据请求失败', _context.t0);
+              case 14:
+                _context.prev = 14;
+                _this.loading = false;
+                return _context.finish(14);
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[1, 11, 14, 17]]);
       }))();
+    },
+    search: function search() {
+      this.currentPage = 1;
+      this.getList();
+    },
+    loadMore: function loadMore() {
+      if (!this.loading) {
+        this.getList();
+      }
     },
     formalData: function formalData(date) {
       var thisDate = new Date(date).toISOString().split("T")[0];
@@ -266,6 +308,80 @@ var _default = {
         return thisDate;
       }
       return date;
+    },
+    deleteTask: function deleteTask(item, index) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showModal({
+                  title: '提示',
+                  content: '确定要删除' + item.rwdh + '该任务单吗？',
+                  success: function () {
+                    var _success = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(res) {
+                      var params, deleteRes;
+                      return _regenerator.default.wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              if (!res.confirm) {
+                                _context2.next = 13;
+                                break;
+                              }
+                              _context2.prev = 1;
+                              params = {
+                                // 根据实际情况传递删除所需的参数，如任务单号等
+                                rwdh: item.rwdh,
+                                id: item.id // 假设需要id
+                              };
+                              _context2.next = 5;
+                              return (0, _api.taskSheetDelete)(params);
+                            case 5:
+                              deleteRes = _context2.sent;
+                              if (deleteRes.success) {
+                                uni.showToast({
+                                  title: '删除成功'
+                                });
+                                // 从列表中移除已删除的项
+                                _this2.list.splice(index, 1);
+                              } else {
+                                uni.showToast({
+                                  title: deleteRes.errorMsg,
+                                  icon: 'error'
+                                });
+                              }
+                              _context2.next = 13;
+                              break;
+                            case 9:
+                              _context2.prev = 9;
+                              _context2.t0 = _context2["catch"](1);
+                              console.error('删除失败', _context2.t0);
+                              uni.showToast({
+                                title: '删除失败',
+                                icon: 'error'
+                              });
+                            case 13:
+                            case "end":
+                              return _context2.stop();
+                          }
+                        }
+                      }, _callee2, null, [[1, 9]]);
+                    }));
+                    function success(_x) {
+                      return _success.apply(this, arguments);
+                    }
+                    return success;
+                  }()
+                });
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 };
