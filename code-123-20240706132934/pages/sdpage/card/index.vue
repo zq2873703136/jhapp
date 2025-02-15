@@ -126,7 +126,8 @@ export default {
         return thisDate;
       }
       return date;
-    },async deleteCard(item, index) {
+    },
+	async deleteCard(item, index) {
       uni.showModal({
         title: '提示',
         content: '确定要删除'+item.kh1+'该识别卡吗？',

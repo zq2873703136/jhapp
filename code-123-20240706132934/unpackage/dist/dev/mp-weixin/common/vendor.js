@@ -10154,6 +10154,7 @@ exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
 exports.taskSheetQuery = taskSheetQuery;
 exports.taskSheetSave = taskSheetSave;
+exports.vehicleDelete = vehicleDelete;
 exports.vehicleQuery = vehicleQuery;
 exports.vehicleSave = vehicleSave;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
@@ -10186,6 +10187,9 @@ function vehicleQuery(data) {
 }
 function vehicleSave(data) {
   return (0, _index.request)('/hydropower/hydropower/vehicle/scheduling/save', data, 'POST');
+}
+function vehicleDelete(data) {
+  return (0, _index.request)('/hydropower/hydropower/vehicle/scheduling/delete', data, 'POST');
 }
 
 /***/ }),

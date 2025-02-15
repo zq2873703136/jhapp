@@ -39,3 +39,7 @@ export function vehicleQuery(data) {
 export function vehicleSave(data) {
 	return request('/hydropower/hydropower/vehicle/scheduling/save', data, 'POST')
 }
+
+export function vehicleDelete(data) {
+	return request('/hydropower/hydropower/vehicle/scheduling/delete', data, 'POST')
+}
