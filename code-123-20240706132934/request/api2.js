@@ -28,6 +28,10 @@ export function cardSave(data) {
 	return request('/hydropower/hydropower/card/save', data, 'POST')
 }
 
+export function cardDelete(data) {
+	return request('/hydropower/hydropower/card/delete', data, 'POST')
+}
+
 export function vehicleQuery(data) {
 	return request('/hydropower/hydropower/vehicle/scheduling/query', data, 'POST')
 }

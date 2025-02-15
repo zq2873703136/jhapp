@@ -232,4 +232,9 @@
 	background-color: #d3d3d300;
 	height: 32rpx;
 }
+.error-tip.data-v-7d3f247f {
+    color: red;
+    font-size: 20rpx;
+    margin-top: 5rpx;
+}
 

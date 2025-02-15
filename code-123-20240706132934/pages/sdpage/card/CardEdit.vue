@@ -14,14 +14,15 @@
 		<view class="flex-col section_3 pos_10">
 			<view class="flex-col items-start group">
 				<text class="font text_3">序号</text>
-				<text class="mt-12 font_2 text_4">{{form2.id}}</text>
+				<text class="mt-12 font_2 text_4">{{form2.kxh}}</text>
 			</view>
 			
 			<view class="divider view"></view>
 			<view class="flex-col group_2">
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">识别卡号</text>
-					<input class="mt-12 font_2" v-model="form2.kh1" />
+<!-- 					<input class="mt-12 font_2" v-model="form2.kh1" /> -->
+					<text class="mt-12 font_2 text_4">{{form2.kh1}}</text>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">车牌号</text>

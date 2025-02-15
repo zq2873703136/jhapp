@@ -18,22 +18,22 @@
     <!-- 滚动内容区域 -->
     <scroll-view :scroll-y="true" class="scroll-content" @scrolltolower="loadMore">
       <view class="flex-col list">
-        <view class="flex-col justify-start list-item" v-for="(item, index) in list" :key="index"
-          @click="pushDetail(item)">
+        <view class="flex-col justify-start list-item" v-for="(item, index) in list" :key="index" @click="pushDetail(item)">
           <view class="flex-col section_4">
             <text class="self-start font text_3">卡序号：{{item.kxh}}</text>
             <view class="mt-16 flex-row items-center self-stretch">
-              <image class="image_7" src="../../../static/page18/c5c89fc32c73b0acc4b7c0beb3d5ece3.png" />
               <view class="ml-8 flex-col">
                 <view class="flex-row self-stretch">
-                  <image class="shrink-0 self-center image_8"
-                    src="../../../static/page18/59cde161d653b78e114fc46715088e77.png" />
+                  <image class="shrink-0 self-center image_8" src="../../../static/page18/59cde161d653b78e114fc46715088e77.png" />
                   <text class="ml-6 self-start font_2">{{ formalData(item.gmtCreated) }}</text>
                 </view>
-                <text class="self-stretch font_3 text_4">识别卡号（11位）：{{ item.kh1 }}</text>
+                <view class="flex-row items-center">
+                  <text class="self-stretch font_3 text_4">识别卡号（11位）：{{ item.kh1 }}</text>
+                </view>
                 <text class="self-stretch font_3">是否使用：{{item.sybz == 0 ? '未使用':'已经使用'}}</text>
                 <text class="self-start font_3">车牌号：{{item.cph}}</text>
               </view>
+			  <button @click.stop="deleteCard(item, index)" class="delete-button">删除</button>
             </view>
           </view>
         </view>
@@ -45,9 +45,10 @@
   </view>
 </template>
 
+
 <script>
 import {
-  cardQuery
+  cardQuery,cardDelete
 } from '@/request/api2.js'
 
 export default {
@@ -73,7 +74,7 @@ export default {
   methods: {
     back() {
       // uni.navigateBack(1)
-      uni.navigateTo({
+      uni.redirectTo({
         url: '/pages/sdpage/dashboard/dashboard'
       })
     },
@@ -125,10 +126,50 @@ export default {
         return thisDate;
       }
       return date;
+    },async deleteCard(item, index) {
+      uni.showModal({
+        title: '提示',
+        content: '确定要删除'+item.kh1+'该识别卡吗？',
+        success: async (res) => {
+          if (res.confirm) {
+            try {
+              const params = {
+                // 根据实际情况传递删除所需的参数，如卡序号、识别卡号等
+                kxh: item.kxh,
+                kh1: item.kh1,
+				id: item.id,
+              };
+              const deleteRes = await cardDelete(params);
+              if (deleteRes.success) {
+                uni.showToast({
+                  title: '删除成功'
+                });
+                // 从列表中移除已删除的项
+                this.list.splice(index, 1);
+              } else {
+                uni.showToast({
+                  title: deleteRes.errorMsg,
+                  icon: 'error'
+                });
+              }
+            } catch (error) {
+              console.error('删除失败', error);
+              uni.showToast({
+                title: '删除失败',
+                icon: 'error'
+              });
+            }
+          }
+        }
+      });
     }
   },
 };
 </script>
+
+
+
+
 
 <style scoped lang="css">
 .page {
@@ -140,7 +181,6 @@ export default {
   position: relative;
 }
 
-/* 固定查询区域样式 */
 .fixed-query-area {
   position: fixed;
   top: 0;
@@ -148,7 +188,7 @@ export default {
   right: 0;
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 100;
-  padding-top: 80rpx; /* 增加顶部内边距，保持标题和顶部有距离 */
+  padding-top: 80rpx;
   padding-bottom: 20rpx;
 }
 
@@ -181,7 +221,7 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20rpx;
-  padding-top: 100rpx; /* 调整搜索框位置 */
+  padding-top: 100rpx;
 }
 
 .filter-input {
@@ -193,10 +233,10 @@ export default {
 }
 
 .filter-button {
-  padding: 8rpx 16rpx; /* 减小内边距以降低高度 */
+  padding: 8rpx 16rpx;
   background-color: #2855ae;
   color: #fff;
-  border-radius: 20rpx; /* 增大圆角半径让按钮更圆润 */
+  border-radius: 20rpx;
   border: none;
   font-size: 24rpx;
   line-height: 1;
@@ -251,9 +291,8 @@ export default {
   top: 212.94rpx;
 }
 
-/* 滚动内容区域样式 padding-top: 100rpx; */
 .scroll-content {
-  padding-top: 326rpx; /* 根据查询区域高度调整 */
+  padding-top: 326rpx;
   height: 100vh;
   box-sizing: border-box;
 }
@@ -288,11 +327,6 @@ export default {
   font-size: 28rpx;
 }
 
-.image_7 {
-  width: 150rpx;
-  height: 150rpx;
-}
-
 .image_8 {
   width: 26rpx;
   height: 26rpx;
@@ -322,10 +356,21 @@ export default {
   height: 30rpx;
 }
 
-/* 加载提示样式 */
 .loading-tip {
   text-align: center;
   padding: 20rpx;
   color: #666;
+}
+
+.delete-button {
+  margin-right: 5rpx;
+  padding: 8rpx 16rpx;
+  background-color: #ff0000;
+  color: #fff;
+  border-radius: 5rpx;
+  border: none;
+  font-size: 24rpx;
+  line-height: 1;
+  white-space: nowrap;
 }
 </style>

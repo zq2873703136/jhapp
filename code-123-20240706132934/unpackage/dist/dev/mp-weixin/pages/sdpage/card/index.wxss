@@ -7,8 +7,6 @@
   height: 100vh;
   position: relative;
 }
-
-/* 固定查询区域样式 */
 .fixed-query-area.data-v-023a95f9 {
   position: fixed;
   top: 0;
@@ -16,7 +14,7 @@
   right: 0;
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 100;
-  padding-top: 80rpx; /* 增加顶部内边距，保持标题和顶部有距离 */
+  padding-top: 80rpx;
   padding-bottom: 20rpx;
 }
 .image_4.data-v-023a95f9 {
@@ -44,7 +42,7 @@
   align-items: center;
   justify-content: center;
   padding: 20rpx;
-  padding-top: 100rpx; /* 调整搜索框位置 */
+  padding-top: 100rpx;
 }
 .filter-input.data-v-023a95f9 {
   flex: 1;
@@ -54,10 +52,10 @@
   margin-right: 20rpx;
 }
 .filter-button.data-v-023a95f9 {
-  padding: 8rpx 16rpx; /* 减小内边距以降低高度 */
+  padding: 8rpx 16rpx;
   background-color: #2855ae;
   color: #fff;
-  border-radius: 20rpx; /* 增大圆角半径让按钮更圆润 */
+  border-radius: 20rpx;
   border: none;
   font-size: 24rpx;
   line-height: 1;
@@ -103,10 +101,8 @@
   left: 36rpx;
   top: 212.94rpx;
 }
-
-/* 滚动内容区域样式 padding-top: 100rpx; */
 .scroll-content.data-v-023a95f9 {
-  padding-top: 326rpx; /* 根据查询区域高度调整 */
+  padding-top: 326rpx;
   height: 100vh;
   box-sizing: border-box;
 }
@@ -135,10 +131,6 @@
 .text_3.data-v-023a95f9 {
   font-size: 28rpx;
 }
-.image_7.data-v-023a95f9 {
-  width: 150rpx;
-  height: 150rpx;
-}
 .image_8.data-v-023a95f9 {
   width: 26rpx;
   height: 26rpx;
@@ -163,11 +155,20 @@
   background-color: #d3d3d300;
   height: 30rpx;
 }
-
-/* 加载提示样式 */
 .loading-tip.data-v-023a95f9 {
   text-align: center;
   padding: 20rpx;
   color: #666;
+}
+.delete-button.data-v-023a95f9 {
+  margin-right: 5rpx;
+  padding: 8rpx 16rpx;
+  background-color: #ff0000;
+  color: #fff;
+  border-radius: 5rpx;
+  border: none;
+  font-size: 24rpx;
+  line-height: 1;
+  white-space: nowrap;
 }
 

@@ -186,7 +186,6 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
-//
 var _default = {
   components: {},
   props: {},
@@ -201,38 +200,51 @@ var _default = {
     save: function save() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                if (_this.kh1) {
+                  _context.next = 3;
+                  break;
+                }
+                uni.showToast({
+                  title: '识别卡号必填',
+                  icon: 'none'
+                });
+                return _context.abrupt("return");
+              case 3:
+                _context.prev = 3;
+                _context.next = 6;
                 return (0, _api.cardSave)({
                   kh1: _this.kh1,
                   cph: _this.cph,
                   sybz: '0',
                   bz: _this.bz
+                }).then(function (res) {
+                  console.log('then res', res);
+                  if (res.success) {
+                    uni.showToast({
+                      title: '创建成功'
+                    });
+                    setTimeout(function () {
+                      _this.returnList();
+                    }, 500);
+                  } else {
+                    uni.showToast({
+                      title: res.errorMsg,
+                      icon: "error"
+                    });
+                  }
+                }).catch(function (error) {
+                  console.log('识别卡号不允许重复');
                 });
-              case 3:
-                res = _context.sent;
-                console.log('res', res);
-                if (res.success) {
-                  uni.showToast({
-                    title: '创建成功'
-                  });
-                  uni.navigateBack();
-                } else {
-                  uni.showToast({
-                    title: res.errorMsg,
-                    icon: "error"
-                  });
-                }
+              case 6:
                 _context.next = 11;
                 break;
               case 8:
                 _context.prev = 8;
-                _context.t0 = _context["catch"](0);
+                _context.t0 = _context["catch"](3);
                 //TODO handle the exception
                 uni.showToast({
                   title: '创建失败'
@@ -242,7 +254,7 @@ var _default = {
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[3, 8]]);
       }))();
     },
     bindDateChange: function bindDateChange(e) {

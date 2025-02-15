@@ -1,13 +1,12 @@
 import JSEncrypt from 'jsencrypt';
 
-var userInfo = ''
 
 export const setUserInfo = (user) => {
 	return new Promise((resolve, reject) => {
-		userInfo = user
+		uni.setStorageSync('userInfo', user);
 		resolve({
 			code: 200,
-			data: userInfo,
+			data: user,
 			msg: 'SUCCESS'
 		});
 	})
@@ -15,6 +14,7 @@ export const setUserInfo = (user) => {
 
 
 export const getUserInfo = () => {
+	const userInfo = uni.getStorageSync('userInfo');
 	return new Promise((resolve, reject) => {
 		resolve({
 			code: 200,

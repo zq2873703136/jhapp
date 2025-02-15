@@ -208,6 +208,7 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
 var _default = {
   components: {},
   props: {},
@@ -231,7 +232,7 @@ var _default = {
   methods: {
     back: function back() {
       // uni.navigateBack(1)
-      uni.navigateTo({
+      uni.redirectTo({
         url: '/pages/sdpage/dashboard/dashboard'
       });
     },
@@ -305,6 +306,81 @@ var _default = {
         return thisDate;
       }
       return date;
+    },
+    deleteCard: function deleteCard(item, index) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showModal({
+                  title: '提示',
+                  content: '确定要删除' + item.kh1 + '该识别卡吗？',
+                  success: function () {
+                    var _success = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(res) {
+                      var params, deleteRes;
+                      return _regenerator.default.wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              if (!res.confirm) {
+                                _context2.next = 13;
+                                break;
+                              }
+                              _context2.prev = 1;
+                              params = {
+                                // 根据实际情况传递删除所需的参数，如卡序号、识别卡号等
+                                kxh: item.kxh,
+                                kh1: item.kh1,
+                                id: item.id
+                              };
+                              _context2.next = 5;
+                              return (0, _api.cardDelete)(params);
+                            case 5:
+                              deleteRes = _context2.sent;
+                              if (deleteRes.success) {
+                                uni.showToast({
+                                  title: '删除成功'
+                                });
+                                // 从列表中移除已删除的项
+                                _this2.list.splice(index, 1);
+                              } else {
+                                uni.showToast({
+                                  title: deleteRes.errorMsg,
+                                  icon: 'error'
+                                });
+                              }
+                              _context2.next = 13;
+                              break;
+                            case 9:
+                              _context2.prev = 9;
+                              _context2.t0 = _context2["catch"](1);
+                              console.error('删除失败', _context2.t0);
+                              uni.showToast({
+                                title: '删除失败',
+                                icon: 'error'
+                              });
+                            case 13:
+                            case "end":
+                              return _context2.stop();
+                          }
+                        }
+                      }, _callee2, null, [[1, 9]]);
+                    }));
+                    function success(_x) {
+                      return _success.apply(this, arguments);
+                    }
+                    return success;
+                  }()
+                });
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 };

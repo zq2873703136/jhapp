@@ -10146,6 +10146,7 @@ function request(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.cardDelete = cardDelete;
 exports.cardQuery = cardQuery;
 exports.cardSave = cardSave;
 exports.managerLogin2 = managerLogin2;
@@ -10176,6 +10177,9 @@ function cardQuery(data) {
 }
 function cardSave(data) {
   return (0, _index.request)('/hydropower/hydropower/card/save', data, 'POST');
+}
+function cardDelete(data) {
+  return (0, _index.request)('/hydropower/hydropower/card/delete', data, 'POST');
 }
 function vehicleQuery(data) {
   return (0, _index.request)('/hydropower/hydropower/vehicle/scheduling/query', data, 'POST');
@@ -10363,7 +10367,7 @@ function request(url) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -10371,19 +10375,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setUserInfo = exports.getUserInfo = void 0;
 var _jsencrypt = _interopRequireDefault(__webpack_require__(/*! jsencrypt */ 49));
-var userInfo = '';
 var setUserInfo = function setUserInfo(user) {
   return new Promise(function (resolve, reject) {
-    userInfo = user;
+    uni.setStorageSync('userInfo', user);
     resolve({
       code: 200,
-      data: userInfo,
+      data: user,
       msg: 'SUCCESS'
     });
   });
 };
 exports.setUserInfo = setUserInfo;
 var getUserInfo = function getUserInfo() {
+  var userInfo = uni.getStorageSync('userInfo');
   return new Promise(function (resolve, reject) {
     resolve({
       code: 200,
@@ -10393,6 +10397,7 @@ var getUserInfo = function getUserInfo() {
   });
 };
 exports.getUserInfo = getUserInfo;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 /* 49 */
