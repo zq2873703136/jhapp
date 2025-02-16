@@ -1,179 +1,268 @@
 <template>
-
-	<view class="flex-col justify-start relative page">
-		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
-			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
-		<text class="text_2 pos_2">编辑调度车辆</text>
-		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
-		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-		<image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-		<image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-		<image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
-		<image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
-		<view class="flex-col section_3 pos_10">
-			<view class="flex-col items-start group">
-				<text class="font text_3">序号</text>
-				<text class="mt-12 font_2 text_4">{{form2.id}}</text>
-			</view>
-			<view class="flex-col items-start group">
-				<text class="font text_3">车编号</text>
-				<text class="mt-12 font_2 text_4">{{form2.cbh}}</text>
-			</view>
-			<view class="flex-col items-start group">
-				<text class="font text_3">识别卡号</text>
-				<text class="mt-12 font_2 text_4">{{form2.sbkh}}</text>
-			</view>
-			<view class="flex-col items-start group">
-				<text class="font text_3">卡序号</text>
-				<text class="mt-12 font_2 text_4">{{form2.kxh}}</text>
-			</view>
-			
-			<view class="divider view"></view>
-			<view class="flex-col group_2">
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">任务单号</text>
-					<input class="mt-12 font_2" v-model="form2.rwdh" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">车载方量</text>
-					<input class="mt-12 font_2" v-model="form2.czfl" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">车牌号</text>
-					<input class="mt-12 font_2" v-model="form2.cph" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">砼标号</text>
-					<input class="mt-12 font_2" v-model="form2.tbh" />
-				</view>
-			<view class="flex-col items-start input group_4">
-				<text class="font text_6">用户单位</text>
-				<input class="mt-12 font_2" v-model="form2.yhdw" />
-			</view>
-			<view class="flex-col items-start input group_4">
-				<text class="font text_6">工程名称</text>
-				<input class="mt-12 font_2" v-model="form2.gcmc" />
-			</view>
-			<view class="flex-col items-start input group_4">
-				<text class="font text_6">车道</text>
-				<input class="mt-12 font_2" v-model="form2.cd1" />
-			</view>
-			</view>
-			
-			<view class="divider_2 divider"></view>
-			<view class="flex-col group_8">
-				<view class="flex-row justify-end section_4" @click="save">
-					<text class="self-start font_3 text_12">保存</text>
-					<image class="self-center image_8 ml-107"
-						src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
-				</view>
-				<view class="mt-10 section_5"></view>
-			</view>
-		</view>
-	</view>
-	</view>
+    <view class="flex-col justify-start relative page">
+        <view class="section"></view>
+        <image @click="returnList()" class="image_4 pos_3"
+            src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+        <text class="text_2 pos_2">编辑调度车辆</text>
+        <image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
+        <image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+        <image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+        <image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+        <image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
+        <image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
+        <view class="flex-col section_3 pos_10">
+            <view class="flex-col items-start group">
+                <text class="font text_3">序号</text>
+                <text class="mt-12 font_2 text_4">{{form2.id}}</text>
+            </view>
+            <view class="flex-col items-start group">
+                <text class="font text_3">车编号</text>
+                <text class="mt-12 font_2 text_4">{{form2.cbh}}</text>
+            </view>
+            <view class="flex-col items-start group">
+                <text class="font text_3">识别卡号</text>
+                <text class="mt-12 font_2 text_4">{{form2.sbkh}}</text>
+            </view>
+            <view class="flex-col items-start group">
+                <text class="font text_3">卡序号</text>
+                <text class="mt-12 font_2 text_4">{{form2.kxh}}</text>
+            </view>
+            <view class="divider view"></view>
+            <view class="flex-col group_2">
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6"><text style="color: red;">*</text>任务单号</text>
+					<view class="self-start font_2">
+						<picker @change="bindPickerChangeRwdh" :value="rwdhIndex" :range="rwdhs">
+							<view class="picker">
+								当前选择：{{form2.rwdh || rwdhs[rwdhIndex] }}
+							</view>
+						</picker>
+					</view>
+                    <view v-if="rwdhError" class="error-tip">{{rwdhError}}</view>
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">车载方量</text>
+                    <input class="mt-12 font_2" v-model="form2.czfl" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">车牌号</text>
+                    <input class="mt-12 font_2" v-model="form2.cph" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">砼标号</text>
+                    <input class="mt-12 font_2" v-model="form2.tbh" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">用户单位</text>
+                    <input class="mt-12 font_2" v-model="form2.yhdw" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">工程名称</text>
+                    <input class="mt-12 font_2" v-model="form2.gcmc" />
+                </view>
+<!--                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">车道</text>
+                    <input class="mt-12 font_2" v-model="form2.cd1" />
+                </view> -->
+        <view class="flex-col items-start input group_4">
+            <text class="font text_6">车道选择</text>
+            <view class="flex-row">
+                <view class="custom-checkbox" @click="toggleLane('cd1')">
+                    <view class="checkbox-inner" :class="{ 'checked': isLaneChecked('cd1') }"></view>
+                    <text>车道1</text>
+                </view>
+                <view class="custom-checkbox ml-10" @click="toggleLane('cd2')">
+                    <view class="checkbox-inner" :class="{ 'checked': isLaneChecked('cd2') }"></view>
+                    <text>车道2</text>
+                </view>
+            </view>
+        </view>
+            </view>
+            <view class="divider_2 divider"></view>
+            <view class="flex-col group_8">
+                <view class="flex-row justify-end section_4" @click="save">
+                    <text class="self-start font_3 text_12">保存</text>
+                    <image class="self-center image_8 ml-107"
+                        src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
+                </view>
+                <view class="mt-10 section_5"></view>
+            </view>
+        </view>
+    </view>
 </template>
 
+
+
+
 <script>
-	import {
-		vehicleSave
-	} from '@/request/api2.js'
+    import {
+        vehicleSave,
+        taskSheetQuery
+    } from '@/request/api2.js'
 
-	export default {
-		components: {},
-		props: {},
-		data() {
-			return {
-			form2: {
-				id:'',
-				cbh:'',
-				sbkh:'',
-				kxh:'',
-				rwdh:'',
-				czfl:'',
-				cph:'',
-				tbh:'',
-				yhdw:'',
-				gcmc:'',
-				cd1:'',
-				}
-			};
-		},
-		onLoad(query) {
-			console.log(query,'query');
-			if (query.data) {
-				console.log(query.data,'query.data');
-				const res = JSON.parse(query.data)
-				console.log(res,'res');
-				console.log(res.ghrq,'res.ghrq');
-				this.form2 = {
-					...this.form2,
-					...res
-				}
-				console.log(this.form2,'this.form2');
+    export default {
+        components: {},
+        props: {},
+        data() {
+            return {
+                form2: {
+                    id: '',
+                    cbh: '',
+                    sbkh: '',
+                    kxh: '',
+                    rwdh: '',
+                    czfl: '',
+                    cph: '',
+                    tbh: '',
+                    yhdw: '',
+                    gcmc: '',
+                    cd1: 0,
+					cd2: 0,
+                },
+				allRwds:[],
+                rwdhs: [],
+                rwdhIndex: null,
+                rwdhError: '',
+				selectedLanes:[],
+            };
+        },
+        onLoad(query) {
+            console.log(query, 'query');
+            if (query.data) {
+                console.log(query.data, 'query.data');
+                const res = JSON.parse(query.data);
+                console.log(res,'res');
+                console.log(res.ghrq,'res.ghrq');
+                this.form2 = {
+                 ...this.form2,
+                 ...res
+                };
+                console.log(this.form2, 'this.form2');
+            }
+            this.taskSheetQueryList();
+			// 初始化车道
+			if(this.form2.cd1 == '1'){
+				this.selectedLanes.push('cd1');
 			}
-			
-		},
-		methods: {
-			async save() {
-				try {
-					const res = await vehicleSave({
-						id: this.form2.id,
-						cbh:this.form2.cbh,
-						sbkh:this.form2.sbkh,
-						kxh:this.form2.kxh,
-						rwdh:this.form2.rwdh,
-						czfl:this.form2.czfl,
-						cph:this.form2.cph,
-						tbh:this.form2.tbh,
-						yhdw:this.form2.yhdw,
-						gcmc:this.form2.gcmc,
-						cd1:this.form2.cd1,
-					})
-					console.log('res', res)
-					if (res.success) {
-						uni.showToast({
-							title: '修改成功'
-						})
-						this.returnList()
-					} else {
-						uni.showToast({
-							title: res.errorMsg,
-							icon: "error"
-						})
+			if(this.form2.cd2 == '1'){
+				this.selectedLanes.push('cd2');
+			}
+			console.log('this.isLaneChecked(\'cd2\')'+this.isLaneChecked('cd2'))
+			console.log('this.isLaneChecked(\'cd1\')'+this.isLaneChecked('cd1'))
+        },
+        methods: {
+            async save() {
+                this.rwdhError = '';
+                let hasError = false;
+                if (this.rwdhIndex === null && this.form2.rwdh.length<1) {
+                    this.rwdhError = '任务单号为必填项';
+                    hasError = true;
+                }
+                if (hasError) {
+                    return;
+                }
+				const thisRwdh = this.rwdhs[this.rwdhIndex] == null ? this.form2.rwdh : this.rwdhs[this.rwdhIndex];
+                try {
+                    const res = await vehicleSave({
+                        id: this.form2.id,
+                        cbh: this.form2.cbh,
+                        sbkh: this.form2.sbkh,
+                        kxh: this.form2.kxh,
+                        rwdh: thisRwdh,
+                        czfl: this.form2.czfl,
+                        cph: this.form2.cph,
+                        tbh: this.form2.tbh,
+                        yhdw: this.form2.yhdw,
+                        gcmc: this.form2.gcmc,
+                        cd1: this.form2.cd1,
+						cd2: this.form2.cd2
+                    });
+                    console.log('res', res);
+                    if (res.success) {
+                        uni.showToast({
+                            title: '修改成功'
+                        });
+                        this.returnList();
+                    } else {
+                        uni.showToast({
+                            title: res.errorMsg,
+                            icon: "error"
+                        });
+                    }
+                } catch (e) {
+                    //TODO handle the exception
+                    uni.showToast({
+                        title: '修改失败'
+                    });
+                }
+            },
+			        toggleLane(lane) {
+						console.log('toggleLane::', lane)
+			            if (this.selectedLanes.includes(lane)) {
+			                this.selectedLanes = this.selectedLanes.filter(l => l!== lane);
+			            } else {
+			                this.selectedLanes.push(lane);
+			            }
+			            this.form2.cd1 = this.selectedLanes.includes('cd1')? '1' : '0';
+			            this.form2.cd2 = this.selectedLanes.includes('cd2')? '1' : '0';
+			        },
+			        isLaneChecked(lane) {
+			            return this.selectedLanes.includes(lane);
+			        },
+            async taskSheetQueryList() {
+                const res = await taskSheetQuery({
+                    "phbsfsh": 1,
+                    "currentPage": "1",
+                    "pageSize": "300"
+                });
+                for (let item of res.data) {
+                    this.rwdhs.push(item.rwdh);
+                }
+				for (let item of res.data) {
+					console.log('taskSheetQueryList', item);
+					this.rwdhs.push(item.rwdh);
+				}
+				this.allRwds = res.data;
+            },
+            bindPickerChangeRwdh(e) {
+                this.rwdhIndex = e.detail.value;
+                const rwdh = this.rwdhs[this.rwdhIndex];
+				for (let item of this.allRwds) {
+					if (item.rwdh === rwdh) {
+						this.form2.tbh = item.shtbh;
+						this.form2.yhdw = item.yhdw;
+						this.form2.gcmc = item.gcmc;
+						this.form2.rwdh = item.rwdh;
+						break;
 					}
-
-				} catch (e) {
-					//TODO handle the exception
-					uni.showToast({
-						title: '修改失败'
-					})
 				}
-			},
-			bindDateChange(e) {
-
-				this.ghrq = e.detail.value
-				console.log('ghrqghrqghrq', this.ghrq)
-			},
-			bindDateChange2(e) {
-				this.planDate = e.detail.value
-			},
-			bindPickerChange3(e) {
-				this.jzfs = e.detail.value;
-				this.pumpingType = this.pickerRange[this.jzfs];
-			},
-			returnList() {
-				console.log('返回任务单列表')
-				uni.redirectTo({
-					url: '/pages/sdpage/vehicle/index'
-				})
-			}
-		},
-	};
+            },
+            bindDateChange(e) {
+                this.ghrq = e.detail.value;
+                console.log('ghrqghrqghrq', this.ghrq);
+            },
+            bindDateChange2(e) {
+                this.planDate = e.detail.value;
+            },
+            returnList() {
+                console.log('返回任务单列表');
+                uni.redirectTo({
+                    url: '/pages/sdpage/vehicle/index'
+                });
+            }
+        },
+    };
 </script>
 
+
+
 <style scoped lang="css">
+	.error-tip {
+	    color: red;
+	    font-size: 20rpx;
+	    margin-top: 4rpx;
+	}
+	
 	.ml-5 {
 		margin-left: 10rpx;
 	}
@@ -458,5 +547,47 @@
 	.section_5 {
 		background-color: #d3d3d300;
 		height: 32rpx;
+	}
+
+	.picker {
+		/* 原样式保留 */
+		font-size: 32rpx;
+		font-family: Source Sans Pro;
+		line-height: 21.12rpx;
+		font-weight: 600;
+		color: #313131;
+		background-color: white;
+		appearance: none;
+		-webkit-appearance: none;
+		background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" width="29" height="29"%3E%3Cpath d="M7 10l5 5 5-5z" fill="%23313131"%3E%3C/path%3E%3C/svg%3E');
+		background-position: right 10rpx center;
+		background-repeat: no-repeat;
+		padding-right: 35rpx;
+		/* 新增垂直内边距 */
+		padding-top: 12rpx;
+		padding-bottom: 12rpx;
+	}
+	
+	.custom-checkbox {
+	    display: flex;
+	    align-items: center;
+	    cursor: pointer;
+	}
+	
+	.checkbox-inner {
+	    width: 20px;
+	    height: 20px;
+	    border: 1px solid #ccc;
+	    border-radius: 3px;
+	    margin-right: 5px;
+	}
+	
+	.checkbox-inner.checked {
+	    background-color: #1aad19;
+	    border-color: #1aad19;
+	}
+	
+	.ml-10 {
+	    margin-left: 20px;
 	}
 </style>

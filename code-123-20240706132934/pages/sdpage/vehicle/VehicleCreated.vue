@@ -233,7 +233,7 @@
 				const res = await taskSheetQuery({
 					"phbsfsh": 1,
 					"currentPage": "1",
-					"pageSize": "30"
+					"pageSize": "300"
 				});
 				for (let item of res.data) {
 					console.log('taskSheetQueryList', item);

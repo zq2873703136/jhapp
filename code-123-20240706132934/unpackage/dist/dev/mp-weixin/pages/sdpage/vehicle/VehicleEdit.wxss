@@ -1,4 +1,9 @@
 
+.error-tip.data-v-1ef35ddd {
+    color: red;
+    font-size: 20rpx;
+    margin-top: 4rpx;
+}
 .ml-5.data-v-1ef35ddd {
 	margin-left: 10rpx;
 }
@@ -231,5 +236,42 @@
 .section_5.data-v-1ef35ddd {
 	background-color: #d3d3d300;
 	height: 32rpx;
+}
+.picker.data-v-1ef35ddd {
+	/* 原样式保留 */
+	font-size: 32rpx;
+	font-family: Source Sans Pro;
+	line-height: 21.12rpx;
+	font-weight: 600;
+	color: #313131;
+	background-color: white;
+	appearance: none;
+	-webkit-appearance: none;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" width="29" height="29"%3E%3Cpath d="M7 10l5 5 5-5z" fill="%23313131"%3E%3C/path%3E%3C/svg%3E');
+	background-position: right 10rpx center;
+	background-repeat: no-repeat;
+	padding-right: 35rpx;
+	/* 新增垂直内边距 */
+	padding-top: 12rpx;
+	padding-bottom: 12rpx;
+}
+.custom-checkbox.data-v-1ef35ddd {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.checkbox-inner.data-v-1ef35ddd {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+.checkbox-inner.checked.data-v-1ef35ddd {
+    background-color: #1aad19;
+    border-color: #1aad19;
+}
+.ml-10.data-v-1ef35ddd {
+    margin-left: 20px;
 }
 
