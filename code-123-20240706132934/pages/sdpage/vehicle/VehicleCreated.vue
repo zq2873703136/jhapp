@@ -1,5 +1,4 @@
 <template>
-
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
 		<image @click="returnList()" class="image_4 pos_3"
@@ -14,33 +13,46 @@
 		<view class="flex-col section_3 pos_10">
 			<view class="flex-col group_2">
 				<view class="flex-col items-start input group_4">
-					<text class="font text_6">识别卡号</text>
-					<input class="mt-12 font_2" v-model="sbkh" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">卡序号</text>
-					<input class="mt-12 font_2" v-model="kxh" />
-				</view>
-<!-- 				<view class="flex-col items-start input group_4">
-					<text class="font text_6">任务单号</text>
-					<input class="mt-12 font_2" v-model="rwdh" />
-				</view> -->
-				</view>
-				<view class="flex-col group_2">
-				<text class="self-start font text_5">任务单号</text>
-				<view class="flex-row justify-between self-stretch group_3">
+					<text class="font text_6"><text style="color: red;">*</text>识别卡号</text>
 					<view class="self-start font_2">
-						<picker @change="bindPickerChangeRwdh" :value="rwdh" :range="rwdhs">
+						<picker @change="bindPickerChangeSbkh" :value="sbkhIndex" :range="sbkhOptionsArray">
 							<view class="picker">
-								当前选择：{{rwdh}}
+								当前选择：{{sbkhOptionsArray[sbkhIndex] || '请选择'}}
 							</view>
 						</picker>
 					</view>
 				</view>
+				<view v-if="sbkhError" class="error-tip">{{sbkhError}}</view>
 				<view class="flex-col items-start input group_4">
-					<text class="font text_6">车载方量</text>
-					<input class="mt-12 font_2" v-model="czfl" />
+					<text class="font text_6"><text style="color: red;">*</text>卡序号</text>
+					<view class="self-start font_2">
+						<picker @change="bindPickerChangeKxh" :value="kxhIndex" :range="kxhOptionsArray">
+							<view class="picker">
+								当前选择：{{kxhOptionsArray[kxhIndex] || '请选择'}}
+							</view>
+						</picker>
+					</view>
 				</view>
+				<view v-if="kxhError" class="error-tip">{{kxhError}}</view>
+			</view>
+			<view class="flex-col group_2">
+				<text class="self-start font text_5"><text style="color: red;">*</text>任务单号</text>
+				<view class="flex-row justify-between self-stretch group_3">
+					<view class="self-start font_2">
+						<picker @change="bindPickerChangeRwdh" :value="rwdhIndex" :range="rwdhs">
+							<view class="picker">
+								当前选择：{{rwdhs[rwdhIndex] || '请选择'}}
+							</view>
+						</picker>
+					</view>
+				</view>
+				<view v-if="rwdhError" class="error-tip">{{rwdhError}}</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6"><text style="color: red;">*</text>车载方量</text>
+					<input class="mt-12 font_2" type="number" min="0" v-model="czfl" @input="handleCzflInput"
+						@change="handleCzflChange" />
+				</view>
+				<view v-if="czflError" class="error-tip">{{czflError}}</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">车牌号</text>
 					<input class="mt-12 font_2" v-model="cph" />
@@ -59,7 +71,14 @@
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">车道选择</text>
-					<input class="mt-12 font_2" v-model="cd1" />
+					<view class="flex-row">
+						<label >
+							<checkbox v-model="cd1" :true-value="1" :false-value="0" checked/> 车道1
+						</label>
+						<label class="ml-10">
+							<checkbox v-model="cd2" :true-value="1" :false-value="0" checked/> 车道2
+						</label>
+					</view>
 				</view>
 			</view>
 			<view class="divider_2 divider"></view>
@@ -73,12 +92,17 @@
 			</view>
 		</view>
 	</view>
-	</view>
 </template>
+
+
+
 
 <script>
 	import {
-		vehicleSave,taskSheetQuery
+		vehicleSave,
+		taskSheetQuery,
+		cardQuery,
+		cardSave,
 	} from '@/request/api2.js'
 
 	export default {
@@ -86,79 +110,190 @@
 		props: {},
 		data() {
 			return {
-				allRwds:[],
-				rwdhs:[],
-				sbkh: '',
+				allRwds: [],
+				allCards: [],
+				rwdhs: [],
+				sbkhOptionsArray: [],
+				kxhOptionsArray: [],
+				sbkhIndex: null,
+				kxhIndex: null,
+				rwdhIndex: null,
+				czfl: NaN,
 				cph: '',
-				kxh:'',
-				rwdh:'',
-				czfl:'',
-				yhdw:'',
-				gcmc:'',
-				cd1:'',
-				tbh:'',
-				
+				yhdw: '',
+				gcmc: '',
+				cd1: 1,
+				cd2: 1,
+				tbh: '',
+				kid:'',
+				sbkhError: '',
+				kxhError: '',
+				rwdhError: '',
+				czflError: ''
 			};
 		},
 		onLoad() {
-			this.taskSheetQueryList()
+			this.taskSheetQueryList();
+			this.getCardQuery();
 		},
 		methods: {
+			handleCzflInput(e) {
+				let value = e.detail.value;
+				// 只保留数字和小数点
+				value = value.replace(/[^\d.]/g, '');
+
+				// 处理多个小数点的情况，只保留第一个小数点
+				const decimalIndex = value.indexOf('.');
+				if (decimalIndex !== -1) {
+					value = value.slice(0, decimalIndex + 1) + value.slice(decimalIndex + 1).replace(/\./g, '');
+				}
+
+				// 更新输入框的值
+				this.czfl = value;
+			},
+			handleCzflChange(e) {
+				let value = e.detail.value;
+				// 再次进行校验，确保值不小于 0
+				if (value === '') {
+					this.czfl = 0;
+				} else {
+					const numValue = parseFloat(value);
+					this.czfl = Math.max(0, numValue);
+				}
+			},
 			async save() {
+				this.sbkhError = '';
+				this.kxhError = '';
+				this.rwdhError = '';
+				this.czflError = '';
+				let hasError = false;
+
+				if (this.sbkhIndex === null) {
+					this.sbkhError = '识别卡号为必填项';
+					hasError = true;
+				}
+				if (this.kxhIndex === null) {
+					this.kxhError = '卡序号为必填项';
+					hasError = true;
+				}
+				if (this.rwdhIndex === null) {
+					this.rwdhError = '任务单号为必填项';
+					hasError = true;
+				}
+				if (!this.czfl) {
+					this.czflError = '车载方量为必填项';
+					hasError = true;
+				}
+
+				if (hasError) {
+					return;
+				}
+
+				const sbkh = this.sbkhOptionsArray[this.sbkhIndex];
+				const kxh = this.kxhOptionsArray[this.kxhIndex];
+				const rwdh = this.rwdhs[this.rwdhIndex];
+
 				try {
 					const res = await vehicleSave({
-						sbkh: this.sbkh,
+						sbkh,
 						cph: this.cph,
-						kxh:this.kxh,
-						rwdh:this.rwdh,
-						czfl:this.czfl,
-						yhdw:this.yhdw,
-						gcmc:this.gcmc,
-						cd1:this.cd1,
-						tbh:this.tbh,
-					})
-					console.log('res', res)
+						kxh,
+						rwdh,
+						czfl: this.czfl,
+						yhdw: this.yhdw,
+						gcmc: this.gcmc,
+						cd1: this.cd1,
+						cd2: this.cd2,
+						tbh: this.tbh
+					});
+					console.log('res', res);
 					if (res.success) {
 						uni.showToast({
 							title: '创建成功'
-						})
-						uni.navigateBack()
+						});
+						await cardSave({ "id": this.kid, "sybz": "1"})
+						setTimeout(()=>{
+							uni.redirectTo({
+								url: '/pages/sdpage/vehicle/index'
+							});
+						},500)
 					} else {
 						uni.showToast({
 							title: res.errorMsg,
 							icon: "error"
-						})
+						});
 					}
-
 				} catch (e) {
-					//TODO handle the exception
 					uni.showToast({
 						title: '创建失败'
-					})
+					});
 				}
 			},
-			async taskSheetQueryList(){
-				const res = await taskSheetQuery({"phbsfsh":1, "currentPage": "1", "pageSize": "30",})
-				for(let item of res.data){
-					console.log('taskSheetQueryList', item)
-					this.rwdhs.push(item.rwdh)
+			async taskSheetQueryList() {
+				const res = await taskSheetQuery({
+					"phbsfsh": 1,
+					"currentPage": "1",
+					"pageSize": "30"
+				});
+				for (let item of res.data) {
+					console.log('taskSheetQueryList', item);
+					this.rwdhs.push(item.rwdh);
 				}
-				this.allRwds = res.data
-				// console.log('taskSheetQueryList res', res.data)
+				this.allRwds = res.data;
+			},
+			async getCardQuery() {
+				const res = await cardQuery({
+					"sybz": "0"
+				});
+				if (res && res.data) {
+					this.allCards = res.data
+					for (let item of res.data) {
+						console.log('cardQuery', item);
+						this.sbkhOptionsArray.push(item.kh1);
+						this.kxhOptionsArray.push(item.kxh);
+					}
+				}
+			},
+			bindPickerChangeSbkh(e) {
+				this.sbkhIndex = e.detail.value;
+				if (this.sbkhIndex !== null) {
+					this.kxhIndex = this.sbkhIndex;
+				}
+				const sbkh = this.sbkhOptionsArray[this.sbkhIndex];
+				for (let item of this.allCards) {
+					if (item.kh1 == sbkh) {
+						this.cph = item.cph
+						this.kid = item.id
+						break;
+					}
+				}
+			},
+			bindPickerChangeKxh(e) {
+				this.kxhIndex = e.detail.value;
+				if (this.kxhIndex !== null) {
+					this.sbkhIndex = this.kxhIndex;
+				}
+				const kxh = this.kxhOptionsArray[this.kxhIndex];
+				for (let item of this.allCards) {
+					if (item.kxh == kxh) {
+						this.cph = item.cph
+						this.kid = item.id
+						break;
+					}
+				}
 			},
 			bindDateChange(e) {
-
-				this.ghrq = e.detail.value
-				console.log('ghrqghrqghrq', this.ghrq)
+				this.ghrq = e.detail.value;
+				console.log('ghrqghrqghrq', this.ghrq);
 			},
 			bindDateChange2(e) {
-				this.planDate = e.detail.value
+				this.planDate = e.detail.value;
 			},
 			bindPickerChangeRwdh(e) {
-				this.jzfs = e.detail.value;
-				this.rwdh = this.rwdhs[this.jzfs];
-				for(let item of this.allRwds){
-					if(item.rwdh == this.rwdh){
+				this.rwdhIndex = e.detail.value;
+				const rwdh = this.rwdhs[this.rwdhIndex];
+				for (let item of this.allRwds) {
+					if (item.rwdh === rwdh) {
 						this.tbh = item.shtbh;
 						this.yhdw = item.yhdw;
 						this.gcmc = item.gcmc;
@@ -167,12 +302,12 @@
 				}
 			},
 			returnList() {
-				console.log('返回任务单列表')
+				console.log('返回任务单列表');
 				uni.redirectTo({
 					url: '/pages/sdpage/vehicle/index'
-				})
+				});
 			}
-		},
+		}
 	};
 </script>
 
@@ -202,7 +337,7 @@
 
 	.section_2 {
 		padding: 26rpx 28rpx 36rpx 36rpx;
-		background-color: #ffffff00;
+		background-color: rgba(255, 255, 255, 0);
 	}
 
 	.pos {
@@ -222,6 +357,7 @@
 	.image {
 		width: 34rpx;
 		height: 22rpx;
+		display: block;
 	}
 
 	.image_2 {
@@ -310,9 +446,6 @@
 		background-image: url('../../../static/page08/85eaf09bd543c66b1287def37e55cdf5.png');
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
-	}
-
-	.pos_10 {
 		position: absolute;
 		left: 0;
 		right: 0;
@@ -408,38 +541,55 @@
 		color: #313131;
 	}
 
-	.text_9 {
-		line-height: 30.28rpx;
+	.text_12 {
+		color: #ffffff;
 	}
 
-	.group_7 {
-		padding: 72rpx 32rpx 48rpx;
+	.image_8 {
+		width: 56rpx;
+		height: 36rpx;
 	}
 
-	.text_10 {
-		line-height: 22.04rpx;
+	.section_5 {
+		background-color: rgba(211, 211, 211, 0);
+		height: 32rpx;
 	}
 
-	.text_11 {
-		line-height: 29.54rpx;
+	.error-tip {
+		color: red;
+		font-size: 20rpx;
+		margin-top: 4rpx;
 	}
 
-	.divider_2 {
-		margin: 0 32rpx;
+	/* 优化识别卡号、卡序号选择框内文本的垂直间距 */
+	.picker {
+		/* 原样式保留 */
+		font-size: 32rpx;
+		font-family: Source Sans Pro;
+		line-height: 21.12rpx;
+		font-weight: 600;
+		color: #313131;
+		background-color: white;
+		appearance: none;
+		-webkit-appearance: none;
+		background-image: url('data:image/svg+xml;charset=US - ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" width="29" height="29"%3E%3Cpath d="M7 10l5 5 5 - 5z" fill="%23313131"%3E%3C/path%3E%3C/svg%3E');
+		background-position: right 10rpx center;
+		background-repeat: no - repeat;
+		padding-right: 35rpx;
+		/* 新增垂直内边距 */
+		padding-top: 12rpx;
+		padding-bottom: 12rpx;
 	}
 
-	.divider {
-		background-color: #e1e3e8;
-		height: 2rpx;
-	}
-
-	.view {
-		margin: 0 32rpx;
+	.picker:focus {
+		outline: none;
 	}
 
 	.group_8 {
 		margin-top: 134rpx;
 	}
+
+
 
 	.section_4 {
 		margin: 0 32rpx;
@@ -447,6 +597,9 @@
 		background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
 	}
 
 	.text_12 {
@@ -461,5 +614,15 @@
 	.section_5 {
 		background-color: #d3d3d300;
 		height: 32rpx;
+	}
+
+	.error-tip {
+		color: red;
+		font-size: 20rpx;
+		margin-top: 4rpx;
+	}
+
+	.ml-10 {
+		margin-left: 20rpx;
 	}
 </style>

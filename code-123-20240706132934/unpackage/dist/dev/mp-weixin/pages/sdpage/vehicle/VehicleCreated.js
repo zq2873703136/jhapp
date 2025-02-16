@@ -154,72 +154,151 @@ var _default = {
   data: function data() {
     return {
       allRwds: [],
+      allCards: [],
       rwdhs: [],
-      sbkh: '',
+      sbkhOptionsArray: [],
+      kxhOptionsArray: [],
+      sbkhIndex: null,
+      kxhIndex: null,
+      rwdhIndex: null,
+      czfl: NaN,
       cph: '',
-      kxh: '',
-      rwdh: '',
-      czfl: '',
       yhdw: '',
       gcmc: '',
-      cd1: '',
-      tbh: ''
+      cd1: 1,
+      cd2: 1,
+      tbh: '',
+      kid: '',
+      sbkhError: '',
+      kxhError: '',
+      rwdhError: '',
+      czflError: ''
     };
   },
   onLoad: function onLoad() {
     this.taskSheetQueryList();
+    this.getCardQuery();
   },
   methods: {
+    handleCzflInput: function handleCzflInput(e) {
+      var value = e.detail.value;
+      // 只保留数字和小数点
+      value = value.replace(/[^\d.]/g, '');
+
+      // 处理多个小数点的情况，只保留第一个小数点
+      var decimalIndex = value.indexOf('.');
+      if (decimalIndex !== -1) {
+        value = value.slice(0, decimalIndex + 1) + value.slice(decimalIndex + 1).replace(/\./g, '');
+      }
+
+      // 更新输入框的值
+      this.czfl = value;
+    },
+    handleCzflChange: function handleCzflChange(e) {
+      var value = e.detail.value;
+      // 再次进行校验，确保值不小于 0
+      if (value === '') {
+        this.czfl = 0;
+      } else {
+        var numValue = parseFloat(value);
+        this.czfl = Math.max(0, numValue);
+      }
+    },
     save: function save() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var res;
+        var hasError, sbkh, kxh, rwdh, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                _this.sbkhError = '';
+                _this.kxhError = '';
+                _this.rwdhError = '';
+                _this.czflError = '';
+                hasError = false;
+                if (_this.sbkhIndex === null) {
+                  _this.sbkhError = '识别卡号为必填项';
+                  hasError = true;
+                }
+                if (_this.kxhIndex === null) {
+                  _this.kxhError = '卡序号为必填项';
+                  hasError = true;
+                }
+                if (_this.rwdhIndex === null) {
+                  _this.rwdhError = '任务单号为必填项';
+                  hasError = true;
+                }
+                if (!_this.czfl) {
+                  _this.czflError = '车载方量为必填项';
+                  hasError = true;
+                }
+                if (!hasError) {
+                  _context.next = 11;
+                  break;
+                }
+                return _context.abrupt("return");
+              case 11:
+                sbkh = _this.sbkhOptionsArray[_this.sbkhIndex];
+                kxh = _this.kxhOptionsArray[_this.kxhIndex];
+                rwdh = _this.rwdhs[_this.rwdhIndex];
+                _context.prev = 14;
+                _context.next = 17;
                 return (0, _api.vehicleSave)({
-                  sbkh: _this.sbkh,
+                  sbkh: sbkh,
                   cph: _this.cph,
-                  kxh: _this.kxh,
-                  rwdh: _this.rwdh,
+                  kxh: kxh,
+                  rwdh: rwdh,
                   czfl: _this.czfl,
                   yhdw: _this.yhdw,
                   gcmc: _this.gcmc,
                   cd1: _this.cd1,
+                  cd2: _this.cd2,
                   tbh: _this.tbh
                 });
-              case 3:
+              case 17:
                 res = _context.sent;
                 console.log('res', res);
-                if (res.success) {
-                  uni.showToast({
-                    title: '创建成功'
-                  });
-                  uni.navigateBack();
-                } else {
-                  uni.showToast({
-                    title: res.errorMsg,
-                    icon: "error"
-                  });
+                if (!res.success) {
+                  _context.next = 26;
+                  break;
                 }
-                _context.next = 11;
+                uni.showToast({
+                  title: '创建成功'
+                });
+                _context.next = 23;
+                return (0, _api.cardSave)({
+                  "id": _this.kid,
+                  "sybz": "1"
+                });
+              case 23:
+                setTimeout(function () {
+                  uni.redirectTo({
+                    url: '/pages/sdpage/vehicle/index'
+                  });
+                }, 500);
+                _context.next = 27;
                 break;
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
-                //TODO handle the exception
+              case 26:
+                uni.showToast({
+                  title: res.errorMsg,
+                  icon: "error"
+                });
+              case 27:
+                _context.next = 32;
+                break;
+              case 29:
+                _context.prev = 29;
+                _context.t0 = _context["catch"](14);
                 uni.showToast({
                   title: '创建失败'
                 });
-              case 11:
+              case 32:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[14, 29]]);
       }))();
     },
     taskSheetQueryList: function taskSheetQueryList() {
@@ -251,7 +330,6 @@ var _default = {
                   _iterator.f();
                 }
                 _this2.allRwds = res.data;
-                // console.log('taskSheetQueryList res', res.data)
               case 6:
               case "end":
                 return _context2.stop();
@@ -259,6 +337,90 @@ var _default = {
           }
         }, _callee2);
       }))();
+    },
+    getCardQuery: function getCardQuery() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res, _iterator2, _step2, item;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return (0, _api.cardQuery)({
+                  "sybz": "0"
+                });
+              case 2:
+                res = _context3.sent;
+                if (res && res.data) {
+                  _this3.allCards = res.data;
+                  _iterator2 = _createForOfIteratorHelper(res.data);
+                  try {
+                    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                      item = _step2.value;
+                      console.log('cardQuery', item);
+                      _this3.sbkhOptionsArray.push(item.kh1);
+                      _this3.kxhOptionsArray.push(item.kxh);
+                    }
+                  } catch (err) {
+                    _iterator2.e(err);
+                  } finally {
+                    _iterator2.f();
+                  }
+                }
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    bindPickerChangeSbkh: function bindPickerChangeSbkh(e) {
+      this.sbkhIndex = e.detail.value;
+      if (this.sbkhIndex !== null) {
+        this.kxhIndex = this.sbkhIndex;
+      }
+      var sbkh = this.sbkhOptionsArray[this.sbkhIndex];
+      var _iterator3 = _createForOfIteratorHelper(this.allCards),
+        _step3;
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var item = _step3.value;
+          if (item.kh1 == sbkh) {
+            this.cph = item.cph;
+            this.kid = item.id;
+            break;
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+    },
+    bindPickerChangeKxh: function bindPickerChangeKxh(e) {
+      this.kxhIndex = e.detail.value;
+      if (this.kxhIndex !== null) {
+        this.sbkhIndex = this.kxhIndex;
+      }
+      var kxh = this.kxhOptionsArray[this.kxhIndex];
+      var _iterator4 = _createForOfIteratorHelper(this.allCards),
+        _step4;
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var item = _step4.value;
+          if (item.kxh == kxh) {
+            this.cph = item.cph;
+            this.kid = item.id;
+            break;
+          }
+        }
+      } catch (err) {
+        _iterator4.e(err);
+      } finally {
+        _iterator4.f();
+      }
     },
     bindDateChange: function bindDateChange(e) {
       this.ghrq = e.detail.value;
@@ -268,14 +430,14 @@ var _default = {
       this.planDate = e.detail.value;
     },
     bindPickerChangeRwdh: function bindPickerChangeRwdh(e) {
-      this.jzfs = e.detail.value;
-      this.rwdh = this.rwdhs[this.jzfs];
-      var _iterator2 = _createForOfIteratorHelper(this.allRwds),
-        _step2;
+      this.rwdhIndex = e.detail.value;
+      var rwdh = this.rwdhs[this.rwdhIndex];
+      var _iterator5 = _createForOfIteratorHelper(this.allRwds),
+        _step5;
       try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var item = _step2.value;
-          if (item.rwdh == this.rwdh) {
+        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+          var item = _step5.value;
+          if (item.rwdh === rwdh) {
             this.tbh = item.shtbh;
             this.yhdw = item.yhdw;
             this.gcmc = item.gcmc;
@@ -283,9 +445,9 @@ var _default = {
           }
         }
       } catch (err) {
-        _iterator2.e(err);
+        _iterator5.e(err);
       } finally {
-        _iterator2.f();
+        _iterator5.f();
       }
     },
     returnList: function returnList() {
