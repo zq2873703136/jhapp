@@ -279,6 +279,49 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   props: {},
@@ -290,38 +333,71 @@ var _default = {
       planDate: '',
       ghrq: '',
       pbbh: '',
+      pbbhError: '',
       sgbw: '',
+      sgbwIndex: -1,
+      sgbws: [],
       hntzl: '',
+      hntzlIndex: -1,
+      hntzls: [],
       demander: '',
       qddj: '',
+      qddjIndex: -1,
+      qddjs: [],
       hntjp: '',
-      jbsj: '',
+      hntjpIndex: -1,
+      hntjps: [],
+      jbsj: 30,
+      jbsjError: '',
       tld: '',
-      ds: '',
-      zs1: '',
+      tldIndex: -1,
+      tlds: [],
+      ds: 0,
+      dsError: '',
+      zs1: 0,
+      zs1Error: '',
       zdlj: '',
+      zdljIndex: -1,
+      zdljs: [],
       bz: '',
-      zs2: '',
+      zs2: 0,
+      zs2Error: '',
       pumpingMachine: '',
       pumpingPipe: '',
       expansionType: '',
-      xs: '',
-      s1: '',
-      s2: '',
-      b: '',
-      sn1: '',
-      sn2: '',
-      fmh1: '',
-      fmh2: '',
-      s: '',
-      wjj1: '',
-      wjj2: '',
-      wjj3: '',
-      rl: ''
+      xs: 0,
+      xsError: '',
+      s1: 0,
+      s1Error: '',
+      s2: 0,
+      s2Error: '',
+      b: 0,
+      bError: '',
+      sn1: 0,
+      sn1Error: '',
+      sn2: 0,
+      sn2Error: '',
+      fmh1: 0,
+      fmh1Error: '',
+      fmh2: 0,
+      fmh2Error: '',
+      s: 0,
+      sError: '',
+      wjj1: 0,
+      wjj1Error: '',
+      wjj2: 0,
+      wjj2Error: '',
+      wjj3: 0,
+      wjj3Error: '',
+      rl: 0,
+      rlError: ''
     };
   },
+  created: function created() {
+    this.getDictValues();
+  },
   methods: {
-    save: function save() {
+    getDictValues: function getDictValues() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
         var res;
@@ -331,48 +407,206 @@ var _default = {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return (0, _api.ratioSave)({
-                  pbbh: _this.pbbh,
-                  sgbw: _this.sgbw,
-                  hntzl: _this.hntzl,
-                  // ... 其他属性，使用 this.propertyName 来访问  
-                  ghrq: _this.ghrq,
-                  planDate: _this.planDate,
-                  zdlj: _this.zdlj,
-                  hntjp: _this.hntjp,
-                  jbsj: _this.jbsj,
-                  tld: _this.tld,
-                  ds: _this.ds,
-                  remainConcreteQuantity: _this.remainConcreteQuantity,
-                  zs1: _this.zs1,
-                  qddj: _this.qddj,
-                  bz: _this.bz,
-                  phbsfsh: '0',
-                  pumpingType: _this.pumpingType,
-                  pumpingParams: _this.pumpingParams,
-                  zs2: _this.zs2,
-                  invoiceDate: _this.invoiceDate,
-                  invoicePerson: _this.invoicePerson,
-                  taskSheetStatus: _this.taskSheetStatus,
-                  pumpingMachine: _this.pumpingMachine,
-                  pumpingPipe: _this.pumpingPipe,
-                  expansionType: _this.expansionType,
-                  xs: _this.xs,
-                  s1: _this.s1,
-                  s2: _this.s1,
-                  b: _this.b,
-                  sn1: _this.sn1,
-                  sn2: _this.sn2,
-                  fmh1: _this.fmh1,
-                  fmh2: _this.fmh2,
-                  s: _this.s,
-                  wjj1: _this.wjj1,
-                  wjj2: _this.wjj2,
-                  wjj3: _this.wjj3,
-                  rl: _this.rl
-                });
+                return (0, _api.SysDictQueryValue)();
               case 3:
                 res = _context.sent;
+                _this.sgbws = res.data.sgbws || [];
+                _this.hntzls = res.data.hntzls || [];
+                _this.hntjps = res.data.hntjps || [];
+                _this.tlds = res.data.tlds || [];
+                _this.zdljs = res.data.zdljs || [];
+                _this.qddjs = res.data.qddjs || [];
+                _context.next = 16;
+                break;
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](0);
+                console.error('获取字典值失败', _context.t0);
+                uni.showToast({
+                  title: '获取下拉选项数据失败',
+                  icon: 'none'
+                });
+              case 16:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 12]]);
+      }))();
+    },
+    handleSgbwChange: function handleSgbwChange(e) {
+      this.sgbwIndex = e.detail.value;
+      this.sgbw = this.sgbws[this.sgbwIndex];
+    },
+    handleHntzlChange: function handleHntzlChange(e) {
+      this.hntzlIndex = e.detail.value;
+      this.hntzl = this.hntzls[this.hntzlIndex];
+    },
+    handleQddjChange: function handleQddjChange(e) {
+      this.qddjIndex = e.detail.value;
+      this.qddj = this.qddjs[this.qddjIndex];
+    },
+    handleHntjpChange: function handleHntjpChange(e) {
+      this.hntjpIndex = e.detail.value;
+      this.hntjp = this.hntjps[this.hntjpIndex];
+    },
+    handleTldChange: function handleTldChange(e) {
+      this.tldIndex = e.detail.value;
+      this.tld = this.tlds[this.tldIndex];
+    },
+    handleZdljChange: function handleZdljChange(e) {
+      this.zdljIndex = e.detail.value;
+      this.zdlj = this.zdljs[this.zdljIndex];
+    },
+    SysDictQueryValueList: function SysDictQueryValueList() {
+      (0, _api.SysDictQueryValue)();
+    },
+    validatePbbh: function validatePbbh() {
+      if (!this.pbbh) {
+        this.pbbhError = '配比编号不能为空';
+      } else {
+        this.pbbhError = '';
+      }
+    },
+    validateJbsj: function validateJbsj() {
+      if (this.jbsj <= 0) {
+        this.jbsjError = '搅拌时间需为大于 0 的数字';
+      } else {
+        this.jbsjError = '';
+      }
+    },
+    validatePositiveNumber: function validatePositiveNumber(field) {
+      var fieldMap = {
+        ds: '大石',
+        zs1: '中石1',
+        zs2: '中石2',
+        xs: '小石',
+        s1: '砂1',
+        s2: '砂2',
+        b: '冰',
+        sn1: '水泥1',
+        sn2: '水泥2',
+        fmh1: '粉煤灰1',
+        fmh2: '粉煤灰2',
+        s: '水',
+        wjj1: '外加剂1',
+        wjj2: '外加剂2',
+        wjj3: '外加剂3',
+        rl: '容量'
+      };
+      var value = this[field];
+      if (isNaN(value) || value < 0) {
+        this["".concat(field, "Error")] = "".concat(fieldMap[field], " \u9700\u8F93\u5165\u5927\u4E8E\u96F6\u7684\u6570\u5B57");
+        this[field] = 0;
+      } else {
+        this["".concat(field, "Error")] = '';
+      }
+    },
+    filterNonNumeric: function filterNonNumeric(e, field) {
+      var inputValue = e.detail.value;
+      var validValue = inputValue.replace(/[^0-9.]/g, '');
+
+      // 处理连续多个小数点的情况
+      while (validValue.includes('..')) {
+        validValue = validValue.replace('..', '.');
+      }
+
+      // 处理开头为小数点的情况
+      if (validValue.startsWith('.')) {
+        validValue = '0' + validValue;
+      }
+
+      // 处理结尾为小数点的情况
+      if (validValue.endsWith('.')) {
+        validValue = validValue.slice(0, -1);
+      }
+      var numValue = parseFloat(validValue);
+      if (isNaN(numValue)) {
+        this[field] = 0;
+      } else {
+        this[field] = numValue;
+      }
+      this.validatePositiveNumber(field);
+      this.jisuan();
+    },
+    jisuan: function jisuan() {
+      this.rl = Number(this.ds) + Number(this.zs1) + Number(this.zs2) + Number(this.xs) + Number(this.s1) + Number(this.s2) + Number(this.b) + Number(this.sn1) + Number(this.sn2) + Number(this.fmh1) + Number(this.fmh2) + Number(this.s) + Number(this.wjj1) + Number(this.wjj2) + Number(this.wjj3);
+      this.rl = this.rl.toFixed(2);
+    },
+    save: function save() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.validatePbbh();
+                _this2.validateJbsj();
+                _this2.validatePositiveNumber('ds');
+                _this2.validatePositiveNumber('zs1');
+                _this2.validatePositiveNumber('zs2');
+                _this2.validatePositiveNumber('xs');
+                _this2.validatePositiveNumber('s1');
+                _this2.validatePositiveNumber('s2');
+                _this2.validatePositiveNumber('b');
+                _this2.validatePositiveNumber('sn1');
+                _this2.validatePositiveNumber('sn2');
+                _this2.validatePositiveNumber('fmh1');
+                _this2.validatePositiveNumber('fmh2');
+                _this2.validatePositiveNumber('s');
+                _this2.validatePositiveNumber('wjj1');
+                _this2.validatePositiveNumber('wjj2');
+                _this2.validatePositiveNumber('wjj3');
+                _this2.validatePositiveNumber('rl');
+                if (!(_this2.pbbhError || _this2.jbsjError || _this2.dsError || _this2.zs1Error || _this2.zs2Error || _this2.xsError || _this2.s1Error || _this2.s2Error || _this2.bError || _this2.sn1Error || _this2.sn2Error || _this2.fmh1Error || _this2.fmh2Error || _this2.sError || _this2.wjj1Error || _this2.wjj2Error || _this2.wjj3Error || _this2.rlError)) {
+                  _context2.next = 20;
+                  break;
+                }
+                return _context2.abrupt("return");
+              case 20:
+                _context2.prev = 20;
+                _context2.next = 23;
+                return (0, _api.ratioSave)({
+                  pbbh: _this2.pbbh,
+                  sgbw: _this2.sgbw,
+                  hntzl: _this2.hntzl,
+                  ghrq: _this2.ghrq,
+                  planDate: _this2.planDate,
+                  zdlj: _this2.zdlj,
+                  hntjp: _this2.hntjp,
+                  jbsj: _this2.jbsj,
+                  tld: _this2.tld,
+                  ds: _this2.ds,
+                  zs1: _this2.zs1,
+                  qddj: _this2.qddj,
+                  bz: _this2.bz,
+                  phbsfsh: 0,
+                  pumpingType: _this2.pumpingType,
+                  pumpingParams: _this2.pumpingParams,
+                  zs2: _this2.zs2,
+                  invoiceDate: _this2.invoiceDate,
+                  invoicePerson: _this2.invoicePerson,
+                  taskSheetStatus: _this2.taskSheetStatus,
+                  pumpingMachine: _this2.pumpingMachine,
+                  pumpingPipe: _this2.pumpingPipe,
+                  expansionType: _this2.expansionType,
+                  xs: _this2.xs,
+                  s1: _this2.s1,
+                  s2: _this2.s2,
+                  b: _this2.b,
+                  sn1: _this2.sn1,
+                  sn2: _this2.sn2,
+                  fmh1: _this2.fmh1,
+                  fmh2: _this2.fmh2,
+                  s: _this2.s,
+                  wjj1: _this2.wjj1,
+                  wjj2: _this2.wjj2,
+                  wjj3: _this2.wjj3,
+                  rl: _this2.rl
+                });
+              case 23:
+                res = _context2.sent;
                 console.log('res', res);
                 if (res.success) {
                   uni.showToast({
@@ -385,21 +619,20 @@ var _default = {
                     icon: "error"
                   });
                 }
-                _context.next = 11;
+                _context2.next = 31;
                 break;
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
-                //TODO handle the exception
+              case 28:
+                _context2.prev = 28;
+                _context2.t0 = _context2["catch"](20);
                 uni.showToast({
                   title: '创建失败'
                 });
-              case 11:
+              case 31:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee2, null, [[20, 28]]);
       }))();
     },
     bindDateChange: function bindDateChange(e) {

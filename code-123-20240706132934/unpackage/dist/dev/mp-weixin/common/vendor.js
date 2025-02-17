@@ -10146,6 +10146,7 @@ function request(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SysDictQueryValue = SysDictQueryValue;
 exports.cardDelete = cardDelete;
 exports.cardQuery = cardQuery;
 exports.cardSave = cardSave;
@@ -10198,6 +10199,11 @@ function vehicleSave(data) {
 }
 function vehicleDelete(data) {
   return (0, _index.request)('/hydropower/hydropower/vehicle/scheduling/delete', data, 'POST');
+}
+
+// 字典
+function SysDictQueryValue(data) {
+  return (0, _index.request)('/hydropower/hydropower/sys/dict/queryValue', data, 'POST');
 }
 
 /***/ }),

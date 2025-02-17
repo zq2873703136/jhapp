@@ -51,3 +51,9 @@ export function vehicleSave(data) {
 export function vehicleDelete(data) {
 	return request('/hydropower/hydropower/vehicle/scheduling/delete', data, 'POST')
 }
+
+
+// 字典
+export function SysDictQueryValue(data) {
+	return request('/hydropower/hydropower/sys/dict/queryValue', data, 'POST')
+}

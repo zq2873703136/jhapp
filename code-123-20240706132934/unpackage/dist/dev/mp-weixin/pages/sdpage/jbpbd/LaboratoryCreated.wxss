@@ -233,3 +233,10 @@
 	height: 32rpx;
 }
 
+/* 新增错误提示样式 */
+.error-tip.data-v-12593a6c {
+	color: red;
+	font-size: 20rpx;
+	margin-top: 5rpx;
+}
+
