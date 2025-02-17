@@ -322,6 +322,24 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   props: {},
@@ -438,28 +456,49 @@ var _default = {
       this.sgbwIndex = e.detail.value;
       this.sgbw = this.sgbws[this.sgbwIndex];
     },
+    handleSgbwInput: function handleSgbwInput(e) {
+      this.sgbw = e.detail.value;
+      this.sgbwIndex = -1; // 手动输入时取消选中状态
+    },
     handleHntzlChange: function handleHntzlChange(e) {
       this.hntzlIndex = e.detail.value;
       this.hntzl = this.hntzls[this.hntzlIndex];
+    },
+    handleHntzlInput: function handleHntzlInput(e) {
+      this.hntzl = e.detail.value;
+      this.hntzlIndex = -1; // 手动输入时取消选中状态
     },
     handleQddjChange: function handleQddjChange(e) {
       this.qddjIndex = e.detail.value;
       this.qddj = this.qddjs[this.qddjIndex];
     },
+    handleQddjInput: function handleQddjInput(e) {
+      this.qddj = e.detail.value;
+      this.qddjIndex = -1; // 手动输入时取消选中状态
+    },
     handleHntjpChange: function handleHntjpChange(e) {
       this.hntjpIndex = e.detail.value;
       this.hntjp = this.hntjps[this.hntjpIndex];
+    },
+    handleHntjpInput: function handleHntjpInput(e) {
+      this.hntjp = e.detail.value;
+      this.hntjpIndex = -1; // 手动输入时取消选中状态
     },
     handleTldChange: function handleTldChange(e) {
       this.tldIndex = e.detail.value;
       this.tld = this.tlds[this.tldIndex];
     },
+    handleTldInput: function handleTldInput(e) {
+      this.tld = e.detail.value;
+      this.tldIndex = -1; // 手动输入时取消选中状态
+    },
     handleZdljChange: function handleZdljChange(e) {
       this.zdljIndex = e.detail.value;
       this.zdlj = this.zdljs[this.zdljIndex];
     },
-    SysDictQueryValueList: function SysDictQueryValueList() {
-      (0, _api.SysDictQueryValue)();
+    handleZdljInput: function handleZdljInput(e) {
+      this.zdlj = e.detail.value;
+      this.zdljIndex = -1; // 手动输入时取消选中状态
     },
     validatePbbh: function validatePbbh() {
       if (!this.pbbh) {
@@ -612,7 +651,11 @@ var _default = {
                   uni.showToast({
                     title: '创建成功'
                   });
-                  uni.navigateBack();
+                  setTimeout(function () {
+                    uni.redirectTo({
+                      url: '/pages/sdpage/jbpbd/index'
+                    });
+                  }, 500);
                 } else {
                   uni.showToast({
                     title: res.errorMsg,

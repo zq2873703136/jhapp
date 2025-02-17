@@ -19,27 +19,39 @@
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">施工部位</text>
-                    <picker v-model="sgbwIndex" :range="sgbws" @change="handleSgbwChange">
-                        <view class="mt-12 font_2">{{sgbwIndex==-1?'请选择':sgbws[sgbwIndex]}}</view>
-                    </picker>
+                    <view class="flex-row">
+                        <picker v-model="sgbwIndex" :range="sgbws" @change="handleSgbwChange">
+                            <view class="mt-12 font_2">{{ sgbwIndex === -1 ? '请选择' : sgbws[sgbwIndex] }}</view>
+                        </picker>
+                        <input class="mt-12 font_2" v-model="sgbw" @input="handleSgbwInput" />
+                    </view>
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">混凝土种类</text>
-                    <picker v-model="hntzlIndex" :range="hntzls" @change="handleHntzlChange">
-                        <view class="mt-12 font_2">{{hntzlIndex==-1?'请选择':hntzls[hntzlIndex] }}</view>
-                    </picker>
+                    <view class="flex-row">
+                        <picker v-model="hntzlIndex" :range="hntzls" @change="handleHntzlChange">
+                            <view class="mt-12 font_2">{{ hntzlIndex === -1 ? '请选择' : hntzls[hntzlIndex] }}</view>
+                        </picker>
+                        <input class="mt-12 font_2" v-model="hntzl" @input="handleHntzlInput" />
+                    </view>
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">强度等级</text>
-                    <picker v-model="qddjIndex" :range="qddjs" @change="handleQddjChange">
-                        <view class="mt-12 font_2">{{qddjs[qddjIndex] || '请选择'}}</view>
-                    </picker>
+                    <view class="flex-row">
+                        <picker v-model="qddjIndex" :range="qddjs" @change="handleQddjChange">
+                            <view class="mt-12 font_2">{{ qddjIndex === -1 ? '请选择' : qddjs[qddjIndex] }}</view>
+                        </picker>
+                        <input class="mt-12 font_2" v-model="qddj" @input="handleQddjInput" />
+                    </view>
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">混凝土级配</text>
-                    <picker v-model="hntjpIndex" :range="hntjps" @change="handleHntjpChange">
-                        <view class="mt-12 font_2">{{hntjps[hntjpIndex] || '请选择'}}</view>
-                    </picker>
+                    <view class="flex-row">
+                        <picker v-model="hntjpIndex" :range="hntjps" @change="handleHntjpChange">
+                            <view class="mt-12 font_2">{{ hntjpIndex === -1 ? '请选择' : hntjps[hntjpIndex] }}</view>
+                        </picker>
+                        <input class="mt-12 font_2" v-model="hntjp" @input="handleHntjpInput" />
+                    </view>
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6"><text style="color: red;">*</text>搅拌时间</text>
@@ -48,15 +60,21 @@
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">坍落度</text>
-                    <picker v-model="tldIndex" :range="tlds" @change="handleTldChange">
-                        <view class="mt-12 font_2">{{tlds[tldIndex] || '请选择'}}</view>
-                    </picker>
+                    <view class="flex-row">
+                        <picker v-model="tldIndex" :range="tlds" @change="handleTldChange">
+                            <view class="mt-12 font_2">{{ tldIndex === -1 ? '请选择' : tlds[tldIndex] }}</view>
+                        </picker>
+                        <input class="mt-12 font_2" v-model="tld" @input="handleTldInput" />
+                    </view>
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">最大粒径</text>
-                    <picker v-model="zdljIndex" :range="zdljs" @change="handleZdljChange">
-                        <view class="mt-12 font_2">{{zdljs[zdljIndex] || '请选择'}}</view>
-                    </picker>
+                    <view class="flex-row">
+                        <picker v-model="zdljIndex" :range="zdljs" @change="handleZdljChange">
+                            <view class="mt-12 font_2">{{ zdljIndex === -1 ? '请选择' : zdljs[zdljIndex] }}</view>
+                        </picker>
+                        <input class="mt-12 font_2" v-model="zdlj" @input="handleZdljInput" />
+                    </view>
                 </view>
             </view>
             <view class="flex-col group_2">
@@ -272,32 +290,53 @@
 	            }
 	        },
 	        handleSgbwChange(e) {
-	            this.sgbwIndex = e.detail.value;
-	            this.sgbw = this.sgbws[this.sgbwIndex];
-	        },
-	        handleHntzlChange(e) {
-	            this.hntzlIndex = e.detail.value;
-	            this.hntzl = this.hntzls[this.hntzlIndex];
-	        },
-	        handleQddjChange(e) {
-	            this.qddjIndex = e.detail.value;
-	            this.qddj = this.qddjs[this.qddjIndex];
-	        },
-	        handleHntjpChange(e) {
-	            this.hntjpIndex = e.detail.value;
-	            this.hntjp = this.hntjps[this.hntjpIndex];
-	        },
-	        handleTldChange(e) {
-	            this.tldIndex = e.detail.value;
-	            this.tld = this.tlds[this.tldIndex];
-	        },
-	        handleZdljChange(e) {
-	            this.zdljIndex = e.detail.value;
-	            this.zdlj = this.zdljs[this.zdljIndex];
-	        },
-	        SysDictQueryValueList() {
-	            SysDictQueryValue();
-	        },
+	                    this.sgbwIndex = e.detail.value;
+	                    this.sgbw = this.sgbws[this.sgbwIndex];
+	                },
+	                handleSgbwInput(e) {
+	                    this.sgbw = e.detail.value;
+	                    this.sgbwIndex = -1; // 手动输入时取消选中状态
+	                },
+	                handleHntzlChange(e) {
+	                    this.hntzlIndex = e.detail.value;
+	                    this.hntzl = this.hntzls[this.hntzlIndex];
+	                },
+	                handleHntzlInput(e) {
+	                    this.hntzl = e.detail.value;
+	                    this.hntzlIndex = -1; // 手动输入时取消选中状态
+	                },
+	                handleQddjChange(e) {
+	                    this.qddjIndex = e.detail.value;
+	                    this.qddj = this.qddjs[this.qddjIndex];
+	                },
+	                handleQddjInput(e) {
+	                    this.qddj = e.detail.value;
+	                    this.qddjIndex = -1; // 手动输入时取消选中状态
+	                },
+	                handleHntjpChange(e) {
+	                    this.hntjpIndex = e.detail.value;
+	                    this.hntjp = this.hntjps[this.hntjpIndex];
+	                },
+	                handleHntjpInput(e) {
+	                    this.hntjp = e.detail.value;
+	                    this.hntjpIndex = -1; // 手动输入时取消选中状态
+	                },
+	                handleTldChange(e) {
+	                    this.tldIndex = e.detail.value;
+	                    this.tld = this.tlds[this.tldIndex];
+	                },
+	                handleTldInput(e) {
+	                    this.tld = e.detail.value;
+	                    this.tldIndex = -1; // 手动输入时取消选中状态
+	                },
+	                handleZdljChange(e) {
+	                    this.zdljIndex = e.detail.value;
+	                    this.zdlj = this.zdljs[this.zdljIndex];
+	                },
+	                handleZdljInput(e) {
+	                    this.zdlj = e.detail.value;
+	                    this.zdljIndex = -1; // 手动输入时取消选中状态
+	                },
 	        validatePbbh() {
 	            if (!this.pbbh) {
 	                this.pbbhError = '配比编号不能为空';
@@ -460,7 +499,11 @@
 	                    uni.showToast({
 	                        title: '创建成功'
 	                    });
-	                    uni.navigateBack();
+	                    setTimeout(()=>{
+	                    	uni.redirectTo({
+	                    		url: '/pages/sdpage/jbpbd/index'
+	                    	});
+	                    },500)
 	                } else {
 	                    uni.showToast({
 	                        title: res.errorMsg,
