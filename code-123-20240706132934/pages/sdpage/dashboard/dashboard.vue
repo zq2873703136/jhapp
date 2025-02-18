@@ -60,7 +60,7 @@
             class="image_10"
             src="../../../static/page03/b4c341d080ffd38286c5d1feac29609b.png"
           />
-          <text class="font_2 text_6 mt-15">任务单查询</text>
+          <text class="font_2 text_6 mt-15">任务单列表</text>
         </view>
 		<view class="flex-col items-start grid-item" @click="push('/pages/sdpage/rwd/TaskCreated')">
 		  <image

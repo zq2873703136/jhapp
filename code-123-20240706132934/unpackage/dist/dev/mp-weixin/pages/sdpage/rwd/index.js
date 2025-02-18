@@ -163,6 +163,11 @@ exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 39));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 41));
 var _api = __webpack_require__(/*! @/request/api2.js */ 44);
+var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
+//
+//
+//
+//
 //
 //
 //
@@ -220,8 +225,21 @@ var _default = {
       searchRwdh: '',
       currentPage: 1,
       pageSize: 10,
-      loading: false
+      loading: false,
+      sfyqxsh: false,
+      userRole: ''
     };
+  },
+  computed: {
+    isAdminOrAuditor: function isAdminOrAuditor() {
+      var _this = this;
+      (0, _publicData.getUserInfo)().then(function (res) {
+        console.log('isAdminOrAuditor  getUserInfo:::', res.data.roles === '超级管理员' || res.data.roles === '审核员');
+        _this.userRole = res.data.roles;
+        // 判断用户是否为超级管理员或者审核员
+        _this.sfyqxsh = res.data.roles === '超级管理员' || res.data.roles === '审核员';
+      });
+    }
   },
   onLoad: function onLoad() {
     this.getList();
@@ -234,7 +252,7 @@ var _default = {
   methods: {
     back: function back() {
       // uni.navigateBack(1)
-      uni.navigateTo({
+      uni.redirectTo({
         url: '/pages/sdpage/dashboard/dashboard'
       });
     },
@@ -245,31 +263,31 @@ var _default = {
       });
     },
     getList: function getList() {
-      var _this = this;
+      var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
         var params, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.loading = true;
+                _this2.loading = true;
                 _context.prev = 1;
                 params = {
-                  rwdh: _this.searchRwdh,
-                  currentPage: _this.currentPage,
-                  pageSize: _this.pageSize
+                  rwdh: _this2.searchRwdh,
+                  currentPage: _this2.currentPage,
+                  pageSize: _this2.pageSize
                 };
                 _context.next = 5;
                 return (0, _api.taskSheetQuery)(params);
               case 5:
                 res = _context.sent;
                 console.log(res, 'res');
-                if (_this.currentPage === 1) {
-                  _this.list = res.data;
+                if (_this2.currentPage === 1) {
+                  _this2.list = res.data;
                 } else {
-                  _this.list = _this.list.concat(res.data);
+                  _this2.list = _this2.list.concat(res.data);
                 }
-                _this.currentPage++;
+                _this2.currentPage++;
                 _context.next = 14;
                 break;
               case 11:
@@ -278,7 +296,7 @@ var _default = {
                 console.error('数据请求失败', _context.t0);
               case 14:
                 _context.prev = 14;
-                _this.loading = false;
+                _this2.loading = false;
                 return _context.finish(14);
               case 17:
               case "end":
@@ -310,7 +328,7 @@ var _default = {
       return date;
     },
     deleteTask: function deleteTask(item, index) {
-      var _this2 = this;
+      var _this3 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
         return _regenerator.default.wrap(function _callee3$(_context3) {
           while (1) {
@@ -345,7 +363,7 @@ var _default = {
                                   title: '删除成功'
                                 });
                                 // 从列表中移除已删除的项
-                                _this2.list.splice(index, 1);
+                                _this3.list.splice(index, 1);
                               } else {
                                 uni.showToast({
                                   title: deleteRes.errorMsg,
@@ -382,6 +400,12 @@ var _default = {
           }
         }, _callee3);
       }))();
+    },
+    auditTask: function auditTask(item) {
+      console.log(item, '审核');
+      uni.navigateTo({
+        url: '/pages/sdpage/rwd/AuditTask' + '?data=' + JSON.stringify(item)
+      });
     }
   }
 };

@@ -22,7 +22,6 @@
                     <view class="flex-col section_4">
                         <text class="self-start font text_3">配比编号：{{item.pbbh}}</text>
                         <view class="mt-16 flex-row items-center self-stretch">
-                            <image class="image_7" src="../../../static/page18/c5c89fc32c73b0acc4b7c0beb3d5ece3.png" />
                             <view class="ml-8 flex-col">
                                 <view class="flex-row self-stretch">
                                     <image class="shrink-0 self-center image_8" src="../../../static/page18/59cde161d653b78e114fc46715088e77.png" />
@@ -47,7 +46,7 @@
 <script>
 import {
     ratioQuery,
-    ratioDelete // 假设存在删除接口
+    ratioDelete
 } from '@/request/api2.js'
 
 export default {
