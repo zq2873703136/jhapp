@@ -10146,6 +10146,7 @@ function request(url) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.QueryTaskSheetCode = QueryTaskSheetCode;
 exports.SysDictQueryValue = SysDictQueryValue;
 exports.cardDelete = cardDelete;
 exports.cardQuery = cardQuery;
@@ -10172,6 +10173,9 @@ function taskSheetSave(data) {
 }
 function taskSheetDelete(data) {
   return (0, _index.request)('/hydropower/hydropower/taskSheet/delete', data, 'POST');
+}
+function QueryTaskSheetCode(data) {
+  return (0, _index.request)('/hydropower/hydropower/taskSheet/genTaskSheetCode', data, 'POST');
 }
 function ratioQuery(data) {
   return (0, _index.request)('/hydropower/hydropower/laboratory/ratio/query', data, 'POST');

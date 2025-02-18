@@ -152,11 +152,9 @@ var _default = {
   components: {},
   props: {},
   data: function data() {
-    var _form;
     return {
-      form2: (_form = {
+      form2: {
         id: 0,
-        pickerRange: ['汽车泵', '地泵', '非泵', '塔吊', '自备泵'],
         pickerIndex: 0,
         jzfs: '',
         planDate: '',
@@ -170,86 +168,275 @@ var _default = {
         gcbw: '',
         jhfl: '',
         yj: '',
-        qddj: ''
-      }, (0, _defineProperty2.default)(_form, "jzfs", ''), (0, _defineProperty2.default)(_form, "tld", ''), (0, _defineProperty2.default)(_form, "zdlj", ''), (0, _defineProperty2.default)(_form, "bz", ''), _form)
+        qddj: '',
+        tld: '',
+        zdlj: '',
+        bz: ''
+      },
+      yhdws: [],
+      gcmcs: [],
+      gcdzs: [],
+      gcbws: [],
+      qddjs: [],
+      tlds: [],
+      zdljs: [],
+      jzfsList: [],
+      yhdwIndex: -1,
+      gcmcIndex: -1,
+      gcdzIndex: -1,
+      gcbwIndex: -1,
+      qddjIndex: -1,
+      tldIndex: -1,
+      zdljIndex: -1,
+      jzfsIndex: -1,
+      jhflError: '',
+      yjError: '',
+      ghrqError: '',
+      zdljError: ''
     };
   },
   onLoad: function onLoad(query) {
-    console.log(query, 'query');
     if (query.data) {
-      console.log(query.data, 'query.data');
       var res = JSON.parse(query.data);
-      console.log(res, 'res');
-      console.log(res.ghrq, 'res.ghrq');
-      if (res.ghrq && res.ghrq.indexOf('T')) {
+      if (res.ghrq && res.ghrq.includes('T')) {
         res.ghrq = res.ghrq.split('T')[0];
       }
       this.form2 = _objectSpread(_objectSpread({}, this.form2), res);
-      console.log(this.form2, 'this.form2');
+      this.initPickerIndex();
     }
+    this.getDictValues();
   },
   methods: {
-    save: function save() {
+    initPickerIndex: function initPickerIndex() {
       var _this = this;
+      this.yhdwIndex = this.yhdws.findIndex(function (item) {
+        return item === _this.form2.yhdw;
+      });
+      this.gcmcIndex = this.gcmcs.findIndex(function (item) {
+        return item === _this.form2.gcmc;
+      });
+      this.gcdzIndex = this.gcdzs.findIndex(function (item) {
+        return item === _this.form2.gcdz;
+      });
+      this.gcbwIndex = this.gcbws.findIndex(function (item) {
+        return item === _this.form2.gcbw;
+      });
+      this.qddjIndex = this.qddjs.findIndex(function (item) {
+        return item === _this.form2.qddj;
+      });
+      this.tldIndex = this.tlds.findIndex(function (item) {
+        return item === _this.form2.tld;
+      });
+      this.zdljIndex = this.zdljs.findIndex(function (item) {
+        return item === _this.form2.zdlj;
+      });
+      this.jzfsIndex = this.jzfsList.findIndex(function (item) {
+        return item === _this.form2.jzfs;
+      });
+      console.log('this.jzfsIndex ', this.jzfsIndex);
+      console.log('this.jzfsList ', this.jzfsList);
+    },
+    getDictValues: function getDictValues() {
+      var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var _taskSheetSave, res;
+        var res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return (0, _api.taskSheetSave)((_taskSheetSave = {
-                  id: _this.form2.id,
-                  taskSheetCode: _this.form2.taskSheetCode,
-                  rwdh: _this.form2.rwdh,
-                  htbh: _this.form2.htbh,
-                  // ... 其他属性，使用 this.propertyName 来访问  
-                  ghrq: _this.form2.ghrq,
-                  planDate: _this.form2.planDate,
-                  yhdw: _this.form2.yhdw,
-                  gcmc: _this.form2.gcmc,
-                  gcdz: _this.form2.gcdz,
-                  gcbw: _this.form2.gcbw,
-                  jhfl: _this.form2.jhfl,
-                  remainConcreteQuantity: _this.form2.remainConcreteQuantity,
-                  yj: _this.form2.yj,
-                  qddj: _this.form2.qddj,
-                  jzfs: _this.form2.jzfs
-                }, (0, _defineProperty2.default)(_taskSheetSave, "jzfs", _this.form2.jzfs), (0, _defineProperty2.default)(_taskSheetSave, "pumpingParams", _this.form2.pumpingParams), (0, _defineProperty2.default)(_taskSheetSave, "tld", _this.form2.tld), (0, _defineProperty2.default)(_taskSheetSave, "zdlj", _this.form2.zdlj), (0, _defineProperty2.default)(_taskSheetSave, "bz", _this.form2.bz), _taskSheetSave));
+                return (0, _api.SysDictQueryValue)();
               case 3:
                 res = _context.sent;
-                uni.showToast({
-                  title: '编辑成功'
-                });
-                uni.navigateBack();
-                _context.next = 11;
+                _this2.yhdws = res.data.yhdws || [];
+                _this2.gcmcs = res.data.gcmcs || [];
+                _this2.gcdzs = res.data.gcdzs || [];
+                _this2.gcbws = res.data.gcbws || [];
+                _this2.qddjs = res.data.qddjs || [];
+                _this2.tlds = res.data.tlds || [];
+                _this2.zdljs = res.data.zdljs || [];
+                _this2.jzfsList = res.data.jzfss || [];
+                _context.next = 18;
                 break;
-              case 8:
-                _context.prev = 8;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](0);
-                //TODO handle the exception
+                console.error('获取字典值失败', _context.t0);
                 uni.showToast({
-                  title: '编辑失败'
+                  title: '获取下拉选项数据失败',
+                  icon: 'none'
                 });
-              case 11:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 14]]);
       }))();
     },
+    handleYhdwChange: function handleYhdwChange(e) {
+      this.yhdwIndex = e.detail.value;
+      this.form2.yhdw = this.yhdws[this.yhdwIndex];
+    },
+    handleYhdwInput: function handleYhdwInput(e) {
+      this.form2.yhdw = e.detail.value;
+      this.yhdwIndex = -1;
+    },
+    handleGcmcChange: function handleGcmcChange(e) {
+      this.gcmcIndex = e.detail.value;
+      this.form2.gcmc = this.gcmcs[this.gcmcIndex];
+    },
+    handleGcmcInput: function handleGcmcInput(e) {
+      this.form2.gcmc = e.detail.value;
+      this.gcmcIndex = -1;
+    },
+    handleGcdzChange: function handleGcdzChange(e) {
+      this.gcdzIndex = e.detail.value;
+      this.form2.gcdz = this.gcdzs[this.gcdzIndex];
+    },
+    handleGcdzInput: function handleGcdzInput(e) {
+      this.form2.gcdz = e.detail.value;
+      this.gcdzIndex = -1;
+    },
+    handleGcbwChange: function handleGcbwChange(e) {
+      this.gcbwIndex = e.detail.value;
+      this.form2.gcbw = this.gcbws[this.gcbwIndex];
+    },
+    handleGcbwInput: function handleGcbwInput(e) {
+      this.form2.gcbw = e.detail.value;
+      this.gcbwIndex = -1;
+    },
+    handleQddjChange: function handleQddjChange(e) {
+      this.qddjIndex = e.detail.value;
+      this.form2.qddj = this.qddjs[this.qddjIndex];
+    },
+    handleQddjInput: function handleQddjInput(e) {
+      this.form2.qddj = e.detail.value;
+      this.qddjIndex = -1;
+    },
+    handleTldChange: function handleTldChange(e) {
+      this.tldIndex = e.detail.value;
+      this.form2.tld = this.tlds[this.tldIndex];
+    },
+    handleTldInput: function handleTldInput(e) {
+      this.form2.tld = e.detail.value;
+      this.tldIndex = -1;
+    },
+    handleJzfsChange: function handleJzfsChange(e) {
+      this.jzfsIndex = e.detail.value;
+      this.form2.jzfs = this.jzfsList[this.jzfsIndex];
+    },
+    handleJzfsInput: function handleJzfsInput(e) {
+      this.form2.jzfs = e.detail.value;
+      this.jzfsIndex = -1;
+    },
+    handleZdljChange: function handleZdljChange(e) {
+      this.zdljIndex = e.detail.value;
+      this.form2.zdlj = this.zdljs[this.zdljIndex];
+    },
+    handleZdljInput: function handleZdljInput(e) {
+      this.form2.zdlj = e.detail.value;
+      this.zdljIndex = -1;
+    },
+    filterNonNumeric: function filterNonNumeric(e, field) {
+      var inputValue = e.detail.value;
+      var validValue = inputValue.replace(/[^0-9.]/g, '');
+      while (validValue.includes('..')) {
+        validValue = validValue.replace('..', '.');
+      }
+      if (validValue.startsWith('.')) {
+        validValue = '0' + validValue;
+      }
+      if (validValue.endsWith('.')) {
+        validValue = validValue.slice(0, -1);
+      }
+      var numValue = parseFloat(validValue);
+      if (isNaN(numValue)) {
+        this.form2[field] = 0;
+      } else {
+        this.form2[field] = numValue;
+      }
+      this.validatePositiveNumber(field);
+    },
+    validatePositiveNumber: function validatePositiveNumber(field) {
+      var _this3 = this;
+      return function (e) {
+        var value = e.detail.value;
+        if (isNaN(value) || parseFloat(value) <= 0) {
+          _this3["".concat(field, "Error")] = "".concat(field === 'jhfl' ? '计划方量' : field === 'zdlj' ? '最大粒径' : '运距', " \u9700\u8F93\u5165\u5927\u4E8E\u96F6\u7684\u6570\u5B57");
+          _this3.form2[field] = '';
+        } else {
+          _this3["".concat(field, "Error")] = '';
+          _this3.form2[field] = parseFloat(value);
+        }
+      };
+    },
     bindDateChange: function bindDateChange(e) {
-      console.log('e.detail.value', e.detail.value);
       this.form2.ghrq = e.detail.value;
+      this.ghrqError = '';
     },
-    bindDateChange2: function bindDateChange2(e) {
-      this.form2.planDate = e.detail.value;
-    },
-    bindPickerChange3: function bindPickerChange3(e) {
-      this.form2.pickerIndex = e.detail.value;
-      this.form2.jzfs = this.form2.pickerRange[this.form2.pickerIndex];
+    save: function save() {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (_this4.form2.ghrq) {
+                  _context2.next = 3;
+                  break;
+                }
+                _this4.ghrqError = '供货日期为必填项';
+                return _context2.abrupt("return");
+              case 3:
+                _context2.prev = 3;
+                _context2.next = 6;
+                return (0, _api.taskSheetSave)({
+                  id: _this4.form2.id,
+                  taskSheetCode: _this4.form2.taskSheetCode,
+                  rwdh: _this4.form2.rwdh,
+                  htbh: _this4.form2.htbh,
+                  ghrq: _this4.form2.ghrq,
+                  planDate: _this4.form2.planDate,
+                  yhdw: _this4.form2.yhdw,
+                  gcmc: _this4.form2.gcmc,
+                  gcdz: _this4.form2.gcdz,
+                  gcbw: _this4.form2.gcbw,
+                  jhfl: _this4.form2.jhfl,
+                  remainConcreteQuantity: _this4.form2.remainConcreteQuantity,
+                  yj: _this4.form2.yj,
+                  qddj: _this4.form2.qddj,
+                  jzfs: _this4.form2.jzfs,
+                  pumpingParams: _this4.form2.pumpingParams,
+                  tld: _this4.form2.tld,
+                  zdlj: _this4.form2.zdlj,
+                  bz: _this4.form2.bz
+                });
+              case 6:
+                res = _context2.sent;
+                uni.showToast({
+                  title: '编辑成功'
+                });
+                setTimeout(function () {
+                  _this4.returnList();
+                }, 500);
+                _context2.next = 14;
+                break;
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](3);
+                uni.showToast({
+                  title: '编辑失败'
+                });
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[3, 11]]);
+      }))();
     },
     returnList: function returnList() {
       console.log('返回任务单列表');

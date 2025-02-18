@@ -1,8 +1,8 @@
 <template>
-
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<image @click="returnList()" class="image_4 pos_3"
+			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		<text class="text_2 pos_2">新增任务单</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -13,112 +13,133 @@
 		<view class="flex-col section_3 pos_10">
 			<view class="divider view"></view>
 			<view class="flex-col group_2">
-				<text class="self-start font text_5">供货日期</text>
+				<text class="self-start font text_5"><text style="color: red;">*</text>供货日期</text>
 				<view class="flex-row justify-between self-stretch group_3">
 					<view class="self-start font_2">
-						<picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31"
-							@change="bindDateChange">
+						<picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31" @change="bindDateChange">
 							<view>{{ghrq || '请选择日期'}}</view>
 						</picker>
 					</view>
 					<image class="self-center image_7"
 						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
 				</view>
+				<view v-if="ghrqError" class="error-tip">{{ghrqError}}</view>
 			</view>
+
 			<view class="flex-col group_2">
-<!-- 				<text class="self-start font text_5">预计开始时间</text>
-				<view class="flex-row justify-between self-stretch group_3">
-					<view class="self-start font_2">
-						<picker mode="date" :value="planDate" start="1900-01-01" end="2100-12-31"
-							@change="bindDateChange2">
-							<view>{{planDate || '请选择日期'}}</view>
-						</picker>
-					</view>
-					<image class="self-center image_7"
-						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
-				</view> -->
-<!-- 				<view class="flex-col items-start input group_4">
-					<text class="font text_6">任务单编号</text>
-					<input class="mt-12 font_2" v-model="rwdh" />
-				</view> -->
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">任务单号</text>
+					<input class="mt-12 font_2" v-model="rwdh" disabled="true" />
+				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">合同编号</text>
 					<input class="mt-12 font_2" v-model="htbh" />
 				</view>
-<!-- 				<view class="flex-col items-start input group_4">
-					<text class="font text_6">配比审核人</text>
-					<input class="mt-12 font_2" v-model="phbshy" />
-				</view> -->
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">用户单位</text>
-					<input class="mt-12 font_2" v-model="yhdw" />
+					<view class="flex-row">
+						<picker v-model="yhdwIndex" :range="yhdws" @change="handleYhdwChange">
+							<view class="mt-12 font_2">
+								{{ yhdwIndex === -1? '请选择' : yhdws[yhdwIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="yhdw" @input="handleYhdwInput" />
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">工程名称</text>
-					<input class="mt-12 font_2" v-model="gcmc" />
+					<view class="flex-row">
+						<picker v-model="gcmcIndex" :range="gcmcs" @change="handleGcmcChange">
+							<view class="mt-12 font_2">
+								{{ gcmcIndex === -1? '请选择' : gcmcs[gcmcIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="gcmc" @input="handleGcmcInput" />
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">工程地址</text>
-					<input class="mt-12 font_2" v-model="gcdz" />
+					<view class="flex-row">
+						<picker v-model="gcdzIndex" :range="gcdzs" @change="handleGcdzChange">
+							<view class="mt-12 font_2">
+								{{ gcdzIndex === -1? '请选择' : gcdzs[gcdzIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="gcdz" @input="handleGcdzInput" />
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">工程部位</text>
-					<input class="mt-12 font_2" v-model="gcbw" />
+					<view class="flex-row">
+						<picker v-model="gcbwIndex" :range="gcbws" @change="handleGcbwChange">
+							<view class="mt-12 font_2">
+								{{ gcbwIndex === -1? '请选择' : gcbws[gcbwIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="gcbw" @input="handleGcbwInput" />
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">强度等级</text>
-					<input class="mt-12 font_2" v-model="qddj" />
+					<view class="flex-row">
+						<picker v-model="qddjIndex" :range="qddjs" @change="handleQddjChange">
+							<view class="mt-12 font_2">
+								{{ qddjIndex === -1? '请选择' : qddjs[qddjIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="qddj" @input="handleQddjInput" />
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">计划方量</text>
-					<input class="mt-12 font_2" v-model="jhfl" />
+					<input class="mt-12 font_2" v-model="jhfl" type="number" @input="filterNonNumeric($event, 'jhfl')" />
+					<view v-if="jhflError" class="error-tip">{{jhflError}}</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">运距</text>
-					<input class="mt-12 font_2" v-model="yj" />
+					<input class="mt-12 font_2" v-model="yj" type="number" @input="filterNonNumeric($event, 'yj')" />
+					<view v-if="yjError" class="error-tip">{{yjError}}</view>
 				</view>
 			</view>
 			<view class="flex-col group_2">
-				<text class="self-start font text_5">浇筑方式</text>
-				<view class="flex-row justify-between self-stretch group_3">
-					<view class="self-start font_2">
-						<picker @change="bindPickerChange3" :value="jzfs" :range="pickerRange">
-							<view class="picker">
-								当前选择：{{pumpingType}}
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">浇筑方式</text>
+					<view class="flex-row">
+						<picker v-model="jzfsIndex" :range="jzfsList" @change="handleJzfsChange">
+							<view class="mt-12 font_2">
+								{{ jzfsIndex === -1? '请选择' : jzfsList[jzfsIndex] }}
 							</view>
 						</picker>
+						<input class="mt-12 font_2" v-model="jzfs" @input="handleJzfsInput" />
 					</view>
-					<image class="self-center image_7"
-						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">坍落度</text>
-					<input class="mt-12 font_2" v-model="tld" />
+					<view class="flex-row">
+						<picker v-model="tldIndex" :range="tlds" @change="handleTldChange">
+							<view class="mt-12 font_2">
+								{{ tldIndex === -1? '请选择' : tlds[tldIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="tld" @input="handleTldInput" />
+					</view>
 				</view>
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">最大粒径</text>
-					<input class="mt-12 font_2" v-model="zdlj" />
+					<view class="flex-row">
+						<picker v-model="zdljIndex" :range="zdljs" @change="handleZdljChange">
+							<view class="mt-12 font_2">
+								{{ zdljIndex === -1? '请选择' : zdljs[zdljIndex] }}
+							</view>
+						</picker>
+						<input class="mt-12 font_2" v-model="zdlj" @input="handleZdljInput" />
+					</view>
 				</view>
-
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">备注</text>
 					<input class="mt-12 font_2" v-model="bz" />
 				</view>
 			</view>
-			<!-- 			<view class="flex-col items-start group_5">
-				<text class="font text_7">合同编号</text>
-				<text class="mt-12 font_2">24070403</text>
-			</view>
-			<view class="flex-col justify-start">
-				<view class="flex-col items-start group_6">
-					<text class="font text_8">施工单位</text>
-					<text class="mt-12 font_3 text_9">xxxx 单位</text>
-				</view>
-			</view>
-			<view class="flex-col items-start group_7">
-				<text class="font text_10">工程名称</text>
-				<text class="mt-12 font_3 text_11">xxx 工程</text>
-			</view> -->
 			<view class="divider_2 divider"></view>
 			<view class="flex-col group_8">
 				<view class="flex-row justify-end section_4" @click="save">
@@ -132,29 +153,29 @@
 	</view>
 </template>
 
+
+
 <script>
-	
 	import {
-		taskSheetSave
+		taskSheetSave,
+		QueryTaskSheetCode,
+		SysDictQueryValue
 	} from '@/request/api2.js'
-	
+
 	export default {
 		components: {},
 		props: {},
 		data() {
 			return {
-				pickerRange: ['汽车泵', '地泵', '非泵', '塔吊', '自备泵'],
-				jzfs: 0,
-				pumpingType: '',
-				planDate: '',
-				ghrq: '',
-				rwdh: '',
-				htbh:'',
-				phbshy:'',
+				jzfs: '',
+				jzfsIndex: -1,
+				ghrq: this.getTomorrowDate(),
+				htbh: '',
+				phbshy: '',
 				demander: '',
 				yhdw: '',
 				gcmc: '',
-				gcdz:'',
+				gcdz: '',
 				gcbw: '',
 				jhfl: '',
 				yj: '',
@@ -164,32 +185,203 @@
 				pumpingMachine: '',
 				pumpingPipe: '',
 				expansionType: '',
-				zdlj: ''
+				zdlj: '',
+				rwdh: '',
+				yhdws: [],
+				gcmcs: [],
+				gcdzs: [],
+				gcbws: [],
+				qddjs: [],
+				tlds: [],
+				zdljs: [],
+				jzfsList: [],
+				yhdwIndex: -1,
+				gcmcIndex: -1,
+				gcdzIndex: -1,
+				gcbwIndex: -1,
+				qddjIndex: -1,
+				tldIndex: -1,
+				zdljIndex: -1,
+				jhflError: '',
+				yjError: '',
+				ghrqError: ''
 			};
 		},
-
+		onLoad() {
+			this.getTaskSheetCode();
+			this.getDictValues();
+		},
 		methods: {
+			async getTaskSheetCode() {
+				try {
+					const res = await QueryTaskSheetCode();
+					this.rwdh = res.data;
+				} catch (e) {
+					console.error('获取任务单号失败', e);
+					uni.showToast({
+						title: '获取任务单号失败',
+						icon: 'none'
+					});
+				}
+			},
+			async getDictValues() {
+				try {
+					const res = await SysDictQueryValue();
+					console.log('getDictValues res', res)
+					this.yhdws = res.data.yhdws || [];
+					this.gcmcs = res.data.gcmcs || [];
+					this.gcdzs = res.data.gcdzs || [];
+					this.gcbws = res.data.gcbws || [];
+					this.qddjs = res.data.qddjs || [];
+					this.tlds = res.data.tlds || [];
+					this.zdljs = res.data.zdljs || [];
+					this.jzfsList = res.data.jzfss || [];
+				} catch (e) {
+					console.error('获取字典值失败', e);
+					uni.showToast({
+						title: '获取下拉选项数据失败',
+						icon: 'none'
+					});
+				}
+			},
+			handleYhdwChange(e) {
+				this.yhdwIndex = e.detail.value;
+				this.yhdw = this.yhdws[this.yhdwIndex];
+			},
+			handleYhdwInput(e) {
+				this.yhdw = e.detail.value;
+				this.yhdwIndex = -1;
+			},
+			handleGcmcChange(e) {
+				this.gcmcIndex = e.detail.value;
+				this.gcmc = this.gcmcs[this.gcmcIndex];
+			},
+			handleGcmcInput(e) {
+				this.gcmc = e.detail.value;
+				this.gcmcIndex = -1;
+			},
+			handleGcdzChange(e) {
+				this.gcdzIndex = e.detail.value;
+				this.gcdz = this.gcdzs[this.gcdzIndex];
+			},
+			handleGcdzInput(e) {
+				this.gcdz = e.detail.value;
+				this.gcdzIndex = -1;
+			},
+			handleGcbwChange(e) {
+				this.gcbwIndex = e.detail.value;
+				this.gcbw = this.gcbws[this.gcbwIndex];
+			},
+			handleGcbwInput(e) {
+				this.gcbw = e.detail.value;
+				this.gcbwIndex = -1;
+			},
+			handleQddjChange(e) {
+				this.qddjIndex = e.detail.value;
+				this.qddj = this.qddjs[this.qddjIndex];
+			},
+			handleQddjInput(e) {
+				this.qddj = e.detail.value;
+				this.qddjIndex = -1;
+			},
+			handleTldChange(e) {
+				this.tldIndex = e.detail.value;
+				this.tld = this.tlds[this.tldIndex];
+			},
+			handleTldInput(e) {
+				this.tld = e.detail.value;
+				this.tldIndex = -1;
+			},
+			handleJzfsInput(e) {
+				this.jzfs = e.detail.value;
+				this.jzfsIndex = -1;
+			},
+			handleZdljChange(e) {
+				this.zdljIndex = e.detail.value;
+				this.zdlj = this.zdljs[this.zdljIndex];
+			},
+			handleZdljInput(e) {
+				this.zdlj = e.detail.value;
+				this.zdljIndex = -1;
+			},
+			handleJzfsChange(e) {
+				this.jzfsIndex = e.detail.value;
+				this.jzfs = this.jzfsList[this.jzfsIndex];
+			},
+			filterNonNumeric(e, field) {
+				let inputValue = e.detail.value;
+				let validValue = inputValue.replace(/[^0-9.]/g, '');
+
+				// 处理连续多个小数点的情况
+				while (validValue.includes('..')) {
+					validValue = validValue.replace('..', '.');
+				}
+
+				// 处理开头为小数点的情况
+				if (validValue.startsWith('.')) {
+					validValue = '0' + validValue;
+				}
+
+				// 处理结尾为小数点的情况
+				if (validValue.endsWith('.')) {
+					validValue = validValue.slice(0, -1);
+				}
+
+				const numValue = parseFloat(validValue);
+				if (isNaN(numValue)) {
+					this[field] = 0;
+				} else {
+					this[field] = numValue;
+				}
+				this.validatePositiveNumber(field);
+			},
+			validatePositiveNumber(field) {
+				return (e) => {
+					let value = e.detail.value;
+					if (isNaN(value) || parseFloat(value) <= 0) {
+						this[`${field}Error`] = `${field === 'jhfl' ? '计划方量' : '运距'} 需输入大于零的数字`;
+						this[field] = '';
+					} else {
+						this[`${field}Error`] = '';
+						this[field] = parseFloat(value);
+					}
+				};
+			},
+			getTomorrowDate() {
+				const today = new Date();
+				const tomorrow = new Date(today);
+				tomorrow.setDate(tomorrow.getDate() + 1);
+				const year = tomorrow.getFullYear();
+				const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+				const day = String(tomorrow.getDate()).padStart(2, '0');
+				return `${year}-${month}-${day}`;
+			},
+			bindDateChange(e) {
+				this.ghrq = e.detail.value;
+				this.ghrqError = '';
+			},
 			async save() {
+				if (!this.ghrq) {
+					this.ghrqError = '供货日期为必填项';
+					return;
+				}
 				try {
 					const res = await taskSheetSave({
-						// rwdh: this.rwdh,
-						htbh:this.htbh,
-						phbshy:this.phbshy,
-						// ... 其他属性，使用 this.propertyName 来访问  
+						rwdh: this.rwdh,
+						htbh: this.htbh,
+						phbshy: this.phbshy,
 						ghrq: this.ghrq,
-						planDate: this.planDate,
 						yhdw: this.yhdw,
 						gcmc: this.gcmc,
-						gcdz:this.gcdz,
+						gcdz: this.gcdz,
 						gcbw: this.gcbw,
 						jhfl: this.jhfl,
 						remainConcreteQuantity: this.remainConcreteQuantity,
 						yj: this.yj,
 						qddj: this.qddj,
 						bz: this.bz,
-						phbsfsh:'0',
-						pumpingType: this.pumpingType,
-						pumpingParams: this.pumpingParams,
+						phbsfsh: '0',
+						jzfs: this.jzfs,
 						tld: this.tld,
 						invoiceDate: this.invoiceDate,
 						invoicePerson: this.invoicePerson,
@@ -198,37 +390,26 @@
 						pumpingPipe: this.pumpingPipe,
 						expansionType: this.expansionType,
 						zdlj: this.zdlj
-					})
+					});
 					uni.showToast({
 						title: '创建成功'
-					})
-					uni.navigateBack()
+					});
+					 setTimeout(()=>{
+					 	this.returnList()
+					 },500)
 				} catch (e) {
-					//TODO handle the exception
 					uni.showToast({
 						title: '创建失败'
-					})
+					});
 				}
 			},
-			bindDateChange(e) {
-				
-				this.ghrq = e.detail.value
-				console.log('ghrqghrqghrq',this.ghrq)
-			},
-			bindDateChange2(e) {
-				this.planDate = e.detail.value
-			},
-			bindPickerChange3(e) {
-				this.jzfs = e.detail.value;
-				this.pumpingType = this.pickerRange[this.jzfs];
-			},
-			returnList(){
-				console.log('返回任务单列表')
+			returnList() {
+				console.log('返回任务单列表');
 				uni.redirectTo({
 					url: '/pages/sdpage/rwd/index'
-				})
+				});
 			}
-		},
+		}
 	};
 </script>
 
@@ -517,5 +698,12 @@
 	.section_5 {
 		background-color: #d3d3d300;
 		height: 32rpx;
+	}
+
+	/* 新增错误提示样式 */
+	.error-tip {
+		color: red;
+		font-size: 20rpx;
+		margin-top: 5rpx;
 	}
 </style>

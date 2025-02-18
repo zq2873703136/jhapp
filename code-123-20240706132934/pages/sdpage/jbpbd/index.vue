@@ -3,7 +3,7 @@
         <!-- 固定在顶部的查询区域 -->
         <view class="fixed-query-area">
             <image @click="back" class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
-            <text class="text_2 pos_2">基本级配比单查询</text>
+            <text  @click="back" class="text_2 pos_2">基本级配比单查询</text>
             <view class="filter-container">
                 <input v-model="searchPbbh" placeholder="请输入配比编号" class="filter-input" />
                 <button @click="search" class="filter-button">查询</button>

@@ -16,6 +16,10 @@ export function taskSheetDelete(data) {
 	return request('/hydropower/hydropower/taskSheet/delete', data, 'POST')
 }
 
+export function QueryTaskSheetCode(data){
+	return request('/hydropower/hydropower/taskSheet/genTaskSheetCode', data, 'POST')
+}
+
 export function ratioQuery(data) {
 	return request('/hydropower/hydropower/laboratory/ratio/query', data, 'POST')
 }
