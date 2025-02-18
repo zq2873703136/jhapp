@@ -61,3 +61,8 @@ export function vehicleDelete(data) {
 export function SysDictQueryValue(data) {
 	return request('/hydropower/hydropower/sys/dict/queryValue', data, 'POST')
 }
+
+// 统计查询
+export function statisticsQuery(data){
+	return request('/hydropower/hydropower/statistics/query', data, 'POST')
+}

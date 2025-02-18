@@ -119,7 +119,7 @@
           />
           <text class="font_2 text_6 mt-15">新增调度车辆</text>
         </view>
-        <view class="flex-col items-start grid-item">
+        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/tjcx/jblscxhsjtj')">
           <image
             class="image_10"
             src="../../../static/page03/2d0a62cede497a5dd52a0f63303b6128.png"

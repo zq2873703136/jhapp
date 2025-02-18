@@ -29,7 +29,9 @@
     "pages/sdpage/vehicle/index",
     "pages/sdpage/vehicle/VehicleCreated",
     "pages/sdpage/vehicle/VehicleEdit",
-    "pages/sdpage/rwd/AuditTask"
+    "pages/sdpage/rwd/AuditTask",
+    "pages/sdpage/tjcx/jblscxhsjtj",
+    "pages/sdpage/tjcx/jblscxhsjtjDetails"
   ],
   "subPackages": [],
   "window": {

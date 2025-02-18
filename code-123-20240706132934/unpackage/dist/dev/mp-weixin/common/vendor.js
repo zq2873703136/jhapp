@@ -10155,6 +10155,7 @@ exports.managerLogin2 = managerLogin2;
 exports.ratioDelete = ratioDelete;
 exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
+exports.statisticsQuery = statisticsQuery;
 exports.taskSheetDelete = taskSheetDelete;
 exports.taskSheetQuery = taskSheetQuery;
 exports.taskSheetSave = taskSheetSave;
@@ -10208,6 +10209,11 @@ function vehicleDelete(data) {
 // 字典
 function SysDictQueryValue(data) {
   return (0, _index.request)('/hydropower/hydropower/sys/dict/queryValue', data, 'POST');
+}
+
+// 统计查询
+function statisticsQuery(data) {
+  return (0, _index.request)('/hydropower/hydropower/statistics/query', data, 'POST');
 }
 
 /***/ }),

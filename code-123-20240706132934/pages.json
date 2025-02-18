@@ -167,6 +167,20 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/sdpage/tjcx/jblscxhsjtj",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/tjcx/jblscxhsjtjDetails",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	]
 }
