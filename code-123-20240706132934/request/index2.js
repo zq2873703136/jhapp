@@ -8,10 +8,10 @@ export function request(url, data = {}, method = "GET") {
 	// 这个是本地的
 	// const base_url = 'http://192.168.1.33:9095'
 	// const base_url = 'http://192.168.181.102:9095'
-	// const base_url = 'http://192.168.181.101:9095'
+	const base_url = 'http://192.168.181.101:9095'
 	//const base_url = 'http://192.168.181.100:9095'
 	// 另一个本地  192.168.31.218
-	const base_url = 'http://192.168.31.218:9095'
+	// const base_url = 'http://192.168.31.218:9095'
 	// 测试机外网访问
 	// const base_url = 'https://erp.hzjianghe.cn'
 	// 发起网络请求  
