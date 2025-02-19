@@ -155,6 +155,10 @@
 				<text class="label">外加剂3：</text>
 				<text class="value">{{ taskInfo.wjj3 || '' }}</text>
 			</view>
+			<view class="info-item">
+				<text class="label">容量：</text>
+				<text class="value">{{ taskInfo.rl || '' }}</text>
+			</view>
 			<button @click="showRatioInfoZWWSH" class="ratio-button" v-show="taskInfo.phbsfsh == 1">置为未审核</button>
 		</view>
 		<!-- 配比单信息弹框 -->
@@ -254,6 +258,7 @@
 					this.taskInfo.wjj1 = ratio.wjj1
 					this.taskInfo.wjj2 = ratio.wjj2
 					this.taskInfo.wjj3 = ratio.wjj3
+					this.taskInfo.rl = ratio.rl
 					this.taskInfo.phbsfsh = 1;
 					this.taskSave('审核任务单')
 				}
@@ -280,6 +285,7 @@
 				this.taskInfo.wjj1 = '';
 				this.taskInfo.wjj2 = '';
 				this.taskInfo.wjj3 = '';
+				this.taskInfo.rl = '';
 				this.taskSave('置为未审核')
 			},
 			returnList() {
