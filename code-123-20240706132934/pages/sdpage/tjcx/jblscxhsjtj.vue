@@ -27,46 +27,180 @@
 						<view class="filter-input">{{ endTime }}</view>
 					</picker>
 				</view>
+				<text class="self-start font text_3">总方量：{{ totalMgfl }}</text>
 				<button @click="search" class="filter-button">查询</button>
 			</view>
-			<image class="image_5 pos_4" src="../../../static/page18/fa3babe67a5849c8174f1ef2cfde632c.png" />
-			<image class="image_5 pos_5" src="../../../static/page18/aa53eb42545139139d2995ddcdc05da7.png" />
-			<image class="image_5 pos_6" src="../../../static/page18/aa53eb42545139139d2995ddcdc05da7.png" />
-			<image class="image_5 pos_8" src="../../../static/page18/aa53eb42545139139d2995ddcdc05da7.png" />
-			<image class="image_6 pos_7" src="../../../static/page18/a9408aa12d401bfd79f4c14f072e6393.png" />
-			<image class="image_5 pos_9" src="../../../static/page18/b725a89c76a8787406f58ee436015aa2.png" />
 		</view>
+
 		<scroll-view :scroll-y="true" class="scroll-content" @scrolltolower="loadMore">
-			<view class="flex-col list">
-				<view class="flex-col justify-start list-item" v-for="(item, index) in list" :key="index"
-					@click="pushDetail(item)">
-					<view class="flex-col section_4">
-						<text class="self-start font text_3">序号：{{index+1}}</text>
-						<text class="self-start font_3">任务单号_工程名称_用户名称：</text>
-						<text class="self-start font_3">{{item.kz_gcmc_yhmc}}</text>
-						<view class="mt-16 flex-row items-center self-stretch">
-							<view class="ml-8 flex-col">
-								<view class="flex-row items-center">
-									<text class="self-stretch font_3 text_4">砼标号：{{ item.tbh }}</text>
-								</view>
-								<text class="self-stretch font_3">方量(方)：{{ item.mgfl }}</text>
+			<!-- 显示合计数据 -->
+			<view v-if="totalItem" class="flex-col justify-start list-item" style="margin-top: 20rpx;">
+				<view class="flex-col section_4">
+					<text class="self-start font text_3">合计</text>
+					<view class="mt-16 data-group">
+						<view class="data-row"></view>
+						<view class="data-row"></view>
+						<view class="data-row"></view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">大石：</text>{{ totalItem.xm0t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">中石1：</text>{{ totalItem.xm1t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">中石2：</text>{{ totalItem.xm14t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">小石：</text>{{ totalItem.xm2t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">砂：</text>{{ totalItem.xm3t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">砂2：</text>{{ totalItem.xm4t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">冰：</text>{{ totalItem.xm5t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">水泥1：</text>{{ totalItem.xm6t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">水泥2：</text>{{ totalItem.xm7t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">粉煤灰：</text>{{ totalItem.xm8t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">矿粉：</text>{{ totalItem.xm9t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">水：</text>{{ totalItem.xm10t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">外加剂1：</text>{{ totalItem.xm11t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">外加剂2：</text>{{ totalItem.xm12t }}</text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">外加剂3：</text>{{ totalItem.xm13t }}</text>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<!-- 加载提示 -->
+			<view class="flex-col list">
+				<view class="flex-col justify-start list-item" v-for="(item, index) in list" :key="index"
+					@click="pushDetail(item)">
+					<view class="flex-col section_4">
+						<text class="self-start font text_3">序号：{{index + 1}}</text>
+						<view class="mt-16 data-group">
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">任务单号：</text>{{ item.kz }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">砼标号：</text>{{ item.tbh }}</text>
+								</view>
+							</view>
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">用户名称：</text>{{ item.yhmc }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">方量(方)：</text>{{ item.mgfl }}</text>
+								</view>
+							</view>
+							<!-- 第三行 -->
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">工程名称：</text>{{ item.gcmc }}</text>
+								</view>
+							</view>
+							<!-- 第四行 -->
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">大石：</text>{{ item.xm0t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">中石1：</text>{{ item.xm1t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">中石2：</text>{{ item.xm14t }}</text>
+								</view>
+							</view>
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">小石：</text>{{ item.xm2t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">砂：</text>{{ item.xm3t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">砂2：</text>{{ item.xm4t }}</text>
+								</view>
+							</view>
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">冰：</text>{{ item.xm5t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">水泥1：</text>{{ item.xm6t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">水泥2：</text>{{ item.xm7t }}</text>
+								</view>
+							</view>
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">粉煤灰：</text>{{ item.xm8t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">矿粉：</text>{{ item.xm9t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">水：</text>{{ item.xm10t }}</text>
+								</view>
+							</view>
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">外加剂1：</text>{{ item.xm11t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">外加剂2：</text>{{ item.xm12t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">外加剂3：</text>{{ item.xm13t }}</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view v-if="loading" class="loading-tip">加载中...</view>
 			<view class="section_7 mt-238"></view>
 		</scroll-view>
 	</view>
 </template>
 
-
 <script>
 	import {
 		statisticsQuery
 	} from '@/request/api2.js'
+	import {
+		getCommonParams,
+		setCommonParams
+	} from '@/request/publicData.js'
 
 	export default {
 		components: {},
@@ -79,24 +213,33 @@
 			const hours = String(now.getHours()).padStart(2, '0');
 			const minutes = String(now.getMinutes()).padStart(2, '0');
 			const seconds = String(now.getSeconds()).padStart(2, '0');
+			const {
+				startDate,
+				startTime,
+				endDate,
+				endTime
+			} = getCommonParams();
 			return {
 				list: [],
-				startDate: `${year}-${month}-${day}`,
-				startTime: `${hours}:${minutes}:${seconds}`,
-				endDate: `${year}-${month}-${day}`,
-				endTime: `${hours}:${minutes}:${seconds}`,
+				startDate:  startDate || `${year}-${month}-${day}`,
+				startTime:  startTime ||`${hours}:${minutes}:${seconds}`,
+				endDate: endDate || `${year}-${month}-${day}`,
+				endTime: endTime || `${hours}:${minutes}:${seconds}`,
 				currentPage: 1,
 				pageSize: 10,
-				loading: false
+				loading: false,
+				totalMgfl: 0, // 新增：用于存储总方量
+				totalItem: null, // 用于存储合计数据的对象
 			}
 		},
 		onLoad() {
 			this.getList()
 		},
 		onPullDownRefresh() {
-			this.currentPage = 1
-			this.getList()
-			uni.stopPullDownRefresh()
+			this.currentPage = 1;
+			this.list = [];
+			this.getList();
+			uni.stopPullDownRefresh();
 		},
 		methods: {
 			back() {
@@ -107,12 +250,20 @@
 			},
 			pushDetail(item) {
 				console.log(item, 'item');
+				item.kssj = this.startDate;
+				item.jssj = this.endDate;
+				setCommonParams({
+					startDate: this.startDate,
+					startTime: this.startTime,
+					endDate: this.endDate,
+					endTime: this.endTime
+				});
 				uni.navigateTo({
 					url: '/pages/sdpage/tjcx/jblscxhsjtjDetails?data=' + JSON.stringify(item)
 				})
 			},
 			async getList() {
-				this.loading = true
+				this.loading = true;
 				try {
 					const searchKssj = `${this.startDate} ${this.startTime}`;
 					const searchJssj = `${this.endDate} ${this.endTime}`;
@@ -122,31 +273,50 @@
 						'sendDate': searchKssj,
 						'endData': searchJssj,
 					}
-					const res = await statisticsQuery(params)
+					const res = await statisticsQuery(params);
 					console.log(res, 'res');
 					if (this.currentPage === 1) {
-						this.list = res.data
+						this.list = res.data;
 					} else {
-						this.list = this.list.concat(res.data)
+						this.list = this.list.concat(res.data);
 					}
-					this.currentPage++
+					// 根据 kz_gcmc_yhmc 去重
+					const uniqueList = [];
+					const seen = new Set();
+					this.list.forEach(item => {
+						const key = `${item.kz}_${item.gcmc}_${item.yhmc}`;
+						if (!seen.has(key)) {
+							seen.add(key);
+							uniqueList.push(item);
+						}
+					});
+					this.list = uniqueList;
+
+					this.currentPage++;
+					this.calculateTotals(); // 计算合计
 				} catch (error) {
-					console.error('请求错误', error)
+					console.error('请求错误', error);
 				} finally {
-					this.loading = false
+					this.loading = false;
 				}
 			},
 			search() {
-				this.currentPage = 1
-				this.getList()
+				setCommonParams({
+					startDate: this.startDate,
+					startTime: this.startTime,
+					endDate: this.endDate,
+					endTime: this.endTime
+				});
+				this.currentPage = 1;
+				this.getList();
 			},
 			loadMore() {
 				if (!this.loading) {
-					this.getList()
+					this.getList();
 				}
 			},
 			formalData3(date) {
-				console.log(date)
+				console.log(date);
 				let year = date.getFullYear();
 				let month = (date.getMonth() + 1).toString().padStart(2, "0"); // 月份是从0开始的
 				let day = date.getDate().toString().padStart(2, "0");
@@ -156,237 +326,303 @@
 				// const milliseconds = date.getMilliseconds();
 				return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 			},
-        onStartDateChange(e) {
-            this.startDate = e.detail.value;
-        },
-        onStartTimeChange(e) {
-            this.startTime = e.detail.value;
-        },
-        onEndDateChange(e) {
-            this.endDate = e.detail.value;
-        },
-        onEndTimeChange(e) {
-            this.endTime = e.detail.value;
-        }
+			onStartDateChange(e) {
+				this.startDate = e.detail.value;
+			},
+			onStartTimeChange(e) {
+				this.startTime = e.detail.value;
+			},
+			onEndDateChange(e) {
+				this.endDate = e.detail.value;
+			},
+			onEndTimeChange(e) {
+				this.endTime = e.detail.value;
+			},
+			calculateTotals() {
+				this.totalMgfl = 0;
+				this.totalItem = {
+					xm0t: 0,
+					xm1t: 0,
+					xm14t: 0,
+					xm2t: 0,
+					xm3t: 0,
+					xm4t: 0,
+					xm5t: 0,
+					xm6t: 0,
+					xm7t: 0,
+					xm8t: 0,
+					xm9t: 0,
+					xm10t: 0,
+					xm11t: 0,
+					xm12t: 0,
+					xm13t: 0
+				};
+				this.list.forEach(item => {
+					this.totalMgfl += parseFloat(item.mgfl);
+					const materialKeys = Object.keys(this.totalItem);
+					materialKeys.forEach(key => {
+						this.totalItem[key] += parseFloat(item[key]);
+					});
+				});
+			}
 		},
 	};
 </script>
 
-
-
 <style scoped lang="css">
-.page {
-    background-color: #ffffff;
-    background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
-    width: 100%;
-    overflow: hidden;
-    height: 100vh;
-    position: relative;
-}
+	.page {
+		background-color: #ffffff;
+		background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
+		width: 100%;
+		overflow: hidden;
+		height: 100vh;
+		position: relative;
+	}
 
-.fixed-query-area {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    z-index: 100;
-    padding-top: 80rpx;
-    padding-bottom: 20rpx;
-}
+	.fixed-query-area {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(255, 255, 255, 0.9);
+		z-index: 100;
+		padding-top: 80rpx;
+		padding-bottom: 20rpx;
+	}
 
-.image_4 {
-    width: 24rpx;
-    height: 42rpx;
-}
+	.image_4 {
+		width: 24rpx;
+		height: 42rpx;
+	}
 
-.pos_3 {
-    position: absolute;
-    left: 32rpx;
-    top: 111rpx;
-}
+	.pos_3 {
+		position: absolute;
+		left: 32rpx;
+		top: 111rpx;
+	}
 
-.text_2 {
-    color: #ffffff;
-    font-size: 36rpx;
-    font-family: Source Sans Pro;
-    line-height: 33.16rpx;
-}
+	.text_2 {
+		color: #ffffff;
+		font-size: 36rpx;
+		font-family: Source Sans Pro;
+		line-height: 33.16rpx;
+	}
 
-.pos_2 {
-    position: absolute;
-    left: 86rpx;
-    top: 106rpx;
-}
+	.pos_2 {
+		position: absolute;
+		left: 86rpx;
+		top: 106rpx;
+	}
 
-.filter-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 20rpx;
-    padding-top: 100rpx;
-    box-sizing: border-box;
-}
+	.filter-container {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		padding: 20rpx;
+		padding-top: 100rpx;
+		box-sizing: border-box;
+	}
 
-.picker-group {
-    display: flex;
-    flex-direction: column;
-    margin-right: 20rpx;
-    margin-bottom: 10rpx;
-    flex: 1;
-    min-width: calc(50% - 20rpx);
-    box-sizing: border-box;
-}
+	.picker-group {
+		display: flex;
+		flex-direction: column;
+		margin-right: 20rpx;
+		margin-bottom: 10rpx;
+		flex: 1;
+		min-width: calc(50% - 20rpx);
+		box-sizing: border-box;
+	}
 
-.picker-group text {
-    font-size: 24rpx;
-    color: #333;
-    margin-bottom: 5rpx;
-}
+	.picker-group text {
+		font-size: 24rpx;
+		color: #333;
+		margin-bottom: 5rpx;
+	}
 
-.filter-input {
-    flex: 1;
-    padding: 10rpx;
-    border: 1px solid #ccc;
-    border-radius: 5rpx;
-    margin-top: 5rpx;
-    pointer-events: none;
-    background-color: #fff;
-    font-size: 24rpx;
-    color: #666;
-}
+	.filter-input {
+		flex: 1;
+		padding: 10rpx;
+		border: 1px solid #ccc;
+		border-radius: 5rpx;
+		margin-top: 5rpx;
+		pointer-events: none;
+		background-color: #fff;
+		font-size: 24rpx;
+		color: #666;
+	}
 
-.filter-button {
-    padding: 8rpx 16rpx;
-    background-color: #2855ae;
-    color: #fff;
-    border-radius: 20rpx;
-    border: none;
-    font-size: 24rpx;
-    line-height: 1;
-    white-space: nowrap;
-    margin-top: 10rpx;
-}
+	.filter-button {
+		padding: 8rpx 16rpx;
+		background-color: #2855ae;
+		color: #fff;
+		border-radius: 20rpx;
+		border: none;
+		font-size: 24rpx;
+		line-height: 1;
+		white-space: nowrap;
+		margin-top: 10rpx;
+	}
 
-.image_5 {
-    opacity: 0.35;
-    width: 6rpx;
-    height: 6rpx;
-}
+	.self-start.font.text_3 {
+		font-size: 28rpx;
+	}
 
-.pos_4 {
-    position: absolute;
-    left: 67.1rpx;
-    top: 153.02rpx;
-}
+	.image_5 {
+		opacity: 0.35;
+		width: 6rpx;
+		height: 6rpx;
+	}
 
-.pos_5 {
-    position: absolute;
-    right: 79.94rpx;
-    top: 149.98rpx;
-}
+	.pos_4 {
+		position: absolute;
+		left: 67.1rpx;
+		top: 153.02rpx;
+	}
 
-.pos_6 {
-    position: absolute;
-    right: 249.12rpx;
-    top: 156.36rpx;
-}
+	.pos_5 {
+		position: absolute;
+		right: 79.94rpx;
+		top: 149.98rpx;
+	}
 
-.pos_8 {
-    position: absolute;
-    left: 324.72rpx;
-    top: 176.54rpx;
-}
+	.pos_6 {
+		position: absolute;
+		right: 249.12rpx;
+		top: 156.36rpx;
+	}
 
-.image_6 {
-    opacity: 0.35;
-    width: 26rpx;
-    height: 26rpx;
-}
+	.pos_8 {
+		position: absolute;
+		left: 324.72rpx;
+		top: 176.54rpx;
+	}
 
-.pos_7 {
-    position: absolute;
-    right: 108.32rpx;
-    top: 159.38rpx;
-}
+	.image_6 {
+		opacity: 0.35;
+		width: 26rpx;
+		height: 26rpx;
+	}
 
-.pos_9 {
-    position: absolute;
-    left: 36rpx;
-    top: 212.94rpx;
-}
+	.pos_7 {
+		position: absolute;
+		right: 108.32rpx;
+		top: 159.38rpx;
+	}
 
-.scroll-content {
-    /* 增加 padding-top 值，这里增加到 400rpx，可根据实际情况调整 */
-    padding-top: 400rpx;
-    height: 100vh;
-    box-sizing: border-box;
-}
+	.pos_9 {
+		position: absolute;
+		left: 36rpx;
+		top: 212.94rpx;
+	}
 
-.list {
-    padding: 0 30rpx;
-}
+	.scroll-content {
+		/* 增加 padding-top 值，这里增加到 400rpx，可根据实际情况调整 */
+		padding-top: 400rpx;
+		height: 100vh;
+		box-sizing: border-box;
+	}
 
-.list-item {
-    background-image: url('../../../static/page18/b69a630a574d637231196b2a4795ba2a.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    padding-bottom: 12px;
-    margin-bottom: 20rpx;
-}
+	.list {
+		padding: 0 30rpx;
+	}
 
-.section_4 {
-    padding: 24rpx;
-    background-image: url('../../../static/page18/8b694f3e74cb52d853c6d4eb3aead869.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-}
+	.list-item {
+		background-image: url('../../../static/page18/b69a630a574d637231196b2a4795ba2a.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		padding-bottom: 12px;
+		margin-bottom: 20rpx;
+	}
 
-.font {
-    font-size: 26rpx;
-    font-family: Source Sans Pro;
-    line-height: 26.14rpx;
-    font-weight: 600;
-    color: #313131;
-}
+	.section_4 {
+		padding: 24rpx;
+		background-image: url('../../../static/page18/8b694f3e74cb52d853c6d4eb3aead869.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
 
-.text_3 {
-    font-size: 28rpx;
-}
+	.font {
+		font-size: 26rpx;
+		font-family: Source Sans Pro;
+		line-height: 26.14rpx;
+		font-weight: 600;
+		color: #313131;
+	}
 
-.image_8 {
-    width: 26rpx;
-    height: 26rpx;
-}
+	.text_3 {
+		font-size: 28rpx;
+	}
 
-.font_2 {
-    font-size: 26rpx;
-    font-family: Source Sans Pro;
-    line-height: 17.16rpx;
-    font-weight: 600;
-    color: #6789ca;
-}
+	.image_8 {
+		width: 26rpx;
+		height: 26rpx;
+	}
 
-.font_3 {
-    font-size: 26rpx;
-    font-family: Source Sans Pro;
-    line-height: 32rpx;
-    color: #777777;
-}
+	.font_2 {
+		font-size: 26rpx;
+		font-family: Source Sans Pro;
+		line-height: 17.16rpx;
+		font-weight: 600;
+		color: #6789ca;
+	}
 
-.text_4 {
-    margin-top: 12rpx;
-}
+	.font_3 {
+		font-size: 26rpx;
+		font-family: Source Sans Pro;
+		line-height: 32rpx;
+		color: #777777;
+	}
 
-.section_7 {
-    background-color: #d3d3d300;
-    height: 30rpx;
-}
+	.text_4 {
+		margin-top: 12rpx;
+	}
 
-.loading-tip {
-    text-align: center;
-    padding: 20rpx;
-    color: #666;
-}
+	.section_7 {
+		background-color: #d3d3d300;
+		height: 30rpx;
+	}
+
+	.loading-tip {
+		text-align: center;
+		padding: 20rpx;
+		color: #666;
+	}
+
+	.data-group {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.data-row {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 10rpx;
+	}
+
+	/* 除前三行外的数据项每行三等分 */
+	.data-row:not(:nth-child(-n+3)) .data-item {
+		box-sizing: border-box;
+		padding: 0 5rpx;
+		width: 33.33%;
+	}
+
+	/* 前三行的数据项样式 */
+	.data-row:nth-child(-n+3) .data-item {
+		box-sizing: border-box;
+		padding: 0 5rpx;
+	}
+
+	.data-row:nth-child(1) .data-item,
+	.data-row:nth-child(2) .data-item {
+		width: 50%;
+	}
+
+	.data-row:nth-child(3) .data-item {
+		width: 100%;
+	}
+
+	.title-green {
+		color: green;
+	}
 </style>

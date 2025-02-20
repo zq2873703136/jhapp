@@ -10156,6 +10156,7 @@ exports.ratioDelete = ratioDelete;
 exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
 exports.statisticsQuery = statisticsQuery;
+exports.statisticsQueryDetails = statisticsQueryDetails;
 exports.taskSheetDelete = taskSheetDelete;
 exports.taskSheetQuery = taskSheetQuery;
 exports.taskSheetSave = taskSheetSave;
@@ -10215,6 +10216,10 @@ function SysDictQueryValue(data) {
 function statisticsQuery(data) {
   return (0, _index.request)('/hydropower/hydropower/statistics/query', data, 'POST');
 }
+// 统计查询 明细
+function statisticsQueryDetails(data) {
+  return (0, _index.request)('/hydropower/hydropower/statistics/queryDetails_xcx', data, 'POST');
+}
 
 /***/ }),
 /* 45 */
@@ -10245,9 +10250,9 @@ function request(url) {
   // const base_url = 'http://192.168.181.101:9095'
   //const base_url = 'http://192.168.181.100:9095'
   // 另一个本地  192.168.31.218
-  // const base_url = 'http://192.168.31.218:9095'
+  var base_url = 'http://192.168.31.218:9095';
   // 测试机外网访问
-  var base_url = 'https://erp.hzjianghe.cn';
+  // const base_url = 'https://erp.hzjianghe.cn'
   // 发起网络请求  
   return new Promise(function (resolve, reject) {
     console.log('服务器地址', base_url);
@@ -10401,8 +10406,11 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/inte
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setUserInfo = exports.getUserInfo = void 0;
+exports.setUserInfo = exports.setCommonParams = exports.getUserInfo = exports.getCommonParams = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var _jsencrypt = _interopRequireDefault(__webpack_require__(/*! jsencrypt */ 49));
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var setUserInfo = function setUserInfo(user) {
   return new Promise(function (resolve, reject) {
     uni.setStorageSync('userInfo', user);
@@ -10425,6 +10433,47 @@ var getUserInfo = function getUserInfo() {
   });
 };
 exports.getUserInfo = getUserInfo;
+var storageKey = 'queryTimeParams';
+
+// 从本地存储中获取参数
+var getStoredParams = function getStoredParams() {
+  try {
+    return uni.getStorageSync(storageKey) || {};
+  } catch (error) {
+    console.error('获取本地存储参数失败:', error);
+    return {};
+  }
+};
+
+// 保存参数到本地存储
+var saveParamsToStorage = function saveParamsToStorage(params) {
+  try {
+    uni.setStorageSync(storageKey, params);
+  } catch (error) {
+    console.error('保存参数到本地存储失败:', error);
+  }
+};
+
+// 公共参数对象
+var commonParams = _objectSpread({
+  startDate: '',
+  startTime: '',
+  endDate: '',
+  endTime: ''
+}, getStoredParams());
+
+// 设置公共参数
+var setCommonParams = function setCommonParams(params) {
+  Object.assign(commonParams, params);
+  saveParamsToStorage(commonParams);
+};
+
+// 获取公共参数
+exports.setCommonParams = setCommonParams;
+var getCommonParams = function getCommonParams() {
+  return commonParams;
+};
+exports.getCommonParams = getCommonParams;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),

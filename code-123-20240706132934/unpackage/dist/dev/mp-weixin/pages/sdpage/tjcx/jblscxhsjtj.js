@@ -145,6 +145,137 @@ exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 39));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 41));
 var _api = __webpack_require__(/*! @/request/api2.js */ 44);
+var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -221,15 +352,23 @@ var _default = {
     var hours = String(now.getHours()).padStart(2, '0');
     var minutes = String(now.getMinutes()).padStart(2, '0');
     var seconds = String(now.getSeconds()).padStart(2, '0');
+    var _getCommonParams = (0, _publicData.getCommonParams)(),
+      startDate = _getCommonParams.startDate,
+      startTime = _getCommonParams.startTime,
+      endDate = _getCommonParams.endDate,
+      endTime = _getCommonParams.endTime;
     return {
       list: [],
-      startDate: "".concat(year, "-").concat(month, "-").concat(day),
-      startTime: "".concat(hours, ":").concat(minutes, ":").concat(seconds),
-      endDate: "".concat(year, "-").concat(month, "-").concat(day),
-      endTime: "".concat(hours, ":").concat(minutes, ":").concat(seconds),
+      startDate: startDate || "".concat(year, "-").concat(month, "-").concat(day),
+      startTime: startTime || "".concat(hours, ":").concat(minutes, ":").concat(seconds),
+      endDate: endDate || "".concat(year, "-").concat(month, "-").concat(day),
+      endTime: endTime || "".concat(hours, ":").concat(minutes, ":").concat(seconds),
       currentPage: 1,
       pageSize: 10,
-      loading: false
+      loading: false,
+      totalMgfl: 0,
+      // 新增：用于存储总方量
+      totalItem: null // 用于存储合计数据的对象
     };
   },
   onLoad: function onLoad() {
@@ -237,6 +376,7 @@ var _default = {
   },
   onPullDownRefresh: function onPullDownRefresh() {
     this.currentPage = 1;
+    this.list = [];
     this.getList();
     uni.stopPullDownRefresh();
   },
@@ -249,6 +389,14 @@ var _default = {
     },
     pushDetail: function pushDetail(item) {
       console.log(item, 'item');
+      item.kssj = this.startDate;
+      item.jssj = this.endDate;
+      (0, _publicData.setCommonParams)({
+        startDate: this.startDate,
+        startTime: this.startTime,
+        endDate: this.endDate,
+        endTime: this.endTime
+      });
       uni.navigateTo({
         url: '/pages/sdpage/tjcx/jblscxhsjtjDetails?data=' + JSON.stringify(item)
       });
@@ -256,7 +404,7 @@ var _default = {
     getList: function getList() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var searchKssj, searchJssj, params, res;
+        var searchKssj, searchJssj, params, res, uniqueList, seen;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -281,26 +429,44 @@ var _default = {
                 } else {
                   _this.list = _this.list.concat(res.data);
                 }
+                // 根据 kz_gcmc_yhmc 去重
+                uniqueList = [];
+                seen = new Set();
+                _this.list.forEach(function (item) {
+                  var key = "".concat(item.kz, "_").concat(item.gcmc, "_").concat(item.yhmc);
+                  if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueList.push(item);
+                  }
+                });
+                _this.list = uniqueList;
                 _this.currentPage++;
-                _context.next = 16;
+                _this.calculateTotals(); // 计算合计
+                _context.next = 21;
                 break;
-              case 13:
-                _context.prev = 13;
+              case 18:
+                _context.prev = 18;
                 _context.t0 = _context["catch"](1);
                 console.error('请求错误', _context.t0);
-              case 16:
-                _context.prev = 16;
+              case 21:
+                _context.prev = 21;
                 _this.loading = false;
-                return _context.finish(16);
-              case 19:
+                return _context.finish(21);
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 13, 16, 19]]);
+        }, _callee, null, [[1, 18, 21, 24]]);
       }))();
     },
     search: function search() {
+      (0, _publicData.setCommonParams)({
+        startDate: this.startDate,
+        startTime: this.startTime,
+        endDate: this.endDate,
+        endTime: this.endTime
+      });
       this.currentPage = 1;
       this.getList();
     },
@@ -331,6 +497,34 @@ var _default = {
     },
     onEndTimeChange: function onEndTimeChange(e) {
       this.endTime = e.detail.value;
+    },
+    calculateTotals: function calculateTotals() {
+      var _this2 = this;
+      this.totalMgfl = 0;
+      this.totalItem = {
+        xm0t: 0,
+        xm1t: 0,
+        xm14t: 0,
+        xm2t: 0,
+        xm3t: 0,
+        xm4t: 0,
+        xm5t: 0,
+        xm6t: 0,
+        xm7t: 0,
+        xm8t: 0,
+        xm9t: 0,
+        xm10t: 0,
+        xm11t: 0,
+        xm12t: 0,
+        xm13t: 0
+      };
+      this.list.forEach(function (item) {
+        _this2.totalMgfl += parseFloat(item.mgfl);
+        var materialKeys = Object.keys(_this2.totalItem);
+        materialKeys.forEach(function (key) {
+          _this2.totalItem[key] += parseFloat(item[key]);
+        });
+      });
     }
   }
 };

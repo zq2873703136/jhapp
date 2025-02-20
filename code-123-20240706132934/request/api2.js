@@ -66,3 +66,7 @@ export function SysDictQueryValue(data) {
 export function statisticsQuery(data){
 	return request('/hydropower/hydropower/statistics/query', data, 'POST')
 }
+// 统计查询 明细
+export function statisticsQueryDetails(data){
+	return request('/hydropower/hydropower/statistics/queryDetails_xcx', data, 'POST')
+}

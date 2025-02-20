@@ -102,6 +102,22 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.taskInfoList, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var m0 = _vm.formatDate(item.rq)
+    return {
+      $orig: $orig,
+      m0: m0,
+    }
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -137,11 +153,271 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 39));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 41));
 var _api = __webpack_require__(/*! @/request/api2.js */ 44);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -306,21 +582,47 @@ var _default = {
   props: {},
   data: function data() {
     return {
-      taskInfo: {},
-      // 任务单信息
+      taskInfoList: [],
+      // 任务单信息列表
       ratioList: [],
       // 配比单信息列表
       showRatioModal: false,
       // 控制配比单信息弹框的显示与隐藏
-      isLoadingRatio: false // 配比单信息加载状态
+      isLoadingRatio: false,
+      // 配比单信息加载状态
+      currentPage: 1,
+      // 当前页码
+      pageSize: 10,
+      // 每页数量
+      totalPages: 1,
+      // 总页数
+      totalUsage: {
+        xm0t: 0,
+        xm1t: 0,
+        xm14t: 0,
+        xm2t: 0,
+        xm3t: 0,
+        xm4t: 0,
+        xm5t: 0,
+        xm6t: 0,
+        xm7t: 0,
+        xm8t: 0,
+        xm9t: 0,
+        xm10t: 0,
+        xm11t: 0,
+        xm12t: 0,
+        xm13t: 0
+      },
+      taskInfo: {}
     };
   },
   onLoad: function onLoad(options) {
+    this.currentPage = 1;
     // 从路由参数中获取任务单信息
     this.taskInfo = JSON.parse(options.data);
-    // 获取配比单信息
+    console.log('taskInfo', this.taskInfo);
+    this.getDetails(this.taskInfo.id);
   },
-
   methods: {
     showRatioInfo: function showRatioInfo() {
       this.showRatioModal = true;
@@ -328,11 +630,129 @@ var _default = {
     hideRatioModal: function hideRatioModal() {
       this.showRatioModal = false;
     },
+    getDetails: function getDetails(id) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var params, res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                params = {
+                  "id": id,
+                  currentPage: _this.currentPage,
+                  pageSize: _this.pageSize
+                };
+                _context.next = 4;
+                return (0, _api.statisticsQueryDetails)(params);
+              case 4:
+                res = _context.sent;
+                if (res.result === 1) {
+                  if (_this.currentPage === 1) {
+                    _this.taskInfoList = res.data;
+                  } else {
+                    _this.taskInfoList = _this.taskInfoList.concat(res.data);
+                  }
+                  // 计算各材料实际用量的合计
+                  _this.calculateTotalUsage();
+                  // 这里假设后续分页信息也会返回，如果实际没有返回，可以根据需求调整
+                  // 目前代码暂未处理分页相关信息，因为返回数据里没有
+                }
+                _context.next = 11;
+                break;
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                console.error('请求错误', _context.t0);
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 8]]);
+      }))();
+    },
+    onPullDownRefresh: function onPullDownRefresh() {
+      console.log('this.$route.query', this.$route);
+      if (this.$route) {
+        var taskInfo = JSON.parse(this.$route.query.data);
+        this.currentPage = 1;
+        this.getDetails(taskInfo.id);
+        uni.stopPullDownRefresh();
+      }
+    },
+    onReachBottom: function onReachBottom() {
+      // 这里假设后续分页信息会返回，目前先简单处理
+      // 如果实际没有分页信息，需要和后端确认
+      if (this.$route) {
+        this.currentPage++;
+        var taskInfo = JSON.parse(this.$route.query.data);
+        this.getDetails(taskInfo.id);
+      }
+    },
     returnList: function returnList() {
       console.log('返回任务单列表');
       uni.redirectTo({
         url: '/pages/sdpage/tjcx/jblscxhsjtj'
       });
+    },
+    formatDate: function formatDate(dateStr) {
+      if (!dateStr) return '';
+      var date = new Date(dateStr);
+      var year = date.getFullYear();
+      var month = String(date.getMonth() + 1).padStart(2, '0');
+      var day = String(date.getDate()).padStart(2, '0');
+      var hours = String(date.getHours()).padStart(2, '0');
+      var minutes = String(date.getMinutes()).padStart(2, '0');
+      var seconds = String(date.getSeconds()).padStart(2, '0');
+      return "".concat(year, "-").concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes, ":").concat(seconds);
+    },
+    calculateTotalUsage: function calculateTotalUsage() {
+      var _this2 = this;
+      this.totalUsage = {
+        xm0t: 0,
+        xm1t: 0,
+        xm14t: 0,
+        xm2t: 0,
+        xm3t: 0,
+        xm4t: 0,
+        xm5t: 0,
+        xm6t: 0,
+        xm7t: 0,
+        xm8t: 0,
+        xm9t: 0,
+        xm10t: 0,
+        xm11t: 0,
+        xm12t: 0,
+        xm13t: 0
+      };
+      this.taskInfoList.forEach(function (item) {
+        // 对每个数据进行有效性检查并累加
+        _this2.totalUsage.xm0t += _this2.parseValidNumber(item.xm0t);
+        _this2.totalUsage.xm1t += _this2.parseValidNumber(item.xm1t);
+        _this2.totalUsage.xm14t += _this2.parseValidNumber(item.xm14t);
+        _this2.totalUsage.xm2t += _this2.parseValidNumber(item.xm2t);
+        _this2.totalUsage.xm3t += _this2.parseValidNumber(item.xm3t);
+        _this2.totalUsage.xm4t += _this2.parseValidNumber(item.xm4t);
+        _this2.totalUsage.xm5t += _this2.parseValidNumber(item.xm5t);
+        _this2.totalUsage.xm6t += _this2.parseValidNumber(item.xm6t);
+        _this2.totalUsage.xm7t += _this2.parseValidNumber(item.xm7t);
+        _this2.totalUsage.xm8t += _this2.parseValidNumber(item.xm8t);
+        _this2.totalUsage.xm9t += _this2.parseValidNumber(item.xm9t);
+        _this2.totalUsage.xm10t += _this2.parseValidNumber(item.xm10t);
+        _this2.totalUsage.xm11t += _this2.parseValidNumber(item.xm11t);
+        _this2.totalUsage.xm12t += _this2.parseValidNumber(item.xm12t);
+        _this2.totalUsage.xm13t += _this2.parseValidNumber(item.xm13t);
+      });
+      // 对合计结果进行四舍五入，保留两位小数
+      for (var key in this.totalUsage) {
+        this.totalUsage[key] = parseFloat(this.totalUsage[key].toFixed(2));
+      }
+    },
+    parseValidNumber: function parseValidNumber(value) {
+      var num = parseFloat(value);
+      return isNaN(num) ? 0 : num;
     }
   }
 };
