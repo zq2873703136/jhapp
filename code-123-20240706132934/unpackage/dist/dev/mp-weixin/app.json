@@ -1,20 +1,6 @@
 {
   "pages": [
     "pages/Page_02_login/Page_02_login",
-    "pages/Page_03_dashboard/Page_03_dashboard",
-    "pages/Page_08_pay_online_edit/Page_08_pay_online",
-    "pages/Page_08_pay_online_add/Page_08_pay_online",
-    "pages/Page_18_events/Page_18_events",
-    "pages/page/page1/index",
-    "pages/page/page2/index",
-    "pages/page/page3/index",
-    "pages/page/page4/index",
-    "pages/page/page5/index",
-    "pages/page/page6/index",
-    "pages/page/page7/index",
-    "pages/page/page8/index",
-    "pages/page/page9/index",
-    "pages/page/page10/index",
     "pages/sdpage/dashboard/dashboard",
     "pages/sdpage/dashboard/kf",
     "pages/sdpage/rwd/index",
@@ -33,7 +19,27 @@
     "pages/sdpage/tjcx/jblscxhsjtj",
     "pages/sdpage/tjcx/jblscxhsjtjDetails"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "pages_pc",
+      "pages": [
+        "Page_03_dashboard/Page_03_dashboard",
+        "Page_18_events/Page_18_events",
+        "Page_08_pay_online_edit/Page_08_pay_online",
+        "Page_08_pay_online_add/Page_08_pay_online",
+        "page/page1/index",
+        "page/page2/index",
+        "page/page3/index",
+        "page/page4/index",
+        "page/page5/index",
+        "page/page6/index",
+        "page/page7/index",
+        "page/page8/index",
+        "page/page9/index",
+        "page/page10/index"
+      ]
+    }
+  ],
   "window": {
     "navigationStyle": "custom"
   },

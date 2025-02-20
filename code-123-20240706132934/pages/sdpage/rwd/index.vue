@@ -31,7 +31,7 @@
 									<text class="ml-6 self-start font_2">{{ formalData(item.gmtCreated) }}</text>
 								</view>
 								<text class="self-stretch font_3 text_4">供货日期：{{formalData2(item.ghrq)}}</text>
-								<text class="self-stretch font_3">状态：{{item.phbsfsh==1?'已审核':'未审核'}}</text>
+								<text class="self-stretch font_3" :style="{'color': getColor(item.phbsfsh)}">状态：{{item.phbsfsh==1?'已审核':'未审核'}}</text>
 								<text class="self-start font_3">施工单位：{{item.yhdw}}</text>
 							</view>
 
@@ -100,6 +100,13 @@
 					url: '/pages/sdpage/dashboard/dashboard'
 				})
 			},
+			      getColor(score) {
+			        if (score == 0 || score == null) {
+			          return 'red';
+			        } else {
+			          return 'green';
+			        }
+			      },
 			pushDetail(item) {
 				console.log(item, 'item');
 				uni.navigateTo({

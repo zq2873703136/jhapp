@@ -279,7 +279,7 @@ var _default = {
                 console.log(res.data['X-Token'], 'dadattxx');
                 uni.setStorageSync('X-Token', res.data['X-Token']);
                 uni.navigateTo({
-                  url: '/pages/Page_03_dashboard/Page_03_dashboard'
+                  url: '/pages_pc/Page_03_dashboard/Page_03_dashboard'
                 });
               case 16:
               case "end":
