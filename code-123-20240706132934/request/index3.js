@@ -4,10 +4,17 @@ export function request(url, data = {}, method = "GET") {
 		title: '加载中',
 	});
 
-	// 测试机
-	// const base_url = 'http://192.168.3.38:9095'
-	const base_url = 'http://192.168.181.100:9095' // 部署上线的时候换成上面那个
 
+	// 这个是本地的
+	// const base_url = 'http://192.168.1.33:9095'
+	// const base_url = 'http://192.168.181.102:9095'
+	// const base_url = 'http://192.168.181.101:9095'
+	// const base_url = 'http://192.168.181.100:9095'
+	const base_url = 'http://192.168.181.101:9095'
+	// 另一个本地  192.168.31.218
+	// const base_url = 'http://192.168.31.218:9095'
+	// 测试机外网访问
+	// const base_url = 'https://erp.hzjianghe.cn'
 	// 发起网络请求  
 	return new Promise((resolve, reject) => {
 		uni.request({

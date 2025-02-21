@@ -188,9 +188,7 @@ var _jsencrypt = _interopRequireDefault(__webpack_require__(/*! jsencrypt */ 49)
 //
 //
 //
-//
 
-// import JSEncrypt from './jsencrypt.js'
 var publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdH\n' + 'nzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==';
 var _default = {
   components: {},
@@ -202,19 +200,27 @@ var _default = {
       userName: "shuaijiangbing",
       pwd: "123456",
       companyNameList: ["水电", "火芽"],
+      //, "测试"
       companyPathList: ["水电", "火芽"],
+      // , "测试"
       pickerIndex: 0
     };
   },
   methods: {
+    onPickerChange: function onPickerChange(e) {
+      this.pickerIndex = e.detail.value;
+      this.company = this.companyPathList[this.pickerIndex];
+      this.companyName = this.companyNameList[this.pickerIndex];
+    },
     login: function login() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var redirectUrl, res, user;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.company == '')) {
+                if (!(_this.company === '')) {
                   _context.next = 3;
                   break;
                 }
@@ -224,170 +230,94 @@ var _default = {
                 });
                 return _context.abrupt("return", false);
               case 3:
-                console.log('this.companyName', _this.companyName);
-                if (_this.companyName == '火芽') {
-                  _this.loginpc();
+                _context.prev = 3;
+                res = null;
+                user = _this.getEncryptedUser();
+                if (!(_this.companyName === '火芽')) {
+                  _context.next = 13;
+                  break;
                 }
-                if (_this.companyName == '测试') {
-                  _this.loginbd();
+                _context.next = 9;
+                return (0, _api.managerLogin)(user);
+              case 9:
+                res = _context.sent;
+                redirectUrl = '/pages_pc/Page_03_dashboard/Page_03_dashboard';
+                _context.next = 29;
+                break;
+              case 13:
+                if (!(_this.companyName === '测试')) {
+                  _context.next = 20;
+                  break;
                 }
-                if (_this.companyName == '水电') {
-                  _this.loginsd();
+                _context.next = 16;
+                return (0, _api3.managerLogin3)(user);
+              case 16:
+                res = _context.sent;
+                redirectUrl = '/pages_bd/dashboard/dashboard';
+                _context.next = 29;
+                break;
+              case 20:
+                if (!(_this.companyName === '水电')) {
+                  _context.next = 27;
+                  break;
                 }
-              case 7:
+                _context.next = 23;
+                return (0, _api2.managerLogin2)(user);
+              case 23:
+                res = _context.sent;
+                redirectUrl = '/pages/sdpage/dashboard/dashboard';
+                _context.next = 29;
+                break;
+              case 27:
+                uni.showToast({
+                  title: '不支持的公司选择',
+                  icon: "error"
+                });
+                return _context.abrupt("return", false);
+              case 29:
+                if (!(res.result !== 1)) {
+                  _context.next = 32;
+                  break;
+                }
+                _this.showLoginError();
+                return _context.abrupt("return", false);
+              case 32:
+                uni.setStorageSync('X-Token', res.data['X-Token']);
+                (0, _publicData.setUserInfo)(res.data);
+                uni.navigateTo({
+                  url: redirectUrl
+                });
+                _context.next = 41;
+                break;
+              case 37:
+                _context.prev = 37;
+                _context.t0 = _context["catch"](3);
+                console.error('登录请求出错:', _context.t0);
+                uni.showToast({
+                  title: '登录请求出错，请稍后重试',
+                  icon: "error"
+                });
+              case 41:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[3, 37]]);
       }))();
     },
-    // 鹏程
-    loginpc: function loginpc() {
-      var _this2 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-        var encryptor, user, res;
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                console.log('走鹏程登录');
-                encryptor = new _jsencrypt.default();
-                encryptor.setPublicKey(publicKey);
-                console.log(encryptor.setPublicKey, 'encryptor');
-                user = {
-                  managerName: _this2.userName,
-                  managerPassword: encryptor.encrypt(_this2.pwd) // 设置公钥}
-                };
-
-                console.log(user, 'user');
-                _context2.next = 8;
-                return (0, _api.managerLogin)(user);
-              case 8:
-                res = _context2.sent;
-                console.log(res);
-                if (!(res.result != 1)) {
-                  _context2.next = 13;
-                  break;
-                }
-                uni.showToast({
-                  title: '用户或密码错误，请重新输入',
-                  icon: "error"
-                });
-                return _context2.abrupt("return", false);
-              case 13:
-                console.log(res.data['X-Token'], 'dadattxx');
-                uni.setStorageSync('X-Token', res.data['X-Token']);
-                uni.navigateTo({
-                  url: '/pages_pc/Page_03_dashboard/Page_03_dashboard'
-                });
-              case 16:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
+    getEncryptedUser: function getEncryptedUser() {
+      var encryptor = new _jsencrypt.default();
+      encryptor.setPublicKey(publicKey);
+      return {
+        managerName: this.userName,
+        managerPassword: encryptor.encrypt(this.pwd)
+      };
     },
-    // 本地
-    loginbd: function loginbd() {
-      var _this3 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-        var encryptor, user, res;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                console.log('开发本地登录');
-                encryptor = new _jsencrypt.default();
-                encryptor.setPublicKey(publicKey);
-                console.log(encryptor.setPublicKey, 'encryptor');
-                user = {
-                  managerName: _this3.userName,
-                  managerPassword: encryptor.encrypt(_this3.pwd) // 设置公钥}
-                };
-
-                console.log(user, 'user');
-                _context3.next = 8;
-                return (0, _api2.managerLogin2)(user);
-              case 8:
-                res = _context3.sent;
-                console.log(res);
-                if (!(res.result != 1)) {
-                  _context3.next = 13;
-                  break;
-                }
-                uni.showToast({
-                  title: '用户或密码错误，请重新输入',
-                  icon: "error"
-                });
-                return _context3.abrupt("return", false);
-              case 13:
-                console.log(res.data['X-Token'], 'dadattxx');
-                uni.setStorageSync('X-Token', res.data['X-Token']);
-                uni.navigateTo({
-                  url: '/pages/sdpage/dashboard/kf'
-                });
-              case 16:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    loginsd: function loginsd() {
-      var _this4 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
-        var encryptor, user, res;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                console.log('水电登录');
-                encryptor = new _jsencrypt.default();
-                encryptor.setPublicKey(publicKey);
-                console.log(encryptor.setPublicKey, 'encryptor');
-                user = {
-                  managerName: _this4.userName,
-                  managerPassword: encryptor.encrypt(_this4.pwd) // 设置公钥}
-                };
-
-                console.log(user, 'user');
-                // TODO 记得改
-                _context4.next = 8;
-                return (0, _api2.managerLogin2)(user);
-              case 8:
-                res = _context4.sent;
-                console.log(res);
-                if (!(res.result != 1)) {
-                  _context4.next = 13;
-                  break;
-                }
-                uni.showToast({
-                  title: '用户或密码错误，请重新输入',
-                  icon: "error"
-                });
-                return _context4.abrupt("return", false);
-              case 13:
-                (0, _publicData.setUserInfo)(res.data);
-                console.log(res.data['X-Token'], 'dadattxx');
-                uni.setStorageSync('X-Token', res.data['X-Token']);
-                uni.navigateTo({
-                  url: '/pages/sdpage/dashboard/dashboard'
-                });
-              case 17:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-    bindPickerChange3: function bindPickerChange3(e) {
-      this.pickerIndex = e.detail.value;
-      this.company = this.companyPathList[this.pickerIndex];
-      this.companyName = this.companyNameList[this.pickerIndex];
+    showLoginError: function showLoginError() {
+      uni.showToast({
+        title: '用户或密码错误，请重新输入',
+        icon: "error"
+      });
     }
   }
 };

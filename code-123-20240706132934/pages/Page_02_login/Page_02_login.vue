@@ -1,41 +1,40 @@
 <template>
-	<view class="flex-col justify-start relative page">
-		<view class="section"></view>
-		<text class="text_2 pos_2">登录</text>
-		<text class="text_3 pos_3">请输入账号密码</text>
-		<view class="flex-col section_3 pos_4">
-			<view class="flex-col items-start self-stretch group">
-
-				<view class="flex-row justify-between self-stretch group_3">
-					<view class="self-start font_2">
-						<picker @change="bindPickerChange3" :value="pickerIndex" :range="companyNameList">
-							<view class="picker">
-								<text class="font text_4"><text style="color: red;">*</text>公司:</text>{{ companyName?companyName:'暂未选择公司，请先选择公司' }}
-							</view>
-						</picker>
-					</view>
-				</view>
-			</view>
-			<view class="flex-col items-start self-stretch group">
-				<text class="font text_4">账号</text>
-				<input class="mt-12 font_2 text_5" v-model="userName">
-			</view>
-			<view class="self-center divider"></view>
-			<view class="flex-col self-stretch group_2">
-				<text class="self-start font text_6">密码</text>
-				<view class="flex-row justify-between items-center self-stretch mt-15">
-					<input class="mt-12 font_2 text_5" v-model="pwd">
-					<image class="image_4" src="../../static/page02/1b746dcbd2ade4c3245e00a59313e882.png" />
-				</view>
-				<view class="self-stretch divider_2 mt-15"></view>
-			</view>
-			<view class="flex-row justify-end items-center self-center section_4" @click="login">
-				<text class="font_2 text_7">登录系统</text>
-				<image class="ml-64 shrink-0 image_6" src="../../static/page02/221e14eb7a121aa669a952dd3a52b697.png" />
-			</view>
-			<view class="input section_5"></view>
-		</view>
-	</view>
+  <view class="flex-col justify-start relative page">
+    <view class="section"></view>
+    <text class="text_2 pos_2">登录</text>
+    <text class="text_3 pos_3">请输入账号密码</text>
+    <view class="flex-col section_3 pos_4">
+      <view class="flex-col items-start self-stretch group">
+        <view class="flex-row justify-between self-stretch group_3">
+          <view class="self-start font_2">
+            <picker @change="onPickerChange" :value="pickerIndex" :range="companyNameList">
+              <view class="picker">
+                <text class="font text_4"><text style="color: red;">*</text>公司:</text>{{ companyName? companyName : '暂未选择公司，请先选择公司' }}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="flex-col items-start self-stretch group">
+        <text class="font text_4">账号</text>
+        <input class="mt-12 font_2 text_5" v-model="userName">
+      </view>
+      <view class="self-center divider"></view>
+      <view class="flex-col self-stretch group_2">
+        <text class="self-start font text_6">密码</text>
+        <view class="flex-row justify-between items-center self-stretch mt-15">
+          <input class="mt-12 font_2 text_5" v-model="pwd">
+          <image class="image_4" src="../../static/page02/1b746dcbd2ade4c3245e00a59313e882.png" />
+        </view>
+        <view class="self-stretch divider_2 mt-15"></view>
+      </view>
+      <view class="flex-row justify-end items-center self-center section_4" @click="login">
+        <text class="font_2 text_7">登录系统</text>
+        <image class="ml-64 shrink-0 image_6" src="../../static/page02/221e14eb7a121aa669a952dd3a52b697.png" />
+      </view>
+      <view class="input section_5"></view>
+    </view>
+  </view>
 </template>
 
 <script>
@@ -51,136 +50,101 @@
 		managerLogin3
 	} from '@/request/api3.js'
 	
-	import {
-		setUserInfo
-	} from '@/request/publicData.js'
 	
-	import JSEncrypt from 'jsencrypt';
-	// import JSEncrypt from './jsencrypt.js'
-	const publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdH\n' +
-		'nzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ=='
-	export default {
-		components: {},
-		props: {},
-		data() {
-			return {
-				companyName: '',
-				company: '',
-				userName: "shuaijiangbing",
-				pwd: "123456",
-				companyNameList: ["水电", "火芽"],
-				companyPathList: ["水电", "火芽"],
-				pickerIndex: 0,
-			};
-		},
+import {
+  setUserInfo
+} from '@/request/publicData.js';
+import JSEncrypt from 'jsencrypt';
 
-		methods: {
-			async login() {
-				if (this.company == '') {
-					uni.showToast({
-						title: '请先选择公司',
-						icon: "error"
-					})
-					return false;
-				}
-				console.log('this.companyName',this.companyName)
-				if(this.companyName == '火芽'){
-					this.loginpc();
-				}
-				if(this.companyName == '测试'){
-					this.loginbd();
-				}
-				if(this.companyName == '水电'){
-					this.loginsd();
-				}
-			},
-			// 鹏程
-			async loginpc(){
-				console.log('走鹏程登录');
-				const encryptor = new JSEncrypt()
-				encryptor.setPublicKey(publicKey)
-				console.log(encryptor.setPublicKey, 'encryptor');
-				let user = {
-					managerName: this.userName,
-					managerPassword: encryptor.encrypt(this.pwd) // 设置公钥}
-				}
-				console.log(user, 'user');
-				const res = await managerLogin(user)
-				console.log(res);
-				if (res.result != 1) {
-					uni.showToast({
-						title: '用户或密码错误，请重新输入',
-						icon: "error"
-					})
-					return false;
-				}
-				console.log(res.data['X-Token'], 'dadattxx');
-				uni.setStorageSync('X-Token', res.data['X-Token'])
-				uni.navigateTo({
-					url: '/pages_pc/Page_03_dashboard/Page_03_dashboard'
-				})
-			},
-			// 本地
-			async loginbd(){
-				console.log('开发本地登录');
-				const encryptor = new JSEncrypt()
-				encryptor.setPublicKey(publicKey)
-				console.log(encryptor.setPublicKey, 'encryptor');
-				let user = {
-					managerName: this.userName,
-					managerPassword: encryptor.encrypt(this.pwd) // 设置公钥}
-				}
-				console.log(user, 'user');
-				const res = await managerLogin2(user)
-				console.log(res);
-				if (res.result != 1) {
-					uni.showToast({
-						title: '用户或密码错误，请重新输入',
-						icon: "error"
-					})
-					return false;
-				}
-				console.log(res.data['X-Token'], 'dadattxx');
-				uni.setStorageSync('X-Token', res.data['X-Token'])
-				uni.navigateTo({
-					url: '/pages/sdpage/dashboard/kf'
-				})
-			},
-			async loginsd(){
-				console.log('水电登录');
-				const encryptor = new JSEncrypt()
-				encryptor.setPublicKey(publicKey)
-				console.log(encryptor.setPublicKey, 'encryptor');
-				let user = {
-					managerName: this.userName,
-					managerPassword: encryptor.encrypt(this.pwd) // 设置公钥}
-				}
-				console.log(user, 'user');
-				// TODO 记得改
-				const res = await managerLogin2(user)
-				console.log(res);
-				if (res.result != 1) {
-					uni.showToast({
-						title: '用户或密码错误，请重新输入',
-						icon: "error"
-					})
-					return false;
-				}
-				setUserInfo(res.data)
-				console.log(res.data['X-Token'], 'dadattxx');
-				uni.setStorageSync('X-Token', res.data['X-Token'])
-				uni.navigateTo({
-					url: '/pages/sdpage/dashboard/dashboard'
-				})
-			},
-			bindPickerChange3(e) {
-				this.pickerIndex = e.detail.value;
-				this.company = this.companyPathList[this.pickerIndex];
-				this.companyName = this.companyNameList[this.pickerIndex];
-			}
-		}
-	};
+const publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKoR8mX0rGKLqzcWmOzbfj64K8ZIgOdH\n' +
+  'nzkXSOVOZbFu/TJhZ7rFAN+eaGkl3C4buccQd/EjEsj9ir7ijT7h96MCAwEAAQ==';
+
+export default {
+  components: {},
+  props: {},
+  data() {
+    return {
+      companyName: '',
+      company: '',
+      userName: "shuaijiangbing",
+      pwd: "123456",
+      companyNameList: ["水电", "火芽"],//, "测试"
+      companyPathList: ["水电", "火芽"],// , "测试"
+      pickerIndex: 0,
+    };
+  },
+  methods: {
+    onPickerChange(e) {
+      this.pickerIndex = e.detail.value;
+      this.company = this.companyPathList[this.pickerIndex];
+      this.companyName = this.companyNameList[this.pickerIndex];
+    },
+    async login() {
+      if (this.company === '') {
+        uni.showToast({
+          title: '请先选择公司',
+          icon: "error"
+        });
+        return false;
+      }
+
+try {
+      let redirectUrl;
+	  let res = null;
+	  const user = this.getEncryptedUser();
+      if (this.companyName === '火芽') {
+        res = await managerLogin(user);
+        redirectUrl = '/pages_pc/Page_03_dashboard/Page_03_dashboard';
+      } else if (this.companyName === '测试') {
+        res = await managerLogin3(user);
+        redirectUrl = '/pages_bd/dashboard/dashboard';
+      } else if (this.companyName === '水电') {
+        res = await managerLogin2(user);
+        redirectUrl = '/pages/sdpage/dashboard/dashboard';
+      } else {
+        uni.showToast({
+          title: '不支持的公司选择',
+          icon: "error"
+        });
+        return false;
+      }
+
+        if (res.result!== 1) {
+          this.showLoginError();
+          return false;
+        }
+
+        uni.setStorageSync('X-Token', res.data['X-Token']);
+        setUserInfo(res.data);
+        uni.navigateTo({
+          url: redirectUrl
+        });
+      } catch (error) {
+        console.error('登录请求出错:', error);
+        uni.showToast({
+          title: '登录请求出错，请稍后重试',
+          icon: "error"
+        });
+      }
+    },
+    getEncryptedUser() {
+      const encryptor = new JSEncrypt();
+      encryptor.setPublicKey(publicKey);
+      return {
+        managerName: this.userName,
+        managerPassword: encryptor.encrypt(this.pwd)
+      };
+    },
+    showLoginError() {
+      uni.showToast({
+        title: '用户或密码错误，请重新输入',
+        icon: "error"
+      });
+    }
+  }
+};
 </script>
+
 
 <style scoped lang="css">
 	.ml-5 {

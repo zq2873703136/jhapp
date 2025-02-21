@@ -2,7 +2,6 @@
   "pages": [
     "pages/Page_02_login/Page_02_login",
     "pages/sdpage/dashboard/dashboard",
-    "pages/sdpage/dashboard/kf",
     "pages/sdpage/rwd/index",
     "pages/sdpage/rwd/TaskCreated",
     "pages/sdpage/rwd/TaskEdit",
@@ -38,6 +37,13 @@
         "page/page9/index",
         "page/page10/index"
       ]
+    },
+    {
+      "root": "pages_bd",
+      "pages": [
+        "dashboard/dashboard"
+      ],
+      "name": "pages_bd"
     }
   ],
   "window": {

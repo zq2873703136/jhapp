@@ -14,12 +14,6 @@
 			}
 		},
 		{
-			"path": "pages/sdpage/dashboard/kf",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
 			"path": "pages/sdpage/rwd/index",
 			"style": {
 				"navigationBarTitleText": ""
@@ -172,5 +166,14 @@
 				"style": {}
 			}
 		]
+	}, {
+		"root": "pages_bd",
+		"name": "pages_bd",
+		"pages": [{
+			"path": "dashboard/dashboard",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}]
 	}]
 }
