@@ -27,7 +27,6 @@
 						<view class="filter-input">{{ endTime }}</view>
 					</picker>
 				</view>
-				<text class="self-start font text_3">总方量：{{ totalMgfl }}</text>
 				<button @click="search" class="filter-button">查询</button>
 			</view>
 		</view>
@@ -36,7 +35,7 @@
 			<!-- 显示合计数据 -->
 			<view v-if="totalItem" class="flex-col justify-start list-item" style="margin-top: 20rpx;">
 				<view class="flex-col section_4">
-					<text class="self-start font text_3">合计</text>
+					<text class="self-start font text_3">合计 &nbsp;&nbsp;&nbsp;<text class="self-start font text_3" style="margin-left: 20rpx;">总方量：{{ totalMgfl }}</text></text>
 					<view class="mt-16 data-group">
 						<view class="data-row"></view>
 						<view class="data-row"></view>
@@ -364,6 +363,13 @@
 						this.totalItem[key] += parseFloat(item[key]);
 					});
 				});
+			  // 对总方量进行四舍五入，保留两位小数
+			  this.totalMgfl = parseFloat(this.totalMgfl.toFixed(2));
+			  // 对每种材料的合计进行四舍五入，保留两位小数
+			  const materialKeys = Object.keys(this.totalItem);
+			  materialKeys.forEach(key => {
+				this.totalItem[key] = parseFloat(this.totalItem[key].toFixed(2));
+			  });
 			}
 		},
 	};
@@ -524,7 +530,7 @@
 	}
 
 	.list {
-		padding: 0 30rpx;
+		/* padding: 0 30rpx;//控制边框的 */
 	}
 
 	.list-item {

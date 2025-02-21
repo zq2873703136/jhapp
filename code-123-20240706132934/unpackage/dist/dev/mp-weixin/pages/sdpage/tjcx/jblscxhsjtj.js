@@ -340,7 +340,6 @@ var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
-//
 var _default = {
   components: {},
   props: {},
@@ -524,6 +523,13 @@ var _default = {
         materialKeys.forEach(function (key) {
           _this2.totalItem[key] += parseFloat(item[key]);
         });
+      });
+      // 对总方量进行四舍五入，保留两位小数
+      this.totalMgfl = parseFloat(this.totalMgfl.toFixed(2));
+      // 对每种材料的合计进行四舍五入，保留两位小数
+      var materialKeys = Object.keys(this.totalItem);
+      materialKeys.forEach(function (key) {
+        _this2.totalItem[key] = parseFloat(_this2.totalItem[key].toFixed(2));
       });
     }
   }
