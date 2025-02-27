@@ -192,7 +192,17 @@ var _default = {
       jhflError: '',
       yjError: '',
       ghrqError: '',
-      zdljError: ''
+      zdljError: '',
+      isPickerOpen: {
+        yhdw: false,
+        gcmc: false,
+        gcdz: false,
+        gcbw: false,
+        qddj: false,
+        jzfs: false,
+        tld: false,
+        zdlj: false
+      }
     };
   },
   onLoad: function onLoad(query) {
@@ -443,6 +453,92 @@ var _default = {
       uni.redirectTo({
         url: '/pages/sdpage/rwd/index'
       });
+    },
+    togglePicker: function togglePicker(field) {
+      var _this5 = this;
+      // 关闭其他打开的选择器
+      Object.keys(this.isPickerOpen).forEach(function (key) {
+        if (key !== field) {
+          _this5.isPickerOpen[key] = false;
+        }
+      });
+      this.isPickerOpen[field] = !this.isPickerOpen[field];
+      if (this.isPickerOpen[field]) {
+        var options = [];
+        switch (field) {
+          case 'yhdw':
+            options = this.yhdws;
+            break;
+          case 'gcmc':
+            options = this.gcmcs;
+            break;
+          case 'gcdz':
+            options = this.gcdzs;
+            break;
+          case 'gcbw':
+            options = this.gcbws;
+            break;
+          case 'qddj':
+            options = this.qddjs;
+            break;
+          case 'jzfs':
+            options = this.jzfsList;
+            break;
+          case 'tld':
+            options = this.tlds;
+            break;
+          case 'zdlj':
+            options = this.zdljs;
+            break;
+        }
+        uni.showActionSheet({
+          itemList: options,
+          success: function success(res) {
+            switch (field) {
+              case 'yhdw':
+                _this5.yhdwIndex = res.tapIndex;
+                _this5.form2.yhdw = _this5.yhdws[res.tapIndex];
+                break;
+              case 'gcmc':
+                _this5.gcmcIndex = res.tapIndex;
+                _this5.form2.gcmc = _this5.gcmcs[res.tapIndex];
+                break;
+              case 'gcdz':
+                _this5.gcdzIndex = res.tapIndex;
+                _this5.form2.gcdz = _this5.gcdzs[res.tapIndex];
+                break;
+              case 'gcbw':
+                _this5.gcbwIndex = res.tapIndex;
+                _this5.form2.gcbw = _this5.gcbws[res.tapIndex];
+                break;
+              case 'qddj':
+                _this5.qddjIndex = res.tapIndex;
+                _this5.form2.qddj = _this5.qddjs[res.tapIndex];
+                break;
+              case 'jzfs':
+                _this5.jzfsIndex = res.tapIndex;
+                _this5.form2.jzfs = _this5.jzfsList[res.tapIndex];
+                break;
+              case 'tld':
+                _this5.tldIndex = res.tapIndex;
+                _this5.form2.tld = _this5.tlds[res.tapIndex];
+                break;
+              case 'zdlj':
+                _this5.zdljIndex = res.tapIndex;
+                _this5.form2.zdlj = _this5.zdljs[res.tapIndex];
+                break;
+            }
+            _this5.closePicker(field);
+          },
+          fail: function fail(err) {
+            console.error(err);
+            _this5.closePicker(field);
+          }
+        });
+      }
+    },
+    closePicker: function closePicker(field) {
+      this.isPickerOpen[field] = false;
     }
   }
 };

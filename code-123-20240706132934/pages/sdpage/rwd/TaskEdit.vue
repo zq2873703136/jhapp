@@ -31,113 +31,82 @@
             <view class="flex-col group_2">
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">任务单编号</text>
-                    <input class="mt-12 font_2" v-model="form2.rwdh" />
+                    <input class="mt-8 font_2" v-model="form2.rwdh" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">合同编号</text>
-                    <input class="mt-12 font_2" v-model="form2.htbh" />
+                    <input class="mt-8 font_2" v-model="form2.htbh" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
-                    <text class="font text_6">用户单位</text>
-                    <view class="flex-row">
-                        <picker v-model="yhdwIndex" :range="yhdws" @change="handleYhdwChange">
-                            <view class="mt-12 font_2">
-                                {{ yhdwIndex === -1? '请选择' : yhdws[yhdwIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.yhdw" @input="handleYhdwInput" />
+                    
+                    <view class="flex-row picker-container" @click="togglePicker('yhdw')"> <!-- 增加点击范围 -->
+						<text class="font text_6">用户单位</text>
+                        <text class="font_2">{{ isPickerOpen.yhdw? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.yhdw" @input="handleYhdwInput" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('gcmc')"> <!-- 增加点击范围 -->
                     <text class="font text_6">工程名称</text>
-                    <view class="flex-row">
-                        <picker v-model="gcmcIndex" :range="gcmcs" @change="handleGcmcChange">
-                            <view class="mt-12 font_2">
-                                {{ gcmcIndex === -1? '请选择' : gcmcs[gcmcIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.gcmc" @input="handleGcmcInput" />
+                        <text class="font_2">{{ isPickerOpen.gcmc? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.gcmc" @input="handleGcmcInput" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('gcdz')"> <!-- 增加点击范围 -->
                     <text class="font text_6">工程地址</text>
-                    <view class="flex-row">
-                        <picker v-model="gcdzIndex" :range="gcdzs" @change="handleGcdzChange">
-                            <view class="mt-12 font_2">
-                                {{ gcdzIndex === -1? '请选择' : gcdzs[gcdzIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.gcdz" @input="handleGcdzInput" />
+                        <text class="font_2">{{ isPickerOpen.gcdz? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.gcdz" @input="handleGcdzInput" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('gcbw')"> <!-- 增加点击范围 -->
                     <text class="font text_6">工程部位</text>
-                    <view class="flex-row">
-                        <picker v-model="gcbwIndex" :range="gcbws" @change="handleGcbwChange">
-                            <view class="mt-12 font_2">
-                                {{ gcbwIndex === -1? '请选择' : gcbws[gcbwIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.gcbw" @input="handleGcbwInput" />
+                        <text class="font_2">{{ isPickerOpen.gcbw? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.gcbw" @input="handleGcbwInput" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('qddj')"> <!-- 增加点击范围 -->
                     <text class="font text_6">强度等级</text>
-                    <view class="flex-row">
-                        <picker v-model="qddjIndex" :range="qddjs" @change="handleQddjChange">
-                            <view class="mt-12 font_2">
-                                {{ qddjIndex === -1? '请选择' : qddjs[qddjIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.qddj" @input="handleQddjInput" />
+                        <text class="font_2">{{ isPickerOpen.qddj? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.qddj" @input="handleQddjInput" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">计划方量</text>
-                    <input class="mt-12 font_2" min="0" type="number" v-model="form2.jhfl" @input="filterNonNumeric($event, 'jhfl')" />
+                    <input class="mt-8 font_2" min="0" type="number" v-model="form2.jhfl" @input="filterNonNumeric($event, 'jhfl')" /> <!-- 减小上下间距 -->
                     <view v-if="jhflError" class="error-tip">{{jhflError}}</view>
                 </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">运距</text>
-                    <input class="mt-12 font_2" v-model="form2.yj" @input="filterNonNumeric($event, 'yj')" />
+                    <input class="mt-8 font_2" v-model="form2.yj" @input="filterNonNumeric($event, 'yj')" /> <!-- 减小上下间距 -->
                     <view v-if="yjError" class="error-tip">{{yjError}}</view>
                 </view>
                 <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('jzfs')"> <!-- 增加点击范围 -->
                     <text class="font text_6">浇筑方式</text>
-                    <view class="flex-row">
-                        <picker v-model="jzfsIndex" :range="jzfsList" @change="handleJzfsChange">
-                            <view class="mt-12 font_2">
-                                {{ jzfsIndex == -1? '请选择' : jzfsList[jzfsIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.jzfs" @input="handleJzfsInput" />
+                        <text class="font_2">{{ isPickerOpen.jzfs? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.jzfs" @input="handleJzfsInput" /> <!-- 减小上下间距 -->
                 </view>
                 <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('tld')"> <!-- 增加点击范围 -->
                     <text class="font text_6">塌落度</text>
-                    <view class="flex-row">
-                        <picker v-model="tldIndex" :range="tlds" @change="handleTldChange">
-                            <view class="mt-12 font_2">
-                                {{ tldIndex === -1? '请选择' : tlds[tldIndex] }}
-                            </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.tld" @input="handleTldInput" />
+                        <text class="font_2">{{ isPickerOpen.tld? 'v' : '>' }}</text>
                     </view>
+                    <input class="mt-8 font_2" v-model="form2.tld" @input="handleTldInput" /> <!-- 减小上下间距 -->
                 </view>
-				<view class="flex-col items-start input group_4">
-				    <text class="font text_6">最大粒径</text>
-				    <view class="flex-row">
-				        <picker v-model="zdljIndex" :range="zdljs" @change="handleZdljChange">
-				            <view class="mt-12 font_2">
-				                {{ zdljIndex === -1? '请选择' : zdljs[zdljIndex] }}
-				            </view>
-				        </picker>
-				        <input class="mt-12 font_2" v-model="form2.zdlj" @input="handleZdljInput" />
-				    </view>
-				</view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row picker-container" @click="togglePicker('zdlj')"> <!-- 增加点击范围 -->
+                    <text class="font text_6">最大粒径</text>
+                        <text class="font_2">{{ isPickerOpen.zdlj? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-8 font_2" v-model="form2.zdlj" @input="handleZdljInput" /> <!-- 减小上下间距 -->
+                </view>
                 <view class="flex-col items-start input group_4">
                     <text class="font text_6">备注</text>
-                    <input class="mt-12 font_2" v-model="form2.bz" />
+                    <input class="mt-8 font_2" v-model="form2.bz" /> <!-- 减小上下间距 -->
                 </view>
             </view>
             <view class="divider_2 divider"></view>
@@ -202,6 +171,16 @@ export default {
             yjError: '',
             ghrqError: '',
             zdljError: '',
+            isPickerOpen: {
+                yhdw: false,
+                gcmc: false,
+                gcdz: false,
+                gcbw: false,
+                qddj: false,
+                jzfs: false,
+                tld: false,
+                zdlj: false
+            }
         };
     },
     onLoad(query) {
@@ -398,21 +377,107 @@ export default {
             uni.redirectTo({
                 url: '/pages/sdpage/rwd/index'
             });
+        },togglePicker(field) {
+            // 关闭其他打开的选择器
+            Object.keys(this.isPickerOpen).forEach(key => {
+                if (key!== field) {
+                    this.isPickerOpen[key] = false;
+                }
+            });
+            this.isPickerOpen[field] =!this.isPickerOpen[field];
+            if (this.isPickerOpen[field]) {
+                let options = [];
+                switch (field) {
+                    case 'yhdw':
+                        options = this.yhdws;
+                        break;
+                    case 'gcmc':
+                        options = this.gcmcs;
+                        break;
+                    case 'gcdz':
+                        options = this.gcdzs;
+                        break;
+                    case 'gcbw':
+                        options = this.gcbws;
+                        break;
+                    case 'qddj':
+                        options = this.qddjs;
+                        break;
+                    case 'jzfs':
+                        options = this.jzfsList;
+                        break;
+                    case 'tld':
+                        options = this.tlds;
+                        break;
+                    case 'zdlj':
+                        options = this.zdljs;
+                        break;
+                }
+                uni.showActionSheet({
+                    itemList: options,
+                    success: (res) => {
+                        switch (field) {
+                            case 'yhdw':
+                                this.yhdwIndex = res.tapIndex;
+                                this.form2.yhdw = this.yhdws[res.tapIndex];
+                                break;
+                            case 'gcmc':
+                                this.gcmcIndex = res.tapIndex;
+                                this.form2.gcmc = this.gcmcs[res.tapIndex];
+                                break;
+                            case 'gcdz':
+                                this.gcdzIndex = res.tapIndex;
+                                this.form2.gcdz = this.gcdzs[res.tapIndex];
+                                break;
+                            case 'gcbw':
+                                this.gcbwIndex = res.tapIndex;
+                                this.form2.gcbw = this.gcbws[res.tapIndex];
+                                break;
+                            case 'qddj':
+                                this.qddjIndex = res.tapIndex;
+                                this.form2.qddj = this.qddjs[res.tapIndex];
+                                break;
+                            case 'jzfs':
+                                this.jzfsIndex = res.tapIndex;
+                                this.form2.jzfs = this.jzfsList[res.tapIndex];
+                                break;
+                            case 'tld':
+                                this.tldIndex = res.tapIndex;
+                                this.form2.tld = this.tlds[res.tapIndex];
+                                break;
+                            case 'zdlj':
+                                this.zdljIndex = res.tapIndex;
+                                this.form2.zdlj = this.zdljs[res.tapIndex];
+                                break;
+                        }
+                        this.closePicker(field);
+                    },
+                    fail: (err) => {
+                        console.error(err);
+                        this.closePicker(field);
+                    }
+                });
+            }
+        },
+        closePicker(field) {
+            this.isPickerOpen[field] = false;
         }
     }
 };
 </script>
 
+
+
 <style scoped lang="css">
-    .ml-5 {
+   .ml-5 {
         margin-left: 10rpx;
     }
 
-    .ml-107 {
+   .ml-107 {
         margin-left: 214rpx;
     }
 
-    .page {
+   .page {
         background-color: #ffffff;
         background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
         width: 100%;
@@ -421,147 +486,147 @@ export default {
         height: 100%;
     }
 
-    .section {
+   .section {
         background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
         width: 750rpx;
         height: 1624rpx;
     }
 
-    .section_2 {
+   .section_2 {
         padding: 26rpx 28rpx 36rpx 36rpx;
         background-color: #ffffff00;
     }
 
-    .pos {
+   .pos {
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
     }
 
-    .text {
+   .text {
         color: #ffffff;
         font-size: 30rpx;
         font-family: Avenir LT Std;
         line-height: 21.78rpx;
     }
 
-    .image {
+   .image {
         width: 34rpx;
         height: 22rpx;
     }
 
-    .image_2 {
+   .image_2 {
         width: 30rpx;
         height: 22rpx;
     }
 
-    .image_3 {
+   .image_3 {
         width: 48rpx;
         height: 22rpx;
     }
 
-    .image_4 {
+   .image_4 {
         width: 24rpx;
         height: 42rpx;
     }
 
-    .pos_3 {
+   .pos_3 {
         position: absolute;
         left: 32rpx;
         top: 111rpx;
     }
 
-    .text_2 {
+   .text_2 {
         color: #ffffff;
         font-size: 36rpx;
         font-family: Source Sans Pro;
         line-height: 33.16rpx;
     }
 
-    .pos_2 {
+   .pos_2 {
         position: absolute;
         left: 86rpx;
         top: 106rpx;
     }
 
-    .image_5 {
+   .image_5 {
         opacity: 0.35;
         width: 6rpx;
         height: 6rpx;
     }
 
-    .pos_4 {
+   .pos_4 {
         position: absolute;
         left: 67.1rpx;
         top: 153.02rpx;
     }
 
-    .pos_5 {
+   .pos_5 {
         position: absolute;
         right: 79.94rpx;
         top: 149.98rpx;
     }
 
-    .pos_6 {
+   .pos_6 {
         position: absolute;
         right: 249.12rpx;
         top: 156.36rpx;
     }
 
-    .pos_8 {
+   .pos_8 {
         position: absolute;
         left: 324.72rpx;
         top: 176.54rpx;
     }
 
-    .image_6 {
+   .image_6 {
         opacity: 0.35;
         width: 26rpx;
         height: 26rpx;
     }
 
-    .pos_7 {
+   .pos_7 {
         position: absolute;
         right: 108.32rpx;
         top: 159.38rpx;
     }
 
-    .pos_9 {
+   .pos_9 {
         position: absolute;
         left: 36rpx;
         top: 212.94rpx;
     }
 
-    .section_3 {
+   .section_3 {
         background-image: url('../../../static/page08/85eaf09bd543c66b1287def37e55cdf5.png');
         background-size: 100% 100%;
         background-repeat: no-repeat;
     }
 
-    .pos_10 {
+   .pos_10 {
         position: absolute;
         left: 0;
         right: 0;
         top: 226rpx;
     }
 
-    .group {
-        padding: 56rpx 32rpx;
+   .group {
+        padding: 20rpx 32rpx; /* 调整内边距，缩短距离 */
     }
 
-    .font {
+   .font {
         font-size: 24rpx;
         font-family: Source Sans Pro;
         line-height: 21.12rpx;
         color: #a5a5a5;
     }
 
-    .text_3 {
+   .text_3 {
         line-height: 22.1rpx;
     }
 
-    .font_2 {
+   .font_2 {
         font-size: 32rpx;
         font-family: Source Sans Pro;
         line-height: 21.12rpx;
@@ -569,131 +634,142 @@ export default {
         color: #313131;
     }
 
-    .text_4 {
+   .text_4 {
         color: #979797;
         line-height: 20.36rpx;
     }
 
-    .group_2 {
-        margin-top: 58rpx;
+   .group_2 {
+        margin-top: 10rpx; /* 减小上下间距 */
         padding: 0 32rpx;
     }
 
-    .text_5 {
+   .text_5 {
         line-height: 21.76rpx;
     }
 
-    .group_3 {
-        padding: 24rpx 0;
+   .group_3 {
+        padding: 10rpx 0; /* 减小上下间距 */
         border-bottom: solid 2rpx #e1e3e8;
     }
 
-    .image_7 {
+   .image_7 {
         margin-right: 12rpx;
         width: 34rpx;
         height: 36rpx;
     }
 
-    .input {
+   .input {
         align-self: stretch;
-        margin-top: 36rpx;
+        margin-top: 8rpx; /* 减小上下间距 */
     }
 
-    .group_4 {
-        padding: 24rpx 0;
+   .group_4 {
+        padding: 10rpx 0; /* 减小上下间距 */
         border-bottom: solid 2rpx #e1e3e8;
     }
 
-    .text_6 {
+   .text_6 {
         line-height: 21.76rpx;
     }
 
-    .group_5 {
-        padding: 60rpx 32rpx 56rpx;
+   .group_5 {
+        padding: 20rpx 32rpx 18rpx; /* 减小内边距，缩短距离 */
     }
 
-    .text_7 {
+   .text_7 {
         line-height: 22.12rpx;
     }
 
-    .group_6 {
+   .group_6 {
         margin: 0 32rpx;
-        padding: 56rpx 0 44rpx;
+        padding: 18rpx 0 14rpx; /* 减小内边距，缩短距离 */
         border-top: solid 2rpx #e1e3e8;
         border-bottom: solid 2rpx #e1e3e8;
     }
 
-    .text_8 {
+   .text_8 {
         line-height: 22.1rpx;
     }
 
-.font_3 {
-    font-size: 32rpx;
-    font-family: Source Sans Pro;
-    line-height: 29.92rpx;
-    font-weight: 600;
-    color: #313131;
-}
+   .font_3 {
+        font-size: 32rpx;
+        font-family: Source Sans Pro;
+        line-height: 29.92rpx;
+        font-weight: 600;
+        color: #313131;
+    }
 
-.text_9 {
-    line-height: 30.28rpx;
-}
+   .text_9 {
+        line-height: 30.28rpx;
+    }
 
-.group_7 {
-    padding: 72rpx 32rpx 48rpx;
-}
+   .group_7 {
+        padding: 24rpx 32rpx 16rpx; /* 减小内边距，缩短距离 */
+    }
 
-.text_10 {
-    line-height: 22.04rpx;
-}
+   .text_10 {
+        line-height: 22.04rpx;
+    }
 
-.text_11 {
-    line-height: 29.54rpx;
-}
+   .text_11 {
+        line-height: 29.54rpx;
+    }
 
-.divider_2 {
-    margin: 0 32rpx;
-}
+   .divider_2 {
+        margin: 0 32rpx;
+    }
 
-.divider {
-    background-color: #e1e3e8;
-    height: 2rpx;
-}
+   .divider {
+        background-color: #e1e3e8;
+        height: 2rpx;
+    }
 
-.view {
-    margin: 0 32rpx;
-}
+   .view {
+        margin: 0 32rpx;
+    }
 
-.group_8 {
-    margin-top: 134rpx;
-}
+   .group_8 {
+        margin-top: 40rpx; /* 减小上下间距 */
+    }
 
-.section_4 {
-    margin: 0 32rpx;
-    padding: 32rpx 60rpx 36rpx;
-    background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-}
+   .section_4 {
+        margin: 0 32rpx;
+        padding: 16rpx 30rpx 18rpx;
+        background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
 
-.text_12 {
-    color: #ffffff;
-}
+   .text_12 {
+        color: #ffffff;
+    }
 
-.image_8 {
-    width: 56rpx;
-    height: 36rpx;
-}
+   .image_8 {
+        width: 56rpx;
+        height: 36rpx;
+    }
 
-.section_5 {
-    background-color: #d3d3d300;
-    height: 32rpx;
-}
+   .section_5 {
+        background-color: #d3d3d300;
+        height: 32rpx;
+    }
 
-/* 新增错误提示样式 */
-.error-tip {
-    color: red;
-    font-size: 20rpx;
-    margin-top: 5rpx;
-}
+    /* 新增错误提示样式 */
+   .error-tip {
+        color: red;
+        font-size: 20rpx;
+        margin-top: 5rpx;
+    }
+
+    /* 选择器触发区域样式 */
+   .picker-container {
+        cursor: pointer;
+        padding: 8rpx 0;
+        display: flex;
+        align-items: center;
+    }
+   .picker-container view {
+        flex: 1;
+    }
 </style>

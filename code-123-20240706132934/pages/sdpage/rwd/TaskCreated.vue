@@ -1,159 +1,124 @@
 <template>
-	<view class="flex-col justify-start relative page">
-		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
-			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
-		<text class="text_2 pos_2">新增任务单</text>
-		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
-		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-		<image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-		<image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-		<image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
-		<image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
-		<view class="flex-col section_3 pos_10">
-			<view class="divider view"></view>
-			<view class="flex-col group_2">
-				<text class="self-start font text_5"><text style="color: red;">*</text>供货日期</text>
-				<view class="flex-row justify-between self-stretch group_3">
-					<view class="self-start font_2">
-						<picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31" @change="bindDateChange">
-							<view>{{ghrq || '请选择日期'}}</view>
-						</picker>
-					</view>
-					<image class="self-center image_7"
-						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
-				</view>
-				<view v-if="ghrqError" class="error-tip">{{ghrqError}}</view>
-			</view>
+    <view class="flex-col justify-start relative page">
+        <view class="section"></view>
+        <image @click="returnList()" class="image_4 pos_3"
+               src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+        <text class="text_2 pos_2">新增任务单</text>
+        <image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
+        <image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+        <image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+        <image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+        <image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
+        <image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
+        <view class="flex-col section_3 pos_10">
+            <view class="divider view"></view>
+            <view class="flex-col group_2">
+                <text class="self-start font text_5"><text style="color: red;">*</text>供货日期</text>
+                <view class="flex-row justify-between self-stretch group_3">
+                    <view class="self-start font_2">
+                        <picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31" @change="bindDateChange">
+                            <view>{{ghrq || '请选择日期'}}</view>
+                        </picker>
+                    </view>
+                    <image class="self-center image_7"
+                           src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
+                </view>
+                <view v-if="ghrqError" class="error-tip">{{ghrqError}}</view>
+            </view>
 
-			<view class="flex-col group_2">
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">任务单号</text>
-					<input class="mt-12 font_2" v-model="rwdh" disabled="true" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">合同编号</text>
-					<input class="mt-12 font_2" v-model="htbh" />
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">用户单位</text>
-					<view class="flex-row">
-						<picker v-model="yhdwIndex" :range="yhdws" @change="handleYhdwChange">
-							<view class="mt-12 font_2">
-								{{ yhdwIndex === -1? '请选择' : yhdws[yhdwIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="yhdw" @input="handleYhdwInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">工程名称</text>
-					<view class="flex-row">
-						<picker v-model="gcmcIndex" :range="gcmcs" @change="handleGcmcChange">
-							<view class="mt-12 font_2">
-								{{ gcmcIndex === -1? '请选择' : gcmcs[gcmcIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="gcmc" @input="handleGcmcInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">工程地址</text>
-					<view class="flex-row">
-						<picker v-model="gcdzIndex" :range="gcdzs" @change="handleGcdzChange">
-							<view class="mt-12 font_2">
-								{{ gcdzIndex === -1? '请选择' : gcdzs[gcdzIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="gcdz" @input="handleGcdzInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">工程部位</text>
-					<view class="flex-row">
-						<picker v-model="gcbwIndex" :range="gcbws" @change="handleGcbwChange">
-							<view class="mt-12 font_2">
-								{{ gcbwIndex === -1? '请选择' : gcbws[gcbwIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="gcbw" @input="handleGcbwInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">强度等级</text>
-					<view class="flex-row">
-						<picker v-model="qddjIndex" :range="qddjs" @change="handleQddjChange">
-							<view class="mt-12 font_2">
-								{{ qddjIndex === -1? '请选择' : qddjs[qddjIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="qddj" @input="handleQddjInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">计划方量</text>
-					<input class="mt-12 font_2" v-model="jhfl" type="number" @input="filterNonNumeric($event, 'jhfl')" />
-					<view v-if="jhflError" class="error-tip">{{jhflError}}</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">运距</text>
-					<input class="mt-12 font_2" v-model="yj" type="number" @input="filterNonNumeric($event, 'yj')" />
-					<view v-if="yjError" class="error-tip">{{yjError}}</view>
-				</view>
-			</view>
-			<view class="flex-col group_2">
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">浇筑方式</text>
-					<view class="flex-row">
-						<picker v-model="jzfsIndex" :range="jzfsList" @change="handleJzfsChange">
-							<view class="mt-12 font_2">
-								{{ jzfsIndex === -1? '请选择' : jzfsList[jzfsIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="jzfs" @input="handleJzfsInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">坍落度</text>
-					<view class="flex-row">
-						<picker v-model="tldIndex" :range="tlds" @change="handleTldChange">
-							<view class="mt-12 font_2">
-								{{ tldIndex === -1? '请选择' : tlds[tldIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="tld" @input="handleTldInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">最大粒径</text>
-					<view class="flex-row">
-						<picker v-model="zdljIndex" :range="zdljs" @change="handleZdljChange">
-							<view class="mt-12 font_2">
-								{{ zdljIndex === -1? '请选择' : zdljs[zdljIndex] }}
-							</view>
-						</picker>
-						<input class="mt-12 font_2" v-model="zdlj" @input="handleZdljInput" />
-					</view>
-				</view>
-				<view class="flex-col items-start input group_4">
-					<text class="font text_6">备注</text>
-					<input class="mt-12 font_2" v-model="bz" />
-				</view>
-			</view>
-			<view class="divider_2 divider"></view>
-			<view class="flex-col group_8">
-				<view class="flex-row justify-end section_4" @click="save">
-					<text class="self-start font_3 text_12">保存</text>
-					<image class="self-center image_8 ml-107"
-						src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
-				</view>
-				<view class="mt-10 section_5"></view>
-			</view>
-		</view>
-	</view>
+            <view class="flex-col group_2">
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">任务单号</text>
+                    <input class="mt-2 font_2" v-model="rwdh" disabled="true" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">合同编号</text>
+                    <input class="mt-2 font_2" v-model="htbh" />
+                </view>
+                <!-- 以下是修改部分，将点击事件绑定到更大的容器上 -->
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('yhdw')">
+                        <text class="font text_6 flex-1">用户单位</text>
+                        <text class="text_6">{{ isPickerOpen.yhdw? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="yhdw" @input="handleYhdwInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('gcmc')">
+                        <text class="font text_6 flex-1">工程名称</text>
+                        <text class="text_6">{{ isPickerOpen.gcmc? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="gcmc" @input="handleGcmcInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('gcdz')">
+                        <text class="font text_6 flex-1">工程地址</text>
+                        <text class="text_6">{{ isPickerOpen.gcdz? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="gcdz" @input="handleGcdzInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('gcbw')">
+                        <text class="font text_6 flex-1">工程部位</text>
+                        <text class="text_6">{{ isPickerOpen.gcbw? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="gcbw" @input="handleGcbwInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('qddj')">
+                        <text class="font text_6 flex-1">强度等级</text>
+                        <text class="text_6">{{ isPickerOpen.qddj? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="qddj" @input="handleQddjInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">计划方量</text>
+                    <input class="mt-2 font_2" v-model="jhfl" type="number" @input="filterNonNumeric($event, 'jhfl')" />
+                    <view v-if="jhflError" class="error-tip">{{jhflError}}</view>
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">运距</text>
+                    <input class="mt-2 font_2" v-model="yj" type="number" @input="filterNonNumeric($event, 'yj')" />
+                    <view v-if="yjError" class="error-tip">{{yjError}}</view>
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('jzfs')">
+                        <text class="font text_6 flex-1">浇筑方式</text>
+                        <text class="text_6">{{ isPickerOpen.jzfs? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="jzfs" @input="handleJzfsInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('tld')">
+                        <text class="font text_6 flex-1">坍落度</text>
+                        <text class="text_6">{{ isPickerOpen.tld? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="tld" @input="handleTldInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('zdlj')">
+                        <text class="font text_6 flex-1">最大粒径</text>
+                        <text class="text_6">{{ isPickerOpen.zdlj? 'v' : '>' }}</text>
+                    </view>
+                    <input class="mt-2 font_2" v-model="zdlj" @input="handleZdljInput" />
+                </view>
+                <view class="flex-col items-start input group_4">
+                    <text class="font text_6">备注</text>
+                    <input class="mt-2 font_2" v-model="bz" />
+                </view>
+            </view>
+            <view class="divider_2 divider"></view>
+            <view class="flex-col group_8">
+                <view class="flex-row justify-end section_4" @click="save">
+                    <text class="self-start font_3 text_12">保存</text>
+                    <image class="self-center image_8 ml-107"
+                           src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
+                </view>
+                <view class="mt-10 section_5"></view>
+            </view>
+        </view>
+    </view>
 </template>
-
-
 
 <script>
 	import {
@@ -177,8 +142,8 @@
 				gcmc: '',
 				gcdz: '',
 				gcbw: '',
-				jhfl: '',
-				yj: '',
+				jhfl: 0,
+				yj: 0,
 				qddj: '',
 				bz: '',
 				tld: '',
@@ -204,7 +169,17 @@
 				zdljIndex: -1,
 				jhflError: '',
 				yjError: '',
-				ghrqError: ''
+				ghrqError: '',
+				isPickerOpen: {
+					yhdw: false,
+					gcmc: false,
+					gcdz: false,
+					gcbw: false,
+					qddj: false,
+					jzfs: false,
+					tld: false,
+					zdlj: false
+				}
 			};
 		},
 		onLoad() {
@@ -365,6 +340,10 @@
 					this.ghrqError = '供货日期为必填项';
 					return;
 				}
+                if (!this.jhfl) {
+                    this.jhflError = '计划方量为必填项';
+                    return;
+                }
 				try {
 					const res = await taskSheetSave({
 						rwdh: this.rwdh,
@@ -394,9 +373,9 @@
 					uni.showToast({
 						title: '创建成功'
 					});
-					 setTimeout(()=>{
-					 	this.returnList()
-					 },500)
+					setTimeout(() => {
+						this.returnList()
+					}, 500)
 				} catch (e) {
 					uni.showToast({
 						title: '创建失败'
@@ -408,302 +387,393 @@
 				uni.redirectTo({
 					url: '/pages/sdpage/rwd/index'
 				});
+			},
+			togglePicker(field) {
+				// 关闭其他打开的选择器
+				Object.keys(this.isPickerOpen).forEach(key => {
+					if (key !== field) {
+						this.isPickerOpen[key] = false;
+					}
+				});
+				this.isPickerOpen[field] = !this.isPickerOpen[field];
+				if (this.isPickerOpen[field]) {
+					let options = [];
+					switch (field) {
+						case 'yhdw':
+							options = this.yhdws;
+							break;
+						case 'gcmc':
+							options = this.gcmcs;
+							break;
+						case 'gcdz':
+							options = this.gcdzs;
+							break;
+						case 'gcbw':
+							options = this.gcbws;
+							break;
+						case 'qddj':
+							options = this.qddjs;
+							break;
+						case 'jzfs':
+							options = this.jzfsList;
+							break;
+						case 'tld':
+							options = this.tlds;
+							break;
+						case 'zdlj':
+							options = this.zdljs;
+							break;
+					}
+					uni.showActionSheet({
+						itemList: options,
+						success: (res) => {
+							switch (field) {
+								case 'yhdw':
+									this.yhdwIndex = res.tapIndex;
+									this.yhdw = this.yhdws[res.tapIndex];
+									break;
+								case 'gcmc':
+									this.gcmcIndex = res.tapIndex;
+									this.gcmc = this.gcmcs[res.tapIndex];
+									break;
+								case 'gcdz':
+									this.gcdzIndex = res.tapIndex;
+									this.gcdz = this.gcdzs[res.tapIndex];
+									break;
+								case 'gcbw':
+									this.gcbwIndex = res.tapIndex;
+									this.gcbw = this.gcbws[res.tapIndex];
+									break;
+								case 'qddj':
+									this.qddjIndex = res.tapIndex;
+									this.qddj = this.qddjs[res.tapIndex];
+									break;
+								case 'jzfs':
+									this.jzfsIndex = res.tapIndex;
+									this.jzfs = this.jzfsList[res.tapIndex];
+									break;
+								case 'tld':
+									this.tldIndex = res.tapIndex;
+									this.tld = this.tlds[res.tapIndex];
+									break;
+								case 'zdlj':
+									this.zdljIndex = res.tapIndex;
+									this.zdlj = this.zdljs[res.tapIndex];
+									break;
+							}
+							this.closePicker(field);
+						},
+						fail: (err) => {
+							console.error(err);
+							this.closePicker(field);
+						}
+					});
+				}
+			},
+			closePicker(field) {
+				this.isPickerOpen[field] = false;
 			}
 		}
 	};
 </script>
 
 <style scoped lang="css">
-	.ml-5 {
-		margin-left: 10rpx;
-	}
+   .ml-5 {
+        margin-left: 10rpx;
+    }
 
-	.ml-107 {
-		margin-left: 214rpx;
-	}
+   .ml-107 {
+        margin-left: 214rpx;
+    }
 
-	.page {
-		background-color: #ffffff;
-		background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
-		width: 100%;
-		overflow-y: auto;
-		overflow-x: hidden;
-		height: 100%;
-	}
+   .page {
+        background-color: #ffffff;
+        background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+    }
 
-	.section {
-		background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
-		width: 750rpx;
-		height: 1624rpx;
-	}
+   .section {
+        background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
+        width: 750rpx;
+        height: 1624rpx;
+    }
 
-	.section_2 {
-		padding: 26rpx 28rpx 36rpx 36rpx;
-		background-color: #ffffff00;
-	}
+   .section_2 {
+        padding: 26rpx 28rpx 36rpx 36rpx;
+        background-color: #ffffff00;
+    }
 
-	.pos {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-	}
+   .pos {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
 
-	.text {
-		color: #ffffff;
-		font-size: 30rpx;
-		font-family: Avenir LT Std;
-		line-height: 21.78rpx;
-	}
+   .text {
+        color: #ffffff;
+        font-size: 30rpx;
+        font-family: Avenir LT Std;
+        line-height: 21.78rpx;
+    }
 
-	.image {
-		width: 34rpx;
-		height: 22rpx;
-	}
+   .image {
+        width: 34rpx;
+        height: 22rpx;
+    }
 
-	.image_2 {
-		width: 30rpx;
-		height: 22rpx;
-	}
+   .image_2 {
+        width: 30rpx;
+        height: 22rpx;
+    }
 
-	.image_3 {
-		width: 48rpx;
-		height: 22rpx;
-	}
+   .image_3 {
+        width: 48rpx;
+        height: 22rpx;
+    }
 
-	.image_4 {
-		width: 24rpx;
-		height: 42rpx;
-	}
+   .image_4 {
+        width: 24rpx;
+        height: 42rpx;
+    }
 
-	.pos_3 {
-		position: absolute;
-		left: 32rpx;
-		top: 111rpx;
-	}
+   .pos_3 {
+        position: absolute;
+        left: 32rpx;
+        top: 111rpx;
+    }
 
-	.text_2 {
-		color: #ffffff;
-		font-size: 36rpx;
-		font-family: Source Sans Pro;
-		line-height: 33.16rpx;
-	}
+   .text_2 {
+        color: #ffffff;
+        font-size: 36rpx;
+        font-family: Source Sans Pro;
+        line-height: 33.16rpx;
+    }
 
-	.pos_2 {
-		position: absolute;
-		left: 86rpx;
-		top: 106rpx;
-	}
+   .pos_2 {
+        position: absolute;
+        left: 86rpx;
+        top: 106rpx;
+    }
 
-	.image_5 {
-		opacity: 0.35;
-		width: 6rpx;
-		height: 6rpx;
-	}
+   .image_5 {
+        opacity: 0.35;
+        width: 6rpx;
+        height: 6rpx;
+    }
 
-	.pos_4 {
-		position: absolute;
-		left: 67.1rpx;
-		top: 153.02rpx;
-	}
+   .pos_4 {
+        position: absolute;
+        left: 67.1rpx;
+        top: 153.02rpx;
+    }
 
-	.pos_5 {
-		position: absolute;
-		right: 79.94rpx;
-		top: 149.98rpx;
-	}
+   .pos_5 {
+        position: absolute;
+        right: 79.94rpx;
+        top: 149.98rpx;
+    }
 
-	.pos_6 {
-		position: absolute;
-		right: 249.12rpx;
-		top: 156.36rpx;
-	}
+   .pos_6 {
+        position: absolute;
+        right: 249.12rpx;
+        top: 156.36rpx;
+    }
 
-	.pos_8 {
-		position: absolute;
-		left: 324.72rpx;
-		top: 176.54rpx;
-	}
+   .pos_8 {
+        position: absolute;
+        left: 324.72rpx;
+        top: 176.54rpx;
+    }
 
-	.image_6 {
-		opacity: 0.35;
-		width: 26rpx;
-		height: 26rpx;
-	}
+   .image_6 {
+        opacity: 0.35;
+        width: 26rpx;
+        height: 26rpx;
+    }
 
-	.pos_7 {
-		position: absolute;
-		right: 108.32rpx;
-		top: 159.38rpx;
-	}
+   .pos_7 {
+        position: absolute;
+        right: 108.32rpx;
+        top: 159.38rpx;
+    }
 
-	.pos_9 {
-		position: absolute;
-		left: 36rpx;
-		top: 212.94rpx;
-	}
+   .pos_9 {
+        position: absolute;
+        left: 36rpx;
+        top: 212.94rpx;
+    }
 
-	.section_3 {
-		background-image: url('../../../static/page08/85eaf09bd543c66b1287def37e55cdf5.png');
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-	}
+   .section_3 {
+        background-image: url('../../../static/page08/85eaf09bd543c66b1287def37e55cdf5.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
 
-	.pos_10 {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 226rpx;
-	}
+   .pos_10 {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 226rpx;
+    }
 
-	.group {
-		padding: 56rpx 32rpx;
-	}
+   .group {
+        padding: 32rpx 32rpx; /* 减小 group 的 padding */
+    }
 
-	.font {
-		font-size: 24rpx;
-		font-family: Source Sans Pro;
-		line-height: 21.12rpx;
-		color: #a5a5a5;
-	}
+   .font {
+        font-size: 22rpx; /* 减小 font 的字号 */
+        font-family: Source Sans Pro;
+        line-height: 18rpx; /* 减小 font 的行高 */
+        color: #a5a5a5;
+    }
 
-	.text_3 {
-		line-height: 22.1rpx;
-	}
+   .text_3 {
+        line-height: 20rpx;
+    }
 
-	.font_2 {
-		font-size: 32rpx;
-		font-family: Source Sans Pro;
-		line-height: 21.12rpx;
-		font-weight: 600;
-		color: #313131;
-	}
+   .font_2 {
+        font-size: 26rpx; /* 减小 font_2 的字号 */
+        font-family: Source Sans Pro;
+        line-height: 20rpx; /* 减小 font_2 的行高 */
+        font-weight: 600;
+        color: #313131;
+    }
 
-	.text_4 {
-		color: #979797;
-		line-height: 20.36rpx;
-	}
+   .text_4 {
+        color: #979797;
+        line-height: 18rpx;
+    }
 
-	.group_2 {
-		margin-top: 58rpx;
-		padding: 0 32rpx;
-	}
+   .group_2 {
+        margin-top: 18rpx; /* 进一步减小供货日期和任务单号之间的距离 */
+        padding: 0 32rpx;
+    }
 
-	.text_5 {
-		line-height: 21.76rpx;
-	}
+   .text_5 {
+        line-height: 18rpx;
+    }
 
-	.group_3 {
-		padding: 24rpx 0;
-		border-bottom: solid 2rpx #e1e3e8;
-	}
+   .group_3 {
+        padding: 12rpx 0; /* 减小 group_3 的 padding */
+        border-bottom: solid 1rpx #e1e3e8; /* 减小 border 的宽度 */
+    }
 
-	.image_7 {
-		margin-right: 12rpx;
-		width: 34rpx;
-		height: 36rpx;
-	}
+   .image_7 {
+        margin-right: 8rpx; /* 减小 image_7 的 margin-right */
+        width: 28rpx;
+        height: 30rpx; /* 减小 image_7 的尺寸 */
+    }
 
-	.input {
-		align-self: stretch;
-		margin-top: 36rpx;
-	}
+   .input {
+        align-self: stretch;
+        margin-top: 12rpx; /* 进一步减小 input 的 margin-top */
+    }
 
-	.group_4 {
-		padding: 24rpx 0;
-		border-bottom: solid 2rpx #e1e3e8;
-	}
+   .group_4 {
+        padding: 6rpx 0; /* 进一步减小 group_4 的 padding */
+        border-bottom: solid 1rpx #e1e3e8; /* 减小 border 的宽度 */
+    }
 
-	.text_6 {
-		line-height: 21.76rpx;
-	}
+   .text_6 {
+        line-height: 16rpx; /* 进一步减小 text_6 的行高 */
+    }
 
-	.group_5 {
-		padding: 60rpx 32rpx 56rpx;
-	}
+   .group_5 {
+        padding: 40rpx 32rpx 36rpx; /* 减小 group_5 的 padding */
+    }
 
-	.text_7 {
-		line-height: 22.12rpx;
-	}
+   .text_7 {
+        line-height: 20rpx;
+    }
 
-	.group_6 {
-		margin: 0 32rpx;
-		padding: 56rpx 0 44rpx;
-		border-top: solid 2rpx #e1e3e8;
-		border-bottom: solid 2rpx #e1e3e8;
-	}
+   .group_6 {
+        margin: 0 32rpx;
+        padding: 36rpx 0 24rpx; /* 减小 group_6 的 padding */
+        border-top: solid 1rpx #e1e3e8; /* 减小 border 的宽度 */
+        border-bottom: solid 1rpx #e1e3e8; /* 减小 border 的宽度 */
+    }
 
-	.text_8 {
-		line-height: 22.1rpx;
-	}
+   .text_8 {
+        line-height: 20rpx;
+    }
 
-	.font_3 {
-		font-size: 32rpx;
-		font-family: Source Sans Pro;
-		line-height: 29.92rpx;
-		font-weight: 600;
-		color: #313131;
-	}
+   .font_3 {
+        font-size: 30rpx;
+        font-family: Source Sans Pro;
+        line-height: 26rpx;
+        font-weight: 600;
+        color: #313131;
+    }
 
-	.text_9 {
-		line-height: 30.28rpx;
-	}
+   .text_9 {
+        line-height: 28rpx;
+    }
 
-	.group_7 {
-		padding: 72rpx 32rpx 48rpx;
-	}
+   .group_7 {
+        padding: 52rpx 32rpx 38rpx; /* 减小 group_7 的 padding */
+    }
 
-	.text_10 {
-		line-height: 22.04rpx;
-	}
+   .text_10 {
+        line-height: 20rpx;
+    }
 
-	.text_11 {
-		line-height: 29.54rpx;
-	}
+   .text_11 {
+        line-height: 26rpx;
+    }
 
-	.divider_2 {
-		margin: 0 32rpx;
-	}
+   .divider_2 {
+        margin: 0 32rpx;
+    }
 
-	.divider {
-		background-color: #e1e3e8;
-		height: 2rpx;
-	}
+   .divider {
+        background-color: #e1e3e8;
+        height: 1rpx; /* 减小 divider 的高度 */
+    }
 
-	.view {
-		margin: 0 32rpx;
-	}
+   .view {
+        margin: 0 32rpx;
+    }
 
-	.group_8 {
-		margin-top: 134rpx;
-	}
+   .group_8 {
+        margin-top: 84rpx; /* 减小 group_8 的 margin-top */
+    }
 
-	.section_4 {
-		margin: 0 32rpx;
-		padding: 32rpx 60rpx 36rpx;
-		background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-	}
+   .section_4 {
+        margin: 0 32rpx;
+        padding: 22rpx 40rpx 26rpx; /* 减小 section_4 的 padding */
+        background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
 
-	.text_12 {
-		color: #ffffff;
-	}
+   .text_12 {
+        color: #ffffff;
+    }
 
-	.image_8 {
-		width: 56rpx;
-		height: 36rpx;
-	}
+   .image_8 {
+        width: 48rpx;
+        height: 30rpx; /* 减小 image_8 的尺寸 */
+    }
 
-	.section_5 {
-		background-color: #d3d3d300;
-		height: 32rpx;
-	}
+   .section_5 {
+        background-color: #d3d3d300;
+        height: 22rpx; /* 减小 section_5 的高度 */
+    }
 
-	/* 新增错误提示样式 */
-	.error-tip {
-		color: red;
-		font-size: 20rpx;
-		margin-top: 5rpx;
-	}
+    /* 新增错误提示样式 */
+   .error-tip {
+        color: red;
+        font-size: 18rpx;
+        margin-top: 3rpx; /* 减小 error-tip 的 margin-top */
+    }
+
+    /* 新增增大点击范围的样式 */
+   .picker-trigger {
+        padding: 8rpx 0; /* 增加内边距以增大点击区域 */
+        cursor: pointer; /* 显示指针样式，提示用户可点击 */
+    }
 </style>

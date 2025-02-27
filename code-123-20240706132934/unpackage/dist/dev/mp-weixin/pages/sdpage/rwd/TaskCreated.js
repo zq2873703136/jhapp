@@ -267,41 +267,6 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   components: {},
   props: {},
@@ -317,8 +282,8 @@ var _default = {
       gcmc: '',
       gcdz: '',
       gcbw: '',
-      jhfl: '',
-      yj: '',
+      jhfl: 0,
+      yj: 0,
       qddj: '',
       bz: '',
       tld: '',
@@ -344,7 +309,17 @@ var _default = {
       zdljIndex: -1,
       jhflError: '',
       yjError: '',
-      ghrqError: ''
+      ghrqError: '',
+      isPickerOpen: {
+        yhdw: false,
+        gcmc: false,
+        gcdz: false,
+        gcbw: false,
+        qddj: false,
+        jzfs: false,
+        tld: false,
+        zdlj: false
+      }
     };
   },
   onLoad: function onLoad() {
@@ -555,8 +530,15 @@ var _default = {
                 _this4.ghrqError = '供货日期为必填项';
                 return _context3.abrupt("return");
               case 3:
-                _context3.prev = 3;
-                _context3.next = 6;
+                if (_this4.jhfl) {
+                  _context3.next = 6;
+                  break;
+                }
+                _this4.jhflError = '计划方量为必填项';
+                return _context3.abrupt("return");
+              case 6:
+                _context3.prev = 6;
+                _context3.next = 9;
                 return (0, _api.taskSheetSave)({
                   rwdh: _this4.rwdh,
                   htbh: _this4.htbh,
@@ -582,7 +564,7 @@ var _default = {
                   expansionType: _this4.expansionType,
                   zdlj: _this4.zdlj
                 });
-              case 6:
+              case 9:
                 res = _context3.sent;
                 uni.showToast({
                   title: '创建成功'
@@ -590,20 +572,20 @@ var _default = {
                 setTimeout(function () {
                   _this4.returnList();
                 }, 500);
-                _context3.next = 14;
+                _context3.next = 17;
                 break;
-              case 11:
-                _context3.prev = 11;
-                _context3.t0 = _context3["catch"](3);
+              case 14:
+                _context3.prev = 14;
+                _context3.t0 = _context3["catch"](6);
                 uni.showToast({
                   title: '创建失败'
                 });
-              case 14:
+              case 17:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[3, 11]]);
+        }, _callee3, null, [[6, 14]]);
       }))();
     },
     returnList: function returnList() {
@@ -611,6 +593,92 @@ var _default = {
       uni.redirectTo({
         url: '/pages/sdpage/rwd/index'
       });
+    },
+    togglePicker: function togglePicker(field) {
+      var _this5 = this;
+      // 关闭其他打开的选择器
+      Object.keys(this.isPickerOpen).forEach(function (key) {
+        if (key !== field) {
+          _this5.isPickerOpen[key] = false;
+        }
+      });
+      this.isPickerOpen[field] = !this.isPickerOpen[field];
+      if (this.isPickerOpen[field]) {
+        var options = [];
+        switch (field) {
+          case 'yhdw':
+            options = this.yhdws;
+            break;
+          case 'gcmc':
+            options = this.gcmcs;
+            break;
+          case 'gcdz':
+            options = this.gcdzs;
+            break;
+          case 'gcbw':
+            options = this.gcbws;
+            break;
+          case 'qddj':
+            options = this.qddjs;
+            break;
+          case 'jzfs':
+            options = this.jzfsList;
+            break;
+          case 'tld':
+            options = this.tlds;
+            break;
+          case 'zdlj':
+            options = this.zdljs;
+            break;
+        }
+        uni.showActionSheet({
+          itemList: options,
+          success: function success(res) {
+            switch (field) {
+              case 'yhdw':
+                _this5.yhdwIndex = res.tapIndex;
+                _this5.yhdw = _this5.yhdws[res.tapIndex];
+                break;
+              case 'gcmc':
+                _this5.gcmcIndex = res.tapIndex;
+                _this5.gcmc = _this5.gcmcs[res.tapIndex];
+                break;
+              case 'gcdz':
+                _this5.gcdzIndex = res.tapIndex;
+                _this5.gcdz = _this5.gcdzs[res.tapIndex];
+                break;
+              case 'gcbw':
+                _this5.gcbwIndex = res.tapIndex;
+                _this5.gcbw = _this5.gcbws[res.tapIndex];
+                break;
+              case 'qddj':
+                _this5.qddjIndex = res.tapIndex;
+                _this5.qddj = _this5.qddjs[res.tapIndex];
+                break;
+              case 'jzfs':
+                _this5.jzfsIndex = res.tapIndex;
+                _this5.jzfs = _this5.jzfsList[res.tapIndex];
+                break;
+              case 'tld':
+                _this5.tldIndex = res.tapIndex;
+                _this5.tld = _this5.tlds[res.tapIndex];
+                break;
+              case 'zdlj':
+                _this5.zdljIndex = res.tapIndex;
+                _this5.zdlj = _this5.zdljs[res.tapIndex];
+                break;
+            }
+            _this5.closePicker(field);
+          },
+          fail: function fail(err) {
+            console.error(err);
+            _this5.closePicker(field);
+          }
+        });
+      }
+    },
+    closePicker: function closePicker(field) {
+      this.isPickerOpen[field] = false;
     }
   }
 };
