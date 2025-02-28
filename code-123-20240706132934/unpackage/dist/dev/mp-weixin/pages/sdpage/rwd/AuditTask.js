@@ -102,6 +102,17 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.getColor(_vm.taskInfo.phbsfsh)
+  var m1 = _vm.getColor(_vm.taskInfo.phbsfsh)
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+        m1: m1,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -336,6 +347,16 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   props: {},
@@ -357,6 +378,13 @@ var _default = {
     this.getRatioInfo();
   },
   methods: {
+    getColor: function getColor(score) {
+      if (score == 0 || score == null) {
+        return 'red';
+      } else {
+        return 'green';
+      }
+    },
     getRatioInfo: function getRatioInfo() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {

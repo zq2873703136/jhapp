@@ -102,6 +102,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.getColor(_vm.phbsfsh)
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -217,6 +226,13 @@ var _default = {
     this.getDictValues();
   },
   methods: {
+    getColor: function getColor(score) {
+      if (score == 0 || score == null) {
+        return 'red';
+      } else {
+        return 'green';
+      }
+    },
     initPickerIndex: function initPickerIndex() {
       var _this = this;
       this.yhdwIndex = this.yhdws.findIndex(function (item) {
