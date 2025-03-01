@@ -148,7 +148,6 @@
     line-height: 21.76rpx;
 }
 .group_3.data-v-1de58ad0 {
-    padding: 24rpx 0;
     border-bottom: solid 2rpx #e1e3e8;
 }
 .image_7.data-v-1de58ad0 {
@@ -161,8 +160,9 @@
     margin-top: 36rpx;
 }
 .group_4.data-v-1de58ad0 {
-    padding: 24rpx 0;
     border-bottom: solid 2rpx #e1e3e8;
+    display: flex;
+    align-items: center;
 }
 .text_6.data-v-1de58ad0 {
     line-height: 21.76rpx;
@@ -232,11 +232,75 @@
     background-color: #d3d3d300;
     height: 32rpx;
 }
-
-/* 新增错误提示样式 */
 .error-tip.data-v-1de58ad0 {
     color: red;
     font-size: 20rpx;
     margin-top: 5rpx;
+}
+.flex-2.data-v-1de58ad0 {
+    flex: 2;
+    padding-right: 10rpx;
+}
+.flex-8.data-v-1de58ad0 {
+    flex: 8;
+}
+.picker-trigger.data-v-1de58ad0 {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.label-text.data-v-1de58ad0 {
+    font-size: 24rpx;
+    color: #a5a5a5;
+}
+.arrow-text.data-v-1de58ad0 {
+    color: #a5a5a5;
+    font-size: 24rpx;
+}
+.material-title.data-v-1de58ad0 {
+    background-color: #f8f9fa;
+    padding: 16rpx 0;
+    margin-bottom: 20rpx;
+}
+.material-list.data-v-1de58ad0 {
+    background-color: #ffffff;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+.material-list .group_4.data-v-1de58ad0 {
+    border-bottom: 1rpx solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.material-list .group_4.data-v-1de58ad0:last-child {
+    border-bottom: none;
+}
+.flex-1.data-v-1de58ad0 {
+    flex: 1;
+    padding: 0 10rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.material-item.data-v-1de58ad0 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.label.data-v-1de58ad0 {
+    min-width: 100rpx; /* 调整标签最小宽度以保证对齐 */
+    text-align: right;
+    margin-right: 15rpx;
+    white-space: nowrap;
+}
+.input-number.data-v-1de58ad0 {
+    flex: 1;
+    height: 40rpx;
+    border-radius: 4rpx;
+    padding: 0 10rpx;
+    font-size: 24rpx;
+    text-align: right;
 }
 

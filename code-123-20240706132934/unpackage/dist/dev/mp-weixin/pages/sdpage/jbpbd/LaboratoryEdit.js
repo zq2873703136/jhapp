@@ -212,7 +212,15 @@ var _default = {
       tldIndex: -1,
       zdljIndex: -1,
       qddjIndex: -1,
-      jbsjError: ''
+      jbsjError: '',
+      isPickerOpen: {
+        sgbw: false,
+        hntzl: false,
+        qddj: false,
+        hntjp: false,
+        tld: false,
+        zdlj: false
+      }
     };
   },
   onLoad: function onLoad(query) {
@@ -404,32 +412,76 @@ var _default = {
       this.form2.rl = Number(this.form2.ds) + Number(this.form2.zs1) + Number(this.form2.zs2) + Number(this.form2.xs) + Number(this.form2.s1) + Number(this.form2.s2) + Number(this.form2.b) + Number(this.form2.sn1) + Number(this.form2.sn2) + Number(this.form2.fmh1) + Number(this.form2.fmh2) + Number(this.form2.s) + Number(this.form2.wjj1) + Number(this.form2.wjj2) + Number(this.form2.wjj3);
       this.form2.rl = this.form2.rl.toFixed(2);
     },
-    save: function save() {
+    togglePicker: function togglePicker(field) {
       var _this2 = this;
+      Object.keys(this.isPickerOpen).forEach(function (key) {
+        if (key !== field) {
+          _this2.isPickerOpen[key] = false;
+        }
+      });
+      this.isPickerOpen[field] = !this.isPickerOpen[field];
+      console.log('this.isPickerOpen[field]', this.isPickerOpen[field]);
+      if (this.isPickerOpen[field]) {
+        var options = [];
+        switch (field) {
+          case 'sgbw':
+            options = this.sgbws;
+            break;
+          case 'hntzl':
+            options = this.hntzls;
+            break;
+          case 'qddj':
+            options = this.qddjs;
+            break;
+          case 'hntjp':
+            options = this.hntjps;
+            break;
+          case 'tld':
+            options = this.tlds;
+            break;
+          case 'zdlj':
+            options = this.zdljs;
+            break;
+        }
+        uni.showActionSheet({
+          itemList: options,
+          success: function success(res) {
+            _this2["".concat(field, "Index")] = res.tapIndex;
+            _this2.form2[field] = options[res.tapIndex];
+            _this2.isPickerOpen[field] = false;
+          },
+          fail: function fail() {
+            _this2.isPickerOpen[field] = false;
+          }
+        });
+      }
+    },
+    save: function save() {
+      var _this3 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
         var res;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.validateJbsj();
-                _this2.validatePositiveNumber('ds');
-                _this2.validatePositiveNumber('zs1');
-                _this2.validatePositiveNumber('zs2');
-                _this2.validatePositiveNumber('xs');
-                _this2.validatePositiveNumber('s1');
-                _this2.validatePositiveNumber('s2');
-                _this2.validatePositiveNumber('b');
-                _this2.validatePositiveNumber('sn1');
-                _this2.validatePositiveNumber('sn2');
-                _this2.validatePositiveNumber('fmh1');
-                _this2.validatePositiveNumber('fmh2');
-                _this2.validatePositiveNumber('s');
-                _this2.validatePositiveNumber('wjj1');
-                _this2.validatePositiveNumber('wjj2');
-                _this2.validatePositiveNumber('wjj3');
-                _this2.validatePositiveNumber('rl');
-                if (!(_this2.jbsjError || _this2.form2.dsError || _this2.form2.zs1Error || _this2.form2.zs2Error || _this2.form2.xsError || _this2.form2.s1Error || _this2.form2.s2Error || _this2.form2.bError || _this2.form2.sn1Error || _this2.form2.sn2Error || _this2.form2.fmh1Error || _this2.form2.fmh2Error || _this2.form2.sError || _this2.form2.wjj1Error || _this2.form2.wjj2Error || _this2.form2.wjj3Error || _this2.form2.rlError)) {
+                _this3.validateJbsj();
+                _this3.validatePositiveNumber('ds');
+                _this3.validatePositiveNumber('zs1');
+                _this3.validatePositiveNumber('zs2');
+                _this3.validatePositiveNumber('xs');
+                _this3.validatePositiveNumber('s1');
+                _this3.validatePositiveNumber('s2');
+                _this3.validatePositiveNumber('b');
+                _this3.validatePositiveNumber('sn1');
+                _this3.validatePositiveNumber('sn2');
+                _this3.validatePositiveNumber('fmh1');
+                _this3.validatePositiveNumber('fmh2');
+                _this3.validatePositiveNumber('s');
+                _this3.validatePositiveNumber('wjj1');
+                _this3.validatePositiveNumber('wjj2');
+                _this3.validatePositiveNumber('wjj3');
+                _this3.validatePositiveNumber('rl');
+                if (!(_this3.jbsjError || _this3.form2.dsError || _this3.form2.zs1Error || _this3.form2.zs2Error || _this3.form2.xsError || _this3.form2.s1Error || _this3.form2.s2Error || _this3.form2.bError || _this3.form2.sn1Error || _this3.form2.sn2Error || _this3.form2.fmh1Error || _this3.form2.fmh2Error || _this3.form2.sError || _this3.form2.wjj1Error || _this3.form2.wjj2Error || _this3.form2.wjj3Error || _this3.form2.rlError)) {
                   _context2.next = 19;
                   break;
                 }
@@ -438,44 +490,44 @@ var _default = {
                 _context2.prev = 19;
                 _context2.next = 22;
                 return (0, _api.ratioSave)({
-                  id: _this2.form2.id,
-                  pbbh: _this2.form2.pbbh,
-                  sgbw: _this2.form2.sgbw,
-                  hntzl: _this2.form2.hntzl,
-                  ghrq: _this2.form2.ghrq,
-                  planDate: _this2.form2.planDate,
-                  zdlj: _this2.form2.zdlj,
-                  hntjp: _this2.form2.hntjp,
-                  jbsj: _this2.form2.jbsj,
-                  tld: _this2.form2.tld,
-                  ds: _this2.form2.ds,
-                  remainConcreteQuantity: _this2.form2.remainConcreteQuantity,
-                  zs1: _this2.form2.zs1,
-                  qddj: _this2.form2.qddj,
-                  bz: _this2.form2.bz,
+                  id: _this3.form2.id,
+                  pbbh: _this3.form2.pbbh,
+                  sgbw: _this3.form2.sgbw,
+                  hntzl: _this3.form2.hntzl,
+                  ghrq: _this3.form2.ghrq,
+                  planDate: _this3.form2.planDate,
+                  zdlj: _this3.form2.zdlj,
+                  hntjp: _this3.form2.hntjp,
+                  jbsj: _this3.form2.jbsj,
+                  tld: _this3.form2.tld,
+                  ds: _this3.form2.ds,
+                  remainConcreteQuantity: _this3.form2.remainConcreteQuantity,
+                  zs1: _this3.form2.zs1,
+                  qddj: _this3.form2.qddj,
+                  bz: _this3.form2.bz,
                   phbsfsh: '0',
-                  pumpingType: _this2.form2.pumpingType,
-                  pumpingParams: _this2.form2.pumpingParams,
-                  zs2: _this2.form2.zs2,
-                  invoiceDate: _this2.form2.invoiceDate,
-                  invoicePerson: _this2.form2.invoicePerson,
-                  taskSheetStatus: _this2.form2.taskSheetStatus,
-                  pumpingMachine: _this2.form2.pumpingMachine,
-                  pumpingPipe: _this2.form2.pumpingPipe,
-                  expansionType: _this2.form2.expansionType,
-                  xs: _this2.form2.xs,
-                  s1: _this2.form2.s1,
-                  s2: _this2.form2.s2,
-                  b: _this2.form2.b,
-                  sn1: _this2.form2.sn1,
-                  sn2: _this2.form2.sn2,
-                  fmh1: _this2.form2.fmh1,
-                  fmh2: _this2.form2.fmh2,
-                  s: _this2.form2.s,
-                  wjj1: _this2.form2.wjj1,
-                  wjj2: _this2.form2.wjj2,
-                  wjj3: _this2.form2.wjj3,
-                  rl: _this2.form2.rl
+                  pumpingType: _this3.form2.pumpingType,
+                  pumpingParams: _this3.form2.pumpingParams,
+                  zs2: _this3.form2.zs2,
+                  invoiceDate: _this3.form2.invoiceDate,
+                  invoicePerson: _this3.form2.invoicePerson,
+                  taskSheetStatus: _this3.form2.taskSheetStatus,
+                  pumpingMachine: _this3.form2.pumpingMachine,
+                  pumpingPipe: _this3.form2.pumpingPipe,
+                  expansionType: _this3.form2.expansionType,
+                  xs: _this3.form2.xs,
+                  s1: _this3.form2.s1,
+                  s2: _this3.form2.s2,
+                  b: _this3.form2.b,
+                  sn1: _this3.form2.sn1,
+                  sn2: _this3.form2.sn2,
+                  fmh1: _this3.form2.fmh1,
+                  fmh2: _this3.form2.fmh2,
+                  s: _this3.form2.s,
+                  wjj1: _this3.form2.wjj1,
+                  wjj2: _this3.form2.wjj2,
+                  wjj3: _this3.form2.wjj3,
+                  rl: _this3.form2.rl
                 });
               case 22:
                 res = _context2.sent;

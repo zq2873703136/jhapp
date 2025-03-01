@@ -2,7 +2,7 @@
     <view class="flex-col justify-start relative page">
         <view class="section"></view>
         <image @click="returnList()" class="image_4 pos_3"
-            src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+               src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
         <text class="text_2 pos_2">编辑配比单</text>
         <image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
         <image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -17,165 +17,194 @@
             </view>
             <view class="divider view"></view>
             <view class="flex-col group_2">
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6"><text style="color: red;">*</text>配比编号</text>
-                    <input class="mt-12 font_2" v-model="form2.pbbh" disabled />
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">施工部位</text>
-                    <view class="flex-row">
-                        <picker v-model="sgbwIndex" :range="sgbws" @change="handleSgbwChange">
-                            <view class="mt-12 font_2">
-                                {{ sgbwIndex === -1 ? '请选择' : sgbws[sgbwIndex] }}
+                            <!-- 材料 / 每方用量 (KG) 上面的部分 -->
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <text class="font text_6 label-text"><text style="color: red;">*</text>配比编号</text>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.pbbh" disabled />
+                                </view>
                             </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.sgbw" @input="handleSgbwInput" />
-                    </view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">混凝土种类</text>
-                    <view class="flex-row">
-                        <picker v-model="hntzlIndex" :range="hntzls" @change="handleHntzlChange">
-                            <view class="mt-12 font_2">
-                                {{ hntzlIndex === -1 ? '请选择' : hntzls[hntzlIndex] }}
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('sgbw')">
+                                        <text class="font text_6 label-text">施工部位</text>
+                                        <text class="text_6">{{ isPickerOpen.sgbw? 'v' : '>' }}</text>
+                                    </view>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.sgbw" @input="handleSgbwInput" />
+                                </view>
                             </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.hntzl" @input="handleHntzlInput" />
-                    </view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">强度等级</text>
-                    <view class="flex-row">
-                        <picker v-model="qddjIndex" :range="qddjs" @change="handleQddjChange">
-                            <view class="mt-12 font_2">
-                                {{ qddjIndex === -1 ? '请选择' : qddjs[qddjIndex] }}
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('hntzl')">
+                                        <text class="font text_6 label-text">混凝土种类</text>
+                                        <text class="text_6">{{ isPickerOpen.hntzl? 'v' : '>' }}</text>
+                                    </view>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.hntzl" @input="handleHntzlInput" />
+                                </view>
                             </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.qddj" @input="handleQddjInput" />
-                    </view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">混凝土级配</text>
-                    <view class="flex-row">
-                        <picker v-model="hntjpIndex" :range="hntjps" @change="handleHntjpChange">
-                            <view class="mt-12 font_2">
-                                {{ hntjpIndex === -1 ? '请选择' : hntjps[hntjpIndex] }}
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('qddj')">
+                                        <text class="font text_6 label-text">强度等级</text>
+                                        <text class="text_6">{{ isPickerOpen.qddj? 'v' : '>' }}</text>
+                                    </view>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.qddj" @input="handleQddjInput" />
+                                </view>
                             </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.hntjp" @input="handleHntjpInput" />
-                    </view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6"><text style="color: red;">*</text>搅拌时间</text>
-                    <input class="mt-12 font_2" v-model="form2.jbsj" @input="validateJbsj" />
-                    <view v-if="jbsjError" class="error-tip">{{jbsjError}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">坍落度</text>
-                    <view class="flex-row">
-                        <picker v-model="tldIndex" :range="tlds" @change="handleTldChange">
-                            <view class="mt-12 font_2">
-                                {{ tldIndex === -1 ? '请选择' : tlds[tldIndex] }}
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('hntjp')">
+                                        <text class="font text_6 label-text">混凝土级配</text>
+                                        <text class="text_6">{{ isPickerOpen.hntjp? 'v' : '>' }}</text>
+                                    </view>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.hntjp" @input="handleHntjpInput" />
+                                </view>
                             </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.tld" @input="handleTldInput" />
-                    </view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">最大粒径</text>
-                    <view class="flex-row">
-                        <picker v-model="zdljIndex" :range="zdljs" @change="handleZdljChange">
-                            <view class="mt-12 font_2">
-                                {{ zdljIndex === -1 ? '请选择' : zdljs[zdljIndex] }}
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <text class="font text_6 label-text"><text style="color: red;">*</text>搅拌时间</text>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.jbsj" @input="validateJbsj" />
+                                    <view v-if="jbsjError" class="error-tip">{{jbsjError}}</view>
+                                </view>
                             </view>
-                        </picker>
-                        <input class="mt-12 font_2" v-model="form2.zdlj" @input="handleZdljInput" />
-                    </view>
-                </view>
-            </view>
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('tld')">
+                                        <text class="font text_6 label-text">坍落度</text>
+                                        <text class="text_6">{{ isPickerOpen.tld? 'v' : '>' }}</text>
+                                    </view>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.tld" @input="handleTldInput" />
+                                </view>
+                            </view>
+                            <view class="flex-row items-start group_4">
+                                <view class="flex-2">
+                                    <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('zdlj')">
+                                        <text class="font text_6 label-text">最大粒径</text>
+                                        <text class="text_6">{{ isPickerOpen.zdlj? 'v' : '>' }}</text>
+                                    </view>
+                                </view>
+                                <view class="flex-8">
+                                    <input class="mt-12 font_2" v-model="form2.zdlj" @input="handleZdljInput" />
+                                </view>
+                            </view>
+                        </view>
             <view class="flex-col group_2">
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">材料/每方用量(KG)</text>
+                <view class="flex-row items-start group_4 material-title">
+                    <view class="flex-2">
+                        <text class="font text_6">材料 / 每方用量 (KG)</text>
+                    </view>
                 </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">大石</text>
-                    <input class="mt-12 font_2" v-model.number="form2.ds" type="number" @input="filterNonNumeric($event, 'ds')" />
-                    <view v-if="form2.dsError" class="error-tip">{{form2.dsError}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">中石1</text>
-                    <input class="mt-12 font_2" v-model.number="form2.zs1" type="number" @input="filterNonNumeric($event, 'zs1')" />
-                    <view v-if="form2.zs1Error" class="error-tip">{{form2.zs1Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">中石2</text>
-                    <input class="mt-12 font_2" v-model.number="form2.zs2" type="number" @input="filterNonNumeric($event, 'zs2')" />
-                    <view v-if="form2.zs2Error" class="error-tip">{{form2.zs2Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">小石</text>
-                    <input class="mt-12 font_2" v-model.number="form2.xs" type="number" @input="filterNonNumeric($event, 'xs')" />
-                    <view v-if="form2.xsError" class="error-tip">{{form2.xsError}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">砂1</text>
-                    <input class="mt-12 font_2" v-model.number="form2.s1" type="number" @input="filterNonNumeric($event, 's1')" />
-                    <view v-if="form2.s1Error" class="error-tip">{{form2.s1Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">砂2</text>
-                    <input class="mt-12 font_2" v-model.number="form2.s2" type="number" @input="filterNonNumeric($event, 's2')" />
-                    <view v-if="form2.s2Error" class="error-tip">{{form2.s2Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">冰</text>
-                    <input class="mt-12 font_2" v-model.number="form2.b" type="number" @input="filterNonNumeric($event, 'b')" />
-                    <view v-if="form2.bError" class="error-tip">{{form2.bError}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">水泥1</text>
-                    <input class="mt-12 font_2" v-model.number="form2.sn1" type="number" @input="filterNonNumeric($event, 'sn1')" />
-                    <view v-if="form2.sn1Error" class="error-tip">{{form2.sn1Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">水泥2</text>
-                    <input class="mt-12 font_2" v-model.number="form2.sn2" type="number" @input="filterNonNumeric($event, 'sn2')" />
-                    <view v-if="form2.sn2Error" class="error-tip">{{form2.sn2Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">粉煤灰1</text>
-                    <input class="mt-12 font_2" v-model.number="form2.fmh1" type="number" @input="filterNonNumeric($event, 'fmh1')" />
-                    <view v-if="form2.fmh1Error" class="error-tip">{{form2.fmh1Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">粉煤灰2</text>
-                    <input class="mt-12 font_2" v-model.number="form2.fmh2" type="number" @input="filterNonNumeric($event, 'fmh2')" />
-                    <view v-if="form2.fmh2Error" class="error-tip">{{form2.fmh2Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">水</text>
-                    <input class="mt-12 font_2" v-model.number="form2.s" type="number" @input="filterNonNumeric($event, 's')" />
-                    <view v-if="form2.sError" class="error-tip">{{form2.sError}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">外加剂1</text>
-                    <input class="mt-12 font_2" v-model.number="form2.wjj1" type="number" @input="filterNonNumeric($event, 'wjj1')" />
-                    <view v-if="form2.wjj1Error" class="error-tip">{{form2.wjj1Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">外加剂2</text>
-                    <input class="mt-12 font_2" v-model.number="form2.wjj2" type="number" @input="filterNonNumeric($event, 'wjj2')" />
-                    <view v-if="form2.wjj2Error" class="error-tip">{{form2.wjj2Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">外加剂3</text>
-                    <input class="mt-12 font_2" v-model.number="form2.wjj3" type="number" @input="filterNonNumeric($event, 'wjj3')" />
-                    <view v-if="form2.wjj3Error" class="error-tip">{{form2.wjj3Error}}</view>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">容量</text>
-                    <input class="mt-12 font_2" v-model.number="form2.rl" type="number" disabled />
-                    <view v-if="form2.rlError" class="error-tip">{{form2.rlError}}</view>
+                <view class="material-list">
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">大石</text>
+                            <input class="mt-12 input-number" v-model.number="form2.ds" type="number" @input="filterNonNumeric($event, 'ds')" />
+                            <view v-if="form2.dsError" class="error-tip">{{form2.dsError}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">中石1</text>
+                            <input class="mt-12 input-number" v-model.number="form2.zs1" type="number" @input="filterNonNumeric($event, 'zs1')" />
+                            <view v-if="form2.zs1Error" class="error-tip">{{form2.zs1Error}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">中石2</text>
+                            <input class="mt-12 input-number" v-model.number="form2.zs2" type="number" @input="filterNonNumeric($event, 'zs2')" />
+                            <view v-if="form2.zs2Error" class="error-tip">{{form2.zs2Error}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">小石</text>
+                            <input class="mt-12 input-number" v-model.number="form2.xs" type="number" @input="filterNonNumeric($event, 'xs')" />
+                            <view v-if="form2.xsError" class="error-tip">{{form2.xsError}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">砂1</text>
+                            <input class="mt-12 input-number" v-model.number="form2.s1" type="number" @input="filterNonNumeric($event,'s1')" />
+                            <view v-if="form2.s1Error" class="error-tip">{{form2.s1Error}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">砂2</text>
+                            <input class="mt-12 input-number" v-model.number="form2.s2" type="number" @input="filterNonNumeric($event,'s2')" />
+                            <view v-if="form2.s2Error" class="error-tip">{{form2.s2Error}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">冰</text>
+                            <input class="mt-12 input-number" v-model.number="form2.b" type="number" @input="filterNonNumeric($event, 'b')" />
+                            <view v-if="form2.bError" class="error-tip">{{form2.bError}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">水泥1</text>
+                            <input class="mt-12 input-number" v-model.number="form2.sn1" type="number" @input="filterNonNumeric($event,'sn1')" />
+                            <view v-if="form2.sn1Error" class="error-tip">{{form2.sn1Error}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">水泥2</text>
+                            <input class="mt-12 input-number" v-model.number="form2.sn2" type="number" @input="filterNonNumeric($event,'sn2')" />
+                            <view v-if="form2.sn2Error" class="error-tip">{{form2.sn2Error}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">粉煤灰1</text>
+                            <input class="mt-12 input-number" v-model.number="form2.fmh1" type="number" @input="filterNonNumeric($event, 'fmh1')" />
+                            <view v-if="form2.fmh1Error" class="error-tip">{{form2.fmh1Error}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">粉煤灰2</text>
+                            <input class="mt-12 input-number" v-model.number="form2.fmh2" type="number" @input="filterNonNumeric($event, 'fmh2')" />
+                            <view v-if="form2.fmh2Error" class="error-tip">{{form2.fmh2Error}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">水</text>
+                            <input class="mt-12 input-number" v-model.number="form2.s" type="number" @input="filterNonNumeric($event,'s')" />
+                            <view v-if="form2.sError" class="error-tip">{{form2.sError}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">外加剂1</text>
+                            <input class="mt-12 input-number" v-model.number="form2.wjj1" type="number" @input="filterNonNumeric($event, 'wjj1')" />
+                            <view v-if="form2.wjj1Error" class="error-tip">{{form2.wjj1Error}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">外加剂2</text>
+                            <input class="mt-12 input-number" v-model.number="form2.wjj2" type="number" @input="filterNonNumeric($event, 'wjj2')" />
+                            <view v-if="form2.wjj2Error" class="error-tip">{{form2.wjj2Error}}</view>
+                        </view>
+                    </view>
+                    <view class="flex-row items-center group_4">
+                        <view class="flex-1 material-item">
+                            <text class="font label">外加剂3</text>
+                            <input class="mt-12 input-number" v-model.number="form2.wjj3" type="number" @input="filterNonNumeric($event, 'wjj3')" />
+                            <view v-if="form2.wjj3Error" class="error-tip">{{form2.wjj3Error}}</view>
+                        </view>
+                        <view class="flex-1 material-item">
+                            <text class="font label">容量</text>
+                            <input class="mt-12 input-number" v-model.number="form2.rl" type="number" disabled />
+                            <view v-if="form2.rlError" class="error-tip">{{form2.rlError}}</view>
+                        </view>
+                    </view>
                 </view>
             </view>
             <view class="divider_2 divider"></view>
@@ -183,13 +212,16 @@
                 <view class="flex-row justify-end section_4" @click="save">
                     <text class="self-start font_3 text_12">保存</text>
                     <image class="self-center image_8 ml-107"
-                        src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
+                           src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
                 </view>
                 <view class="mt-10 section_5"></view>
             </view>
         </view>
     </view>
 </template>
+
+
+
 
 
 
@@ -261,7 +293,15 @@ export default {
             tldIndex: -1,
             zdljIndex: -1,
             qddjIndex: -1,
-            jbsjError: ''
+            jbsjError: '',
+			      isPickerOpen: {
+			        sgbw: false,
+			        hntzl: false,
+			        qddj: false,
+			        hntjp: false,
+			        tld: false,
+			        zdlj: false
+			      },
         };
     },
     onLoad(query) {
@@ -439,6 +479,51 @@ export default {
                     this.form2.fmh2) + Number(this.form2.s) + Number(this.form2.wjj1) + Number(this.form2.wjj2) + Number(this.form2.wjj3);
             this.form2.rl = this.form2.rl.toFixed(2);
         },
+		togglePicker(field) {
+			
+			Object.keys(this.isPickerOpen).forEach(key => {
+				if (key !== field) {
+					this.isPickerOpen[key] = false;
+				}
+			});
+			this.isPickerOpen[field] = !this.isPickerOpen[field];
+		console.log('this.isPickerOpen[field]',this.isPickerOpen[field])
+			if (this.isPickerOpen[field]) {
+				let options = [];
+				switch (field) {
+					case 'sgbw':
+						options = this.sgbws;
+						break;
+					case 'hntzl':
+						options = this.hntzls;
+						break;
+					case 'qddj':
+						options = this.qddjs;
+						break;
+					case 'hntjp':
+						options = this.hntjps;
+						break;
+					case 'tld':
+						options = this.tlds;
+						break;
+					case 'zdlj':
+						options = this.zdljs;
+						break;
+				}
+		
+				uni.showActionSheet({
+					itemList: options,
+					success: (res) => {
+						this[`${field}Index`] = res.tapIndex;
+						this.form2[field] = options[res.tapIndex];
+						this.isPickerOpen[field] = false;
+					},
+					fail: () => {
+						this.isPickerOpen[field] = false;
+					}
+				});
+			}
+		},
         async save() {
             this.validateJbsj();
             this.validatePositiveNumber('ds');
@@ -563,6 +648,8 @@ export default {
     }
 };
 </script>
+
+
 
 
 <style scoped lang="css">
@@ -746,7 +833,6 @@ export default {
 }
 
 .group_3 {
-    padding: 24rpx 0;
     border-bottom: solid 2rpx #e1e3e8;
 }
 
@@ -762,8 +848,9 @@ export default {
 }
 
 .group_4 {
-    padding: 24rpx 0;
     border-bottom: solid 2rpx #e1e3e8;
+    display: flex;
+    align-items: center;
 }
 
 .text_6 {
@@ -852,10 +939,88 @@ export default {
     height: 32rpx;
 }
 
-/* 新增错误提示样式 */
 .error-tip {
     color: red;
     font-size: 20rpx;
     margin-top: 5rpx;
+}
+
+.flex-2 {
+    flex: 2;
+    padding-right: 10rpx;
+}
+
+.flex-8 {
+    flex: 8;
+}
+
+.picker-trigger {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label-text {
+    font-size: 24rpx;
+    color: #a5a5a5;
+}
+
+.arrow-text {
+    color: #a5a5a5;
+    font-size: 24rpx;
+}
+
+.material-title {
+    background-color: #f8f9fa;
+    padding: 16rpx 0;
+    margin-bottom: 20rpx;
+}
+
+.material-list {
+    background-color: #ffffff;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.material-list .group_4 {
+    border-bottom: 1rpx solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.material-list .group_4:last-child {
+    border-bottom: none;
+}
+
+.flex-1 {
+    flex: 1;
+    padding: 0 10rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.material-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.label {
+    min-width: 100rpx; /* 调整标签最小宽度以保证对齐 */
+    text-align: right;
+    margin-right: 15rpx;
+    white-space: nowrap;
+}
+
+.input-number {
+    flex: 1;
+    height: 40rpx;
+    border-radius: 4rpx;
+    padding: 0 10rpx;
+    font-size: 24rpx;
+    text-align: right;
 }
 </style>
