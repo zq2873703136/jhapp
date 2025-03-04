@@ -102,6 +102,17 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.isLaneChecked("cd1")
+  var m1 = _vm.isLaneChecked("cd2")
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+        m1: m1,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -153,79 +164,131 @@ var _default = {
   props: {},
   data: function data() {
     return {
+      // 存储所有任务单数据
       allRwds: [],
+      // 存储所有卡片数据
       allCards: [],
+      // 存储所有任务单号
       rwdhs: [],
+      // 存储识别卡号的选项数组
       sbkhOptionsArray: [],
+      // 存储卡序号的选项数组
       kxhOptionsArray: [],
-      sbkhIndex: null,
-      kxhIndex: null,
-      rwdhIndex: null,
-      czfl: NaN,
+      // 当前选择的识别卡号
+      sbkh: null,
+      // 当前选择的卡序号
+      kxh: null,
+      // 当前选择的任务单号
+      rwdh: '',
+      // 车载方量
+      czfl: 0,
+      // 车牌号
       cph: '',
+      // 用户单位
       yhdw: '',
+      // 工程名称
       gcmc: '',
-      cd1: 1,
-      cd2: 1,
+      // 车道 1 选择状态
+      cd1: '1',
+      // 车道 2 选择状态
+      cd2: '1',
+      // 砼标号
       tbh: '',
+      // 卡片 ID
       kid: '',
+      kh1: '',
+      // 识别卡号的错误提示信息
       sbkhError: '',
+      // 卡序号的错误提示信息
       kxhError: '',
+      // 任务单号的错误提示信息
       rwdhError: '',
-      czflError: ''
+      // 车载方量的错误提示信息
+      czflError: '',
+      // 识别卡号选择器的当前页码
+      sbkhCurrentPage: 0,
+      // 卡序号选择器的当前页码
+      kxhCurrentPage: 0,
+      // 任务单号选择器的当前页码
+      rwdhCurrentPage: 0,
+      // 每页显示的选项数量
+      pageSize: 5,
+      selectedLanes: []
     };
   },
   onLoad: function onLoad() {
+    // 页面加载时获取任务单列表和卡片信息
     this.taskSheetQueryList();
     this.getCardQuery();
+    this.selectedLanes.push('cd1');
+    this.selectedLanes.push('cd2');
   },
   methods: {
+    toggleLane: function toggleLane(lane) {
+      console.log('toggleLane::', lane);
+      if (this.selectedLanes.includes(lane)) {
+        this.selectedLanes = this.selectedLanes.filter(function (l) {
+          return l !== lane;
+        });
+      } else {
+        this.selectedLanes.push(lane);
+      }
+      this.cd1 = this.selectedLanes.includes('cd1') ? '1' : '0';
+      this.cd2 = this.selectedLanes.includes('cd2') ? '1' : '0';
+    },
+    isLaneChecked: function isLaneChecked(lane) {
+      return this.selectedLanes.includes(lane);
+    },
+    // 处理车载方量输入事件
     handleCzflInput: function handleCzflInput(e) {
       var value = e.detail.value;
-      // 只保留数字和小数点
+      // 过滤非数字和小数点字符
       value = value.replace(/[^\d.]/g, '');
-
       // 处理多个小数点的情况，只保留第一个小数点
       var decimalIndex = value.indexOf('.');
       if (decimalIndex !== -1) {
         value = value.slice(0, decimalIndex + 1) + value.slice(decimalIndex + 1).replace(/\./g, '');
       }
-
       // 更新输入框的值
       this.czfl = value;
+      // 验证输入的数字是否为正数
+      this.validatePositiveNumber('czfl');
     },
-    handleCzflChange: function handleCzflChange(e) {
-      var value = e.detail.value;
-      // 再次进行校验，确保值不小于 0
-      if (value === '') {
-        this.czfl = 0;
+    // 验证输入的数字是否为正数
+    validatePositiveNumber: function validatePositiveNumber(field) {
+      var value = this[field];
+      if (isNaN(value) || parseFloat(value) <= 0) {
+        this["".concat(field, "Error")] = "".concat(field === 'czfl' ? '车载方量' : '', " \u9700\u8F93\u5165\u5927\u4E8E\u96F6\u7684\u6570\u5B57");
+        this[field] = '';
       } else {
-        var numValue = parseFloat(value);
-        this.czfl = Math.max(0, numValue);
+        this["".concat(field, "Error")] = '';
+        this[field] = parseFloat(value);
       }
     },
+    // 保存表单数据
     save: function save() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var hasError, sbkh, kxh, rwdh, res;
+        var hasError, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                // 清空错误提示信息
                 _this.sbkhError = '';
                 _this.kxhError = '';
                 _this.rwdhError = '';
                 _this.czflError = '';
-                hasError = false;
-                if (_this.sbkhIndex === null) {
+                hasError = false; // 验证必填项
+                if (!_this.sbkh) {
                   _this.sbkhError = '识别卡号为必填项';
                   hasError = true;
                 }
-                if (_this.kxhIndex === null) {
+                if (!_this.kxh) {
                   _this.kxhError = '卡序号为必填项';
                   hasError = true;
                 }
-                if (_this.rwdhIndex === null) {
+                if (!_this.rwdh) {
                   _this.rwdhError = '任务单号为必填项';
                   hasError = true;
                 }
@@ -239,16 +302,13 @@ var _default = {
                 }
                 return _context.abrupt("return");
               case 11:
-                sbkh = _this.sbkhOptionsArray[_this.sbkhIndex];
-                kxh = _this.kxhOptionsArray[_this.kxhIndex];
-                rwdh = _this.rwdhs[_this.rwdhIndex];
-                _context.prev = 14;
-                _context.next = 17;
+                _context.prev = 11;
+                _context.next = 14;
                 return (0, _api.vehicleSave)({
-                  sbkh: sbkh,
+                  sbkh: _this.sbkh,
                   cph: _this.cph,
-                  kxh: kxh,
-                  rwdh: rwdh,
+                  kxh: _this.kxh,
+                  rwdh: _this.rwdh,
                   czfl: _this.czfl,
                   yhdw: _this.yhdw,
                   gcmc: _this.gcmc,
@@ -256,51 +316,55 @@ var _default = {
                   cd2: _this.cd2,
                   tbh: _this.tbh
                 });
-              case 17:
+              case 14:
                 res = _context.sent;
                 console.log('res', res);
                 if (!res.success) {
-                  _context.next = 26;
+                  _context.next = 23;
                   break;
                 }
                 uni.showToast({
                   title: '创建成功'
                 });
-                _context.next = 23;
+                // 调用保存卡片使用状态的接口
+                _context.next = 20;
                 return (0, _api.cardSave)({
-                  "id": _this.kid,
-                  "sybz": "1"
+                  id: _this.kid,
+                  sybz: "1",
+                  kh1: _this.kh1
                 });
-              case 23:
+              case 20:
                 setTimeout(function () {
+                  // 跳转到车辆列表页面
                   uni.redirectTo({
                     url: '/pages/sdpage/vehicle/index'
                   });
                 }, 500);
-                _context.next = 27;
+                _context.next = 24;
                 break;
-              case 26:
+              case 23:
                 uni.showToast({
                   title: res.errorMsg,
                   icon: "error"
                 });
-              case 27:
-                _context.next = 32;
+              case 24:
+                _context.next = 29;
                 break;
-              case 29:
-                _context.prev = 29;
-                _context.t0 = _context["catch"](14);
+              case 26:
+                _context.prev = 26;
+                _context.t0 = _context["catch"](11);
                 uni.showToast({
                   title: '创建失败'
                 });
-              case 32:
+              case 29:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[14, 29]]);
+        }, _callee, null, [[11, 26]]);
       }))();
     },
+    // 获取任务单列表
     taskSheetQueryList: function taskSheetQueryList() {
       var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
@@ -309,35 +373,45 @@ var _default = {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _context2.prev = 0;
+                _context2.next = 3;
                 return (0, _api.taskSheetQuery)({
-                  "phbsfsh": 1,
-                  "currentPage": "1",
-                  "pageSize": "300"
+                  phbsfsh: 1,
+                  currentPage: "1",
+                  pageSize: "300"
                 });
-              case 2:
+              case 3:
                 res = _context2.sent;
-                _iterator = _createForOfIteratorHelper(res.data);
-                try {
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    item = _step.value;
-                    console.log('taskSheetQueryList', item);
-                    _this2.rwdhs.push(item.rwdh);
+                if (res.data && res.data.length > 0) {
+                  _iterator = _createForOfIteratorHelper(res.data);
+                  try {
+                    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                      item = _step.value;
+                      console.log('taskSheetQueryList', item);
+                      _this2.rwdhs.push(item.rwdh);
+                    }
+                  } catch (err) {
+                    _iterator.e(err);
+                  } finally {
+                    _iterator.f();
                   }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
+                  _this2.allRwds = res.data;
                 }
-                _this2.allRwds = res.data;
-              case 6:
+                _context2.next = 10;
+                break;
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
+                console.error('获取任务单列表失败', _context2.t0);
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 7]]);
       }))();
     },
+    // 获取卡片信息
     getCardQuery: function getCardQuery() {
       var _this3 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
@@ -346,21 +420,22 @@ var _default = {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                _context3.prev = 0;
+                _context3.next = 3;
                 return (0, _api.cardQuery)({
-                  "sybz": "0"
+                  sybz: "0"
                 });
-              case 2:
+              case 3:
                 res = _context3.sent;
-                if (res && res.data) {
+                if (res.data && res.data.length > 0) {
                   _this3.allCards = res.data;
                   _iterator2 = _createForOfIteratorHelper(res.data);
                   try {
                     for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
                       item = _step2.value;
                       console.log('cardQuery', item);
-                      _this3.sbkhOptionsArray.push(item.kh1);
-                      _this3.kxhOptionsArray.push(item.kxh);
+                      _this3.sbkhOptionsArray.push(String(item.kh1));
+                      _this3.kxhOptionsArray.push(String(item.kxh));
                     }
                   } catch (err) {
                     _iterator2.e(err);
@@ -368,88 +443,166 @@ var _default = {
                     _iterator2.f();
                   }
                 }
-              case 4:
+                _context3.next = 10;
+                break;
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+                console.error('获取卡片信息失败', _context3.t0);
+              case 10:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, null, [[0, 7]]);
       }))();
     },
-    bindPickerChangeSbkh: function bindPickerChangeSbkh(e) {
-      this.sbkhIndex = e.detail.value;
-      if (this.sbkhIndex !== null) {
-        this.kxhIndex = this.sbkhIndex;
+    // 显示识别卡号选择器
+    showSbkhPicker: function showSbkhPicker() {
+      var _this4 = this;
+      var start = this.sbkhCurrentPage * this.pageSize;
+      var end = start + this.pageSize;
+      var options = this.sbkhOptionsArray.slice(start, end);
+      if (this.sbkhOptionsArray.length > end) {
+        options.push('下一页');
       }
-      var sbkh = this.sbkhOptionsArray[this.sbkhIndex];
-      var _iterator3 = _createForOfIteratorHelper(this.allCards),
-        _step3;
-      try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var item = _step3.value;
-          if (item.kh1 == sbkh) {
-            this.cph = item.cph;
-            this.kid = item.id;
-            break;
+      if (this.sbkhCurrentPage > 0) {
+        options.unshift('上一页');
+      }
+      uni.showActionSheet({
+        itemList: options,
+        success: function success(res) {
+          if (options[res.tapIndex] === '下一页') {
+            _this4.sbkhCurrentPage++;
+            _this4.showSbkhPicker();
+          } else if (options[res.tapIndex] === '上一页') {
+            _this4.sbkhCurrentPage--;
+            _this4.showSbkhPicker();
+          } else {
+            var realIndex = _this4.sbkhCurrentPage * _this4.pageSize + res.tapIndex;
+            _this4.sbkh = _this4.sbkhOptionsArray[realIndex];
+            var _iterator3 = _createForOfIteratorHelper(_this4.allCards),
+              _step3;
+            try {
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var item = _step3.value;
+                if (item.kh1 === _this4.sbkh) {
+                  _this4.kxh = item.kxh;
+                  _this4.cph = item.cph;
+                  _this4.kid = item.id;
+                  _this4.kh1 = item.kh1;
+                  break;
+                }
+              }
+            } catch (err) {
+              _iterator3.e(err);
+            } finally {
+              _iterator3.f();
+            }
           }
+        },
+        fail: function fail(err) {
+          console.error('uni.showActionSheet failed:', err);
         }
-      } catch (err) {
-        _iterator3.e(err);
-      } finally {
-        _iterator3.f();
-      }
+      });
     },
-    bindPickerChangeKxh: function bindPickerChangeKxh(e) {
-      this.kxhIndex = e.detail.value;
-      if (this.kxhIndex !== null) {
-        this.sbkhIndex = this.kxhIndex;
+    // 显示卡序号选择器
+    showKxhPicker: function showKxhPicker() {
+      var _this5 = this;
+      var start = this.kxhCurrentPage * this.pageSize;
+      var end = start + this.pageSize;
+      var options = this.kxhOptionsArray.slice(start, end);
+      if (this.kxhOptionsArray.length > end) {
+        options.push('下一页');
       }
-      var kxh = this.kxhOptionsArray[this.kxhIndex];
-      var _iterator4 = _createForOfIteratorHelper(this.allCards),
-        _step4;
-      try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var item = _step4.value;
-          if (item.kxh == kxh) {
-            this.cph = item.cph;
-            this.kid = item.id;
-            break;
+      if (this.kxhCurrentPage > 0) {
+        options.unshift('上一页');
+      }
+      uni.showActionSheet({
+        itemList: options,
+        success: function success(res) {
+          if (options[res.tapIndex] === '下一页') {
+            _this5.kxhCurrentPage++;
+            _this5.showKxhPicker();
+          } else if (options[res.tapIndex] === '上一页') {
+            _this5.kxhCurrentPage--;
+            _this5.showKxhPicker();
+          } else {
+            var realIndex = _this5.kxhCurrentPage * _this5.pageSize + res.tapIndex;
+            _this5.kxh = _this5.kxhOptionsArray[realIndex];
+            var _iterator4 = _createForOfIteratorHelper(_this5.allCards),
+              _step4;
+            try {
+              for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                var item = _step4.value;
+                if (item.kxh === _this5.kxh) {
+                  _this5.sbkh = item.kh1;
+                  _this5.cph = item.cph;
+                  _this5.kid = item.id;
+                  break;
+                }
+              }
+            } catch (err) {
+              _iterator4.e(err);
+            } finally {
+              _iterator4.f();
+            }
           }
+        },
+        fail: function fail(err) {
+          console.error('uni.showActionSheet failed:', err);
         }
-      } catch (err) {
-        _iterator4.e(err);
-      } finally {
-        _iterator4.f();
+      });
+    },
+    // 显示任务单号选择器
+    showRwdhPicker: function showRwdhPicker() {
+      var _this6 = this;
+      var start = this.rwdhCurrentPage * this.pageSize;
+      var end = start + this.pageSize;
+      var options = this.rwdhs.slice(start, end);
+      if (this.rwdhs.length > end) {
+        options.push('下一页');
       }
-    },
-    bindDateChange: function bindDateChange(e) {
-      this.ghrq = e.detail.value;
-      console.log('ghrqghrqghrq', this.ghrq);
-    },
-    bindDateChange2: function bindDateChange2(e) {
-      this.planDate = e.detail.value;
-    },
-    bindPickerChangeRwdh: function bindPickerChangeRwdh(e) {
-      this.rwdhIndex = e.detail.value;
-      var rwdh = this.rwdhs[this.rwdhIndex];
-      var _iterator5 = _createForOfIteratorHelper(this.allRwds),
-        _step5;
-      try {
-        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-          var item = _step5.value;
-          if (item.rwdh === rwdh) {
-            this.tbh = item.shtbh;
-            this.yhdw = item.yhdw;
-            this.gcmc = item.gcmc;
-            break;
+      if (this.rwdhCurrentPage > 0) {
+        options.unshift('上一页');
+      }
+      uni.showActionSheet({
+        itemList: options,
+        success: function success(res) {
+          if (options[res.tapIndex] === '下一页') {
+            _this6.rwdhCurrentPage++;
+            _this6.showRwdhPicker();
+          } else if (options[res.tapIndex] === '上一页') {
+            _this6.rwdhCurrentPage--;
+            _this6.showRwdhPicker();
+          } else {
+            var realIndex = _this6.rwdhCurrentPage * _this6.pageSize + res.tapIndex;
+            _this6.rwdh = _this6.rwdhs[realIndex];
+            var _iterator5 = _createForOfIteratorHelper(_this6.allRwds),
+              _step5;
+            try {
+              for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+                var item = _step5.value;
+                if (item.rwdh === _this6.rwdh) {
+                  _this6.tbh = item.shtbh;
+                  _this6.yhdw = item.yhdw;
+                  _this6.gcmc = item.gcmc;
+                  break;
+                }
+              }
+            } catch (err) {
+              _iterator5.e(err);
+            } finally {
+              _iterator5.f();
+            }
           }
+        },
+        fail: function fail(err) {
+          console.error('uni.showActionSheet failed:', err);
         }
-      } catch (err) {
-        _iterator5.e(err);
-      } finally {
-        _iterator5.f();
-      }
+      });
     },
+    // 返回车辆列表页面
     returnList: function returnList() {
       console.log('返回任务单列表');
       uni.redirectTo({
