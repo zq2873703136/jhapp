@@ -62,7 +62,7 @@
 }
 .filter-input.data-v-8992657a {
 	flex: 1;
-	padding: 10rpx;
+	padding: 20rpx;
 	border: 1px solid #ccc;
 	border-radius: 5rpx;
 	margin-top: 5rpx;
@@ -72,7 +72,7 @@
 	color: #666;
 }
 .filter-button.data-v-8992657a {
-	padding: 8rpx 16rpx;
+	padding: 18rpx 16rpx;
 	background-color: #2855ae;
 	color: #fff;
 	border-radius: 20rpx;

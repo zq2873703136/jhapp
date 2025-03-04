@@ -33,7 +33,7 @@
 
 		<scroll-view :scroll-y="true" class="scroll-content" @scrolltolower="loadMore">
 			<!-- 显示合计数据 -->
-			<view v-if="totalItem" class="flex-col justify-start list-item" style="margin-top: 20rpx;">
+			<view v-if="totalItem" class="flex-col justify-start list-item" style="margin-top: 60rpx;">
 				<view class="flex-col section_4">
 					<text class="self-start font text_3">合计 &nbsp;&nbsp;&nbsp;<text class="self-start font text_3" style="margin-left: 20rpx;">总方量：{{ totalMgfl }}</text></text>
 					<view class="mt-16 data-group">
@@ -42,57 +42,112 @@
 						<view class="data-row"></view>
 						<view class="data-row">
 							<view class="data-item">
-								<text><text class="title-green">大石：</text>{{ totalItem.xm0t }}</text>
+								<text class="title-green">大石：</text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">中石1：</text>{{ totalItem.xm1t }}</text>
+								<text class="title-green">中石1：</text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">中石2：</text>{{ totalItem.xm14t }}</text>
-							</view>
-						</view>
-						<view class="data-row">
-							<view class="data-item">
-								<text><text class="title-green">小石：</text>{{ totalItem.xm2t }}</text>
-							</view>
-							<view class="data-item">
-								<text><text class="title-green">砂：</text>{{ totalItem.xm3t }}</text>
-							</view>
-							<view class="data-item">
-								<text><text class="title-green">砂2：</text>{{ totalItem.xm4t }}</text>
+								<text class="title-green">中石2：</text>
 							</view>
 						</view>
 						<view class="data-row">
 							<view class="data-item">
-								<text><text class="title-green">冰：</text>{{ totalItem.xm5t }}</text>
+								<text class="data-item">{{ totalItem.xm0t }}</text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">水泥1：</text>{{ totalItem.xm6t }}</text>
+								<text class="data-item">{{ totalItem.xm1t }}</text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">水泥2：</text>{{ totalItem.xm7t }}</text>
-							</view>
-						</view>
-						<view class="data-row">
-							<view class="data-item">
-								<text><text class="title-green">粉煤灰：</text>{{ totalItem.xm8t }}</text>
-							</view>
-							<view class="data-item">
-								<text><text class="title-green">矿粉：</text>{{ totalItem.xm9t }}</text>
-							</view>
-							<view class="data-item">
-								<text><text class="title-green">水：</text>{{ totalItem.xm10t }}</text>
+								<text class="data-item">{{ totalItem.xm14t }}</text>
 							</view>
 						</view>
 						<view class="data-row">
 							<view class="data-item">
-								<text><text class="title-green">外加剂1：</text>{{ totalItem.xm11t }}</text>
+								<text><text class="title-green">小石：</text></text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">外加剂2：</text>{{ totalItem.xm12t }}</text>
+								<text><text class="title-green">砂：</text></text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">外加剂3：</text>{{ totalItem.xm13t }}</text>
+								<text><text class="title-green">砂2：</text></text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm2t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm3t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm4t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">冰：</text> </text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">水泥1：</text> </text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">水泥2：</text> </text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm5t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm6t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm7t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">粉煤灰：</text> </text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">矿粉：</text> </text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">水：</text> </text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm8t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm9t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm10t }}</text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text><text class="title-green">外加剂1：</text> </text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">外加剂2：</text> </text>
+							</view>
+							<view class="data-item">
+								<text><text class="title-green">外加剂3：</text> </text>
+							</view>
+						</view>
+						<view class="data-row">
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm11t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm12t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm13t }}</text>
 							</view>
 						</view>
 					</view>
@@ -448,7 +503,7 @@
 
 	.filter-input {
 		flex: 1;
-		padding: 10rpx;
+		padding: 20rpx;
 		border: 1px solid #ccc;
 		border-radius: 5rpx;
 		margin-top: 5rpx;
@@ -459,7 +514,7 @@
 	}
 
 	.filter-button {
-		padding: 8rpx 16rpx;
+		padding: 18rpx 16rpx;
 		background-color: #2855ae;
 		color: #fff;
 		border-radius: 20rpx;

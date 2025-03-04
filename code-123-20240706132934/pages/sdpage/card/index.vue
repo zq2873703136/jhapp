@@ -234,7 +234,7 @@ export default {
 }
 
 .filter-button {
-  padding: 8rpx 16rpx;
+  padding: 18rpx 16rpx;
   background-color: #2855ae;
   color: #fff;
   border-radius: 20rpx;
@@ -365,7 +365,7 @@ export default {
 
 .delete-button {
   margin-right: 5rpx;
-  padding: 8rpx 16rpx;
+  padding: 18rpx 16rpx;
   background-color: #ff0000;
   color: #fff;
   border-radius: 5rpx;
