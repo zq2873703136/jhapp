@@ -116,7 +116,7 @@
                         <text class="font text_6 label-text">计划方量</text>
                     </view>
                     <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="jhfl" type="number" @input="filterNonNumeric($event, 'jhfl')" />
+                        <input class="mt-2 font_2" v-model="jhfl" type="digit" inputmode="decimal" @input="filterNonNumeric($event, 'jhfl')" />
                         <view v-if="jhflError" class="error-tip">{{jhflError}}</view>
                     </view>
                 </view>
@@ -126,7 +126,7 @@
                         <text class="font text_6 label-text">运距</text>
                     </view>
                     <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="yj" type="number" @input="filterNonNumeric($event, 'yj')" />
+                        <input class="mt-2 font_2" v-model="yj" type="digit" inputmode="decimal" @input="filterNonNumeric($event, 'yj')" />
                         <view v-if="yjError" class="error-tip">{{yjError}}</view>
                     </view>
                 </view>

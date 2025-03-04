@@ -114,13 +114,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">大石</text>
-							<input class="mt-12 font_2 input-number" v-model.number="ds" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="ds" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'ds')" />
 							<view v-if="dsError" class="error-tip">{{dsError}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">中石1</text>
-							<input class="mt-12 font_2 input-number" v-model.number="zs1" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="zs1" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'zs1')" />
 							<view v-if="zs1Error" class="error-tip">{{zs1Error}}</view>
 						</view>
@@ -129,13 +129,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">中石2</text>
-							<input class="mt-12 font_2 input-number" v-model.number="zs2" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="zs2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'zs2')" />
 							<view v-if="zs2Error" class="error-tip">{{zs2Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">小石</text>
-							<input class="mt-12 font_2 input-number" v-model.number="xs" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="xs" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'xs')" />
 							<view v-if="xsError" class="error-tip">{{xsError}}</view>
 						</view>
@@ -144,13 +144,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">砂1</text>
-							<input class="mt-12 font_2 input-number" v-model.number="s1" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="s1" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event,'s1')" />
 							<view v-if="s1Error" class="error-tip">{{s1Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">砂2</text>
-							<input class="mt-12 font_2 input-number" v-model.number="s2" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="s2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event,'s2')" />
 							<view v-if="s2Error" class="error-tip">{{s2Error}}</view>
 						</view>
@@ -159,13 +159,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">冰</text>
-							<input class="mt-12 font_2 input-number" v-model.number="b" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="b" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'b')" />
 							<view v-if="bError" class="error-tip">{{bError}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">水泥1</text>
-							<input class="mt-12 font_2 input-number" v-model.number="sn1" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="sn1" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event,'sn1')" />
 							<view v-if="sn1Error" class="error-tip">{{sn1Error}}</view>
 						</view>
@@ -174,13 +174,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">水泥2</text>
-							<input class="mt-12 font_2 input-number" v-model.number="sn2" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="sn2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event,'sn2')" />
 							<view v-if="sn2Error" class="error-tip">{{sn2Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">粉煤灰1</text>
-							<input class="mt-12 font_2 input-number" v-model.number="fmh1" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="fmh1" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'fmh1')" />
 							<view v-if="fmh1Error" class="error-tip">{{fmh1Error}}</view>
 						</view>
@@ -189,13 +189,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">粉煤灰2</text>
-							<input class="mt-12 font_2 input-number" v-model.number="fmh2" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="fmh2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'fmh2')" />
 							<view v-if="fmh2Error" class="error-tip">{{fmh2Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">水</text>
-							<input class="mt-12 font_2 input-number" v-model.number="s" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="s" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event,'s')" />
 							<view v-if="sError" class="error-tip">{{sError}}</view>
 						</view>
@@ -204,13 +204,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">外加剂1</text>
-							<input class="mt-12 font_2 input-number" v-model.number="wjj1" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="wjj1" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj1')" />
 							<view v-if="wjj1Error" class="error-tip">{{wjj1Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">外加剂2</text>
-							<input class="mt-12 font_2 input-number" v-model.number="wjj2" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="wjj2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj2')" />
 							<view v-if="wjj2Error" class="error-tip">{{wjj2Error}}</view>
 						</view>
@@ -219,13 +219,13 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">外加剂3</text>
-							<input class="mt-12 font_2 input-number" v-model.number="wjj3" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="wjj3" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj3')" />
 							<view v-if="wjj3Error" class="error-tip">{{wjj3Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">容量</text>
-							<input class="mt-12 font_2 input-number" v-model.number="rl" type="number"
+							<input class="mt-12 font_2 input-number" v-model.number="rl" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'rl')" disabled />
 							<view v-if="rlError" class="error-tip">{{rlError}}</view>
 						</view>

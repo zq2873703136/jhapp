@@ -60,7 +60,7 @@
                         <text class="font text_6 label-text"><text style="color: red;">*</text>车载方量：</text>
                     </view>
                     <view class="flex-8">
-                        <input class="mt-12 font_2" v-model="czfl" type="number" @input="handleCzflInput" />
+                        <input class="mt-12 font_2" v-model="czfl" type="digit" inputmode="decimal" @input="handleCzflInput" />
                         <view v-if="czflError" class="error-tip">{{czflError}}</view>
                     </view>
                 </view>
