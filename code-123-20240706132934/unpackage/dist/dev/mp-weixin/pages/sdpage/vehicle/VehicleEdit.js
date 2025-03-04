@@ -185,6 +185,8 @@ var _default = {
       rwdhs: [],
       rwdhIndex: null,
       rwdhError: '',
+      czflIndex: null,
+      czflError: '',
       selectedLanes: []
     };
   },
@@ -206,8 +208,6 @@ var _default = {
     if (this.form2.cd2 == '1') {
       this.selectedLanes.push('cd2');
     }
-    console.log('this.isLaneChecked(\'cd2\')' + this.isLaneChecked('cd2'));
-    console.log('this.isLaneChecked(\'cd1\')' + this.isLaneChecked('cd1'));
   },
   methods: {
     save: function save() {
@@ -224,15 +224,19 @@ var _default = {
                   _this.rwdhError = '任务单号为必填项';
                   hasError = true;
                 }
+                if (_this.czflIndex === null && _this.form2.czfl.length < 1) {
+                  _this.czflError = '车载方量为必填项';
+                  hasError = true;
+                }
                 if (!hasError) {
-                  _context.next = 5;
+                  _context.next = 6;
                   break;
                 }
                 return _context.abrupt("return");
-              case 5:
+              case 6:
                 thisRwdh = _this.rwdhs[_this.rwdhIndex] == null ? _this.form2.rwdh : _this.rwdhs[_this.rwdhIndex];
-                _context.prev = 6;
-                _context.next = 9;
+                _context.prev = 7;
+                _context.next = 10;
                 return (0, _api.vehicleSave)({
                   id: _this.form2.id,
                   cbh: _this.form2.cbh,
@@ -247,7 +251,7 @@ var _default = {
                   cd1: _this.form2.cd1,
                   cd2: _this.form2.cd2
                 });
-              case 9:
+              case 10:
                 res = _context.sent;
                 console.log('res', res);
                 if (res.success) {
@@ -261,21 +265,21 @@ var _default = {
                     icon: "error"
                   });
                 }
-                _context.next = 17;
+                _context.next = 18;
                 break;
-              case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](6);
+              case 15:
+                _context.prev = 15;
+                _context.t0 = _context["catch"](7);
                 //TODO handle the exception
                 uni.showToast({
                   title: '修改失败'
                 });
-              case 17:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[6, 14]]);
+        }, _callee, null, [[7, 15]]);
       }))();
     },
     toggleLane: function toggleLane(lane) {

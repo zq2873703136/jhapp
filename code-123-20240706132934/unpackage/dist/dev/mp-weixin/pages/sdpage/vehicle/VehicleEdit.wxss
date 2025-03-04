@@ -1,8 +1,8 @@
 
 .error-tip.data-v-1ef35ddd {
-    color: red;
-    font-size: 20rpx;
-    margin-top: 4rpx;
+	color: red;
+	font-size: 20rpx;
+	margin-top: 4rpx;
 }
 .ml-5.data-v-1ef35ddd {
 	margin-left: 10rpx;
@@ -123,7 +123,7 @@
 	top: 226rpx;
 }
 .group.data-v-1ef35ddd {
-	padding: 56rpx 32rpx;
+	padding: 26rpx 32rpx;
 }
 .font.data-v-1ef35ddd {
 	font-size: 24rpx;
@@ -146,8 +146,9 @@
 	line-height: 20.36rpx;
 }
 .group_2.data-v-1ef35ddd {
-	margin-top: 58rpx;
+	margin-top: 24rpx;
 	padding: 0 32rpx;
+	border-bottom: solid 2rpx #e1e3e8;
 }
 .text_5.data-v-1ef35ddd {
 	line-height: 21.76rpx;
@@ -166,7 +167,6 @@
 	margin-top: 36rpx;
 }
 .group_4.data-v-1ef35ddd {
-	padding: 24rpx 0;
 	border-bottom: solid 2rpx #e1e3e8;
 }
 .text_6.data-v-1ef35ddd {
@@ -219,7 +219,7 @@
 .group_8.data-v-1ef35ddd {
 	margin-top: 134rpx;
 }
-.section_4.data-v-1ef35ddd {
+.save-button-section.data-v-1ef35ddd {
 	margin: 0 32rpx;
 	padding: 32rpx 60rpx 36rpx;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVUAAAA2CAYAAAB3GwpuAAAABHNCSVQICAgIfAhkiAAABWBJREFUeJztm11u2zoQRme0Gu+iDtAiuI8F2qyie0i8h+C2i2huF9CiUXfR1YT3wY5FURRJUZQjyuc8OOLfDGUgn0lKn8oIu08/9iIioub+VLUf6wsAy6J6vuo+1WrvXWivbHWzYnW13ljqtFsXdos6wftljczTmukgduI9q9M+EktUnbKTy5m8L5ZRbdWYP9KI/H68fZAR3O9bRER2d08PYvTe1wYAl6cvKDGxighIiqhag0KiOi7a1kxTRNUzz65sZUz8IXFuaSiqTqxjOfZD0hVURFTN4ZdHXHthd59+7E8r073bEQDeDq+oWnVTRFWkLyDHspPLqhyPFRdVdzWbIlbDXH5RPbcsIKr92M5cBz9SfXE9t7E6BVg3oe3wpBWghEW1ix0TVUkQq5FVdYqonmOliWqvp+d7cWc6jOVZVaes4EVEVW9+PX5oRUSacy2CClAtZnCRPCI6LhgyOZ9/nDvcH87EOiTlyxqaOMiIeX69bkROq1QAWDcTlNM4hZKCkiaEaa2ZUyjC8D7mZXv/5eeziIiezlGfYwMA4G3xnqumPLg51Q3LzoOZlHPVwdY3fq665MOq/tyXPVcN3nM3z5tGmpe9AMDq8a6jRhdXkVVX+u4/s6MzJLiDzz17CHSf9mXNn0rXuG8C3QBgxeTqaUrA9C3+/A36Jbf4S8Y+ld81PKAC2AbTzjrTeiSNLCDi8eplHlYlrZon5mOlClAT0x/zn7sv+/TbKeeqboKmje/sc88mIrETxlkNbP8Bqidz5WaSBGX+yi1tSKFVc2H8gh7OiKgCVMQ6X2eavpydNLOZD6uMv7VIPt+CHFEF2BCYAOL5lj4GQVQBamOGCWBevnD1OlbNJWLPy4aoAlwR098QSO81GFVYxENdTP9jVr7kVfNIKkQVoDIwASTmyhg3eyoGUQWoHkwAU2OXzeRGQ1QBNgYmgHi+JU0AiCpAjWACWK0JAFEF2AqXNgHk5CrQo/zI6bFDJgBEFaBCVvE606ABE4AIogqwSTABxPMtdQyCqALUCiaAopQyASCqAFcIJoB4sFwTAKIKUCmYABJzZYybMxVEFWAjYAKYGnsZEwCiCrBRMAHE8y1hAkBUAWqmEhNAtupWaAJAVAG2xgpNAG+2ai5MigkAUQWomFW8zoQJoNcVUQXYMJgA4vlKH4MgqgC1c2kTQErsaPjtmgAQVYArJssEkPk2/yVNAF3lpUwAXQOiClA5mADizcubALoOiCrAxsAEMDV22UyIKsDGwQQQz1fSBICoAmwBTACrMQEgqgBbBRPAYoRMAIgqwAZYxetMmABEBFEFuAowAcTzlToGQVQBtgImgKLkmgAQVQDABJAQLPU7QlQBNgImgHjzJUwAjYi0meEBYMUUNwEEQmAC6GClCnAlzH6dKfe10usyARwaUfMncwoAsDYwAby5CaCRl6adngkAqiHXBLBg8K2aAF6apm3+fv/YCueqAJug6OtMmU+/r9UEoCKH9vFDq68Vu8//LSnoAHAh9Pxfrd2nWu3WhToNVsmKpXaXYSx12r2x1O7mzPPUHpin1UOcP06swD2r0z4SS1RHYlvz8Mzz+eutitgPqozeCADUz6UfKCVOY8smAFU5vF6fRfXv94+tqDkMegNApUyXGkwA8WDOcUFrzMvN739vH15r3NW+iIjs7p4exOj99OwAsAbs7fDoVtfdVp/qhkcAzkbeu0V3ttWDWBo4XnDm6t22Oxv3lKOKwba9H3D0qMLZ/vtjqUgjh9YS016eMXZ3T8cBRt+JyD7UFwDWQ+iMcSh8+aLaxU44V42KVVhUrR7FRXU4b+89t8fm446+/fZPKx7+B9BWv/naapiKAAAAAElFTkSuQmCC);
@@ -238,7 +238,6 @@
 	height: 32rpx;
 }
 .picker.data-v-1ef35ddd {
-	/* 原样式保留 */
 	font-size: 32rpx;
 	font-family: Source Sans Pro;
 	line-height: 21.12rpx;
@@ -247,31 +246,58 @@
 	background-color: white;
 	appearance: none;
 	-webkit-appearance: none;
-	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" width="29" height="29"%3E%3Cpath d="M7 10l5 5 5-5z" fill="%23313131"%3E%3C/path%3E%3C/svg%3E');
 	background-position: right 10rpx center;
 	background-repeat: no-repeat;
 	padding-right: 35rpx;
-	/* 新增垂直内边距 */
 	padding-top: 12rpx;
 	padding-bottom: 12rpx;
 }
 .custom-checkbox.data-v-1ef35ddd {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
 }
 .checkbox-inner.data-v-1ef35ddd {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-right: 5px;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-right: 5px;
 }
 .checkbox-inner.checked.data-v-1ef35ddd {
-    background-color: #1aad19;
-    border-color: #1aad19;
+	background-color: #1aad19;
+	border-color: #1aad19;
 }
 .ml-10.data-v-1ef35ddd {
-    margin-left: 20px;
+	margin-left: 20px;
+}
+
+/* 新增和调整的样式，确保左右结构对齐 */
+.flex-row.data-v-1ef35ddd {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 20rpx;
+	/* 调整行间距 */
+}
+.flex-2.data-v-1ef35ddd {
+	flex: 2;
+	padding-right: 20rpx;
+	/* 增加右侧内边距，使标签和输入框有间距 */
+}
+.flex-8.data-v-1ef35ddd {
+	flex: 8;
+}
+.input-row.data-v-1ef35ddd {
+	align-items: center;
+	/* 垂直居中对齐 */
+}
+.input-label.data-v-1ef35ddd {
+	text-align: right;
+	/* 标签右对齐 */
+}
+.input-field.data-v-1ef35ddd {
+	display: flex;
+	flex-direction: column;
 }
 
