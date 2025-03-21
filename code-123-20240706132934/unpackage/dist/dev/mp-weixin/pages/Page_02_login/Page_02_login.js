@@ -197,8 +197,8 @@ var _default = {
     return {
       companyName: '',
       company: '',
-      userName: "shuaijiangbing",
-      pwd: "123456",
+      userName: "",
+      pwd: "",
       companyNameList: ["水电", "火芽"],
       //, "测试"
       companyPathList: ["水电", "火芽"],

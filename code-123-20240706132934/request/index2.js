@@ -13,7 +13,9 @@ export function request(url, data = {}, method = "GET") {
 	// 另一个本地  192.168.31.218
 	// const base_url = 'http://192.168.31.218:9095'
 	// 测试机外网访问
-	const base_url = 'https://erp.hzjianghe.cn'
+	// const base_url = 'https://erp.hzjianghe.cn'
+	// 正式接口
+	const base_url = 'https://yjbh.hzjianghe.cn'
 	// 发起网络请求  
 	return new Promise((resolve, reject) => {
 		console.log('服务器地址', base_url)
