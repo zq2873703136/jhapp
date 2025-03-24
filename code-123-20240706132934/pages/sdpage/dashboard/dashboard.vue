@@ -126,6 +126,13 @@
           />
           <text class="font_2 text_6 mt-15">统计查询管理</text>
         </view>
+		<view class="flex-col items-start grid-item" @click="push('/pages/sdpage/materialLevel/materialLevel')">
+		  <image
+		    class="image_10"
+		    src="../../../static/page03/b48a3f695f4da2e87892440ee0c4c6cd.png"
+		  />
+		  <text class="font_2 text_6 mt-15">粉料库存</text>
+		</view>
       </view>
     </view>
   </view>

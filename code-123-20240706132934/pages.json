@@ -102,6 +102,12 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
+		},
+		{
+			"path": "pages/sdpage/materialLevel/materialLevel",
+			"style": {
+				"navigationBarTitleText": ""
+			}
 		}
 	],
 	"subPackages": [{

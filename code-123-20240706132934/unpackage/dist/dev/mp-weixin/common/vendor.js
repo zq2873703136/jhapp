@@ -10155,6 +10155,7 @@ exports.managerLogin2 = managerLogin2;
 exports.ratioDelete = ratioDelete;
 exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
+exports.selectMaterialInventory = selectMaterialInventory;
 exports.statisticsQuery = statisticsQuery;
 exports.statisticsQueryDetails = statisticsQueryDetails;
 exports.taskSheetDelete = taskSheetDelete;
@@ -10219,6 +10220,11 @@ function statisticsQuery(data) {
 // 统计查询 明细
 function statisticsQueryDetails(data) {
   return (0, _index.request)('/hydropower/hydropower/statistics/queryDetails_xcx', data, 'POST');
+}
+
+// 粉料库存
+function selectMaterialInventory(data) {
+  return (0, _index.request)('/hydropower/hydropower/largeScreen/selectMaterialInventory', data, 'GET');
 }
 
 /***/ }),

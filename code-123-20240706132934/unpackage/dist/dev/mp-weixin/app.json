@@ -16,7 +16,8 @@
     "pages/sdpage/vehicle/VehicleEdit",
     "pages/sdpage/rwd/AuditTask",
     "pages/sdpage/tjcx/jblscxhsjtj",
-    "pages/sdpage/tjcx/jblscxhsjtjDetails"
+    "pages/sdpage/tjcx/jblscxhsjtjDetails",
+    "pages/sdpage/materialLevel/materialLevel"
   ],
   "subPackages": [
     {

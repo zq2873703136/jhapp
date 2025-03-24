@@ -70,3 +70,8 @@ export function statisticsQuery(data){
 export function statisticsQueryDetails(data){
 	return request('/hydropower/hydropower/statistics/queryDetails_xcx', data, 'POST')
 }
+
+// 粉料库存
+export function selectMaterialInventory(data){
+	return request('/hydropower/hydropower/largeScreen/selectMaterialInventory', data, 'GET')
+}
