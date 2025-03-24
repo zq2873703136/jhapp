@@ -77,11 +77,12 @@
 		computed: {
 			isAdminOrAuditor() {
 				getUserInfo().then((res) => {
-					console.log('isAdminOrAuditor  getUserInfo:::', res.data.roles === '超级管理员' || res.data
-						.roles === '审核员')
-					this.userRole = res.data.roles;
+					console.log('角色权限：：',res.data.roles)
+					console.log('isAdminOrAuditor  getUserInfo:::')
+					this.userRole = res.data.roles.toString();
+					console.log('角色权限toString后', this.userRole)
 					// 判断用户是否为超级管理员或者审核员
-					this.sfyqxsh = (res.data.roles === '超级管理员' || res.data.roles === '审核员');
+					this.sfyqxsh = (this.userRole.indexOf('审核员')>-1 || this.userRole.indexOf('超级管理员')>-1);
 				})
 			},
 		},

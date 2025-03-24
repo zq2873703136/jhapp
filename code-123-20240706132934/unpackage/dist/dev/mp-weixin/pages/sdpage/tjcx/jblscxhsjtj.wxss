@@ -70,6 +70,12 @@
 	background-color: #fff;
 	font-size: 24rpx;
 	color: #666;
+	  /* 增加最小宽度确保三位数字显示 */
+	  min-width: 100rpx;
+	  /* 防止换行 */
+	  white-space: nowrap;
+	  /* 增加文本溢出处理 */
+	  overflow: visible;
 }
 .filter-button.data-v-8992657a {
 	padding: 18rpx 16rpx;

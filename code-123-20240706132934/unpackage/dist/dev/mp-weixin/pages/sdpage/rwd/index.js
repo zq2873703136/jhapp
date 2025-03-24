@@ -236,10 +236,12 @@ var _default = {
     isAdminOrAuditor: function isAdminOrAuditor() {
       var _this = this;
       (0, _publicData.getUserInfo)().then(function (res) {
-        console.log('isAdminOrAuditor  getUserInfo:::', res.data.roles === '超级管理员' || res.data.roles === '审核员');
-        _this.userRole = res.data.roles;
+        console.log('角色权限：：', res.data.roles);
+        console.log('isAdminOrAuditor  getUserInfo:::');
+        _this.userRole = res.data.roles.toString();
+        console.log('角色权限toString后', _this.userRole);
         // 判断用户是否为超级管理员或者审核员
-        _this.sfyqxsh = res.data.roles === '超级管理员' || res.data.roles === '审核员';
+        _this.sfyqxsh = _this.userRole.indexOf('审核员') > -1 || _this.userRole.indexOf('超级管理员') > -1;
       });
     }
   },

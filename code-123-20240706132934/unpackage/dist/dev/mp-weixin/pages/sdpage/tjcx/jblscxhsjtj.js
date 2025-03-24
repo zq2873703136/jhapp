@@ -102,6 +102,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.startTime.split(":").slice(0, 2).join(":")
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -414,9 +423,9 @@ var _default = {
     return {
       list: [],
       startDate: startDate || "".concat(year, "-").concat(month, "-").concat(day),
-      startTime: startTime || "".concat(hours, ":").concat(minutes, ":").concat(seconds),
+      startTime: startTime || "00:00:00",
       endDate: endDate || "".concat(year, "-").concat(month, "-").concat(day),
-      endTime: endTime || "".concat(hours, ":").concat(minutes, ":").concat(seconds),
+      endTime: endTime || "23:59:59",
       currentPage: 1,
       pageSize: 10,
       loading: false,
@@ -544,13 +553,13 @@ var _default = {
       this.startDate = e.detail.value;
     },
     onStartTimeChange: function onStartTimeChange(e) {
-      this.startTime = e.detail.value;
+      this.startTime = e.detail.value + ":00";
     },
     onEndDateChange: function onEndDateChange(e) {
       this.endDate = e.detail.value;
     },
     onEndTimeChange: function onEndTimeChange(e) {
-      this.endTime = e.detail.value;
+      this.endTime = e.detail.value + ":59";
     },
     calculateTotals: function calculateTotals() {
       var _this2 = this;

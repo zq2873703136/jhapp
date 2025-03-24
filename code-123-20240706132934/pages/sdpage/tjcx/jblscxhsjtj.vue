@@ -13,7 +13,7 @@
 						@change="onStartDateChange">
 						<view class="filter-input">{{ startDate }}</view>
 					</picker>
-					<picker mode="time" :value="startTime" @change="onStartTimeChange">
+					<picker mode="time" :value="startTime.split(':').slice(0, 2).join(':')" @change="onStartTimeChange">
 						<view class="filter-input">{{ startTime }}</view>
 					</picker>
 				</view>
@@ -23,7 +23,7 @@
 					<picker mode="date" :value="endDate" start="2000-01-01" end="2100-12-31" @change="onEndDateChange">
 						<view class="filter-input">{{ endDate }}</view>
 					</picker>
-					<picker mode="time" :value="endTime" @change="onEndTimeChange">
+					<picker mode="time" :value="endTime"  start="00-00-00" end="23-59-59" @change="onEndTimeChange">
 						<view class="filter-input">{{ endTime }}</view>
 					</picker>
 				</view>
@@ -276,9 +276,9 @@
 			return {
 				list: [],
 				startDate:  startDate || `${year}-${month}-${day}`,
-				startTime:  startTime ||`${hours}:${minutes}:${seconds}`,
+				startTime:  startTime ||`00:00:00`,
 				endDate: endDate || `${year}-${month}-${day}`,
-				endTime: endTime || `${hours}:${minutes}:${seconds}`,
+				endTime: endTime || `23:59:59`,
 				currentPage: 1,
 				pageSize: 10,
 				loading: false,
@@ -384,13 +384,13 @@
 				this.startDate = e.detail.value;
 			},
 			onStartTimeChange(e) {
-				this.startTime = e.detail.value;
+				this.startTime = e.detail.value + ":00";
 			},
 			onEndDateChange(e) {
 				this.endDate = e.detail.value;
 			},
 			onEndTimeChange(e) {
-				this.endTime = e.detail.value;
+				this.endTime = e.detail.value + ":59";
 			},
 			calculateTotals() {
 				this.totalMgfl = 0;
@@ -511,6 +511,12 @@
 		background-color: #fff;
 		font-size: 24rpx;
 		color: #666;
+		  /* 增加最小宽度确保三位数字显示 */
+		  min-width: 100rpx;
+		  /* 防止换行 */
+		  white-space: nowrap;
+		  /* 增加文本溢出处理 */
+		  overflow: visible;
 	}
 
 	.filter-button {
