@@ -126,6 +126,13 @@
           />
           <text class="font_2 text_6 mt-15">统计查询管理</text>
         </view>
+		<view class="flex-col items-start grid-item" @click="push('/pages/sdpage/tjcxrb/rb')">
+		  <image
+		    class="image_10"
+		    src="../../../static/page03/8d8de440c6f8e53066f35976bb696a4d.png"
+		  />
+		  <text class="font_2 text_6 mt-15">日报数据管理</text>
+		</view>
 		<view class="flex-col items-start grid-item" @click="push('/pages/sdpage/materialLevel/materialLevel')">
 		  <image
 		    class="image_10"

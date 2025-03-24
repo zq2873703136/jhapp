@@ -6,6 +6,7 @@ export function request(url, data = {}, method = "GET") {
 
 
 	// 这个是本地
+	// const base_url = 'http://localhost:9095'
 	// const base_url = 'http://192.168.1.33:9095'
 	// const base_url = 'http://192.168.181.102:9095'
 	// const base_url = 'http://192.168.181.101:9095'

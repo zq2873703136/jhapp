@@ -75,3 +75,9 @@ export function statisticsQueryDetails(data){
 export function selectMaterialInventory(data){
 	return request('/hydropower/hydropower/largeScreen/selectMaterialInventory', data, 'GET')
 }
+
+
+// 日报统计
+export function statisticsDailyNewspaper(data){
+	return request('/hydropower/hydropower/statistics/dailyNewspaper', data, 'POST')
+}

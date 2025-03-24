@@ -10156,6 +10156,7 @@ exports.ratioDelete = ratioDelete;
 exports.ratioQuery = ratioQuery;
 exports.ratioSave = ratioSave;
 exports.selectMaterialInventory = selectMaterialInventory;
+exports.statisticsDailyNewspaper = statisticsDailyNewspaper;
 exports.statisticsQuery = statisticsQuery;
 exports.statisticsQueryDetails = statisticsQueryDetails;
 exports.taskSheetDelete = taskSheetDelete;
@@ -10227,6 +10228,11 @@ function selectMaterialInventory(data) {
   return (0, _index.request)('/hydropower/hydropower/largeScreen/selectMaterialInventory', data, 'GET');
 }
 
+// 日报统计
+function statisticsDailyNewspaper(data) {
+  return (0, _index.request)('/hydropower/hydropower/statistics/dailyNewspaper', data, 'POST');
+}
+
 /***/ }),
 /* 45 */
 /*!**************************************************************!*\
@@ -10251,6 +10257,7 @@ function request(url) {
   });
 
   // 这个是本地
+  // const base_url = 'http://localhost:9095'
   // const base_url = 'http://192.168.1.33:9095'
   // const base_url = 'http://192.168.181.102:9095'
   // const base_url = 'http://192.168.181.101:9095'

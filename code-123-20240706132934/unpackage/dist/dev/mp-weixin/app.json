@@ -17,7 +17,8 @@
     "pages/sdpage/rwd/AuditTask",
     "pages/sdpage/tjcx/jblscxhsjtj",
     "pages/sdpage/tjcx/jblscxhsjtjDetails",
-    "pages/sdpage/materialLevel/materialLevel"
+    "pages/sdpage/materialLevel/materialLevel",
+    "pages/sdpage/tjcxrb/rb"
   ],
   "subPackages": [
     {
