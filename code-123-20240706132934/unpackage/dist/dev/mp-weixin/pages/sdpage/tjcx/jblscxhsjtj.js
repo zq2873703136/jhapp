@@ -102,15 +102,6 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var g0 = _vm.startTime.split(":").slice(0, 2).join(":")
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        g0: g0,
-      },
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -567,7 +558,6 @@ var _default = {
       this.totalItem = {
         xm0t: 0,
         xm1t: 0,
-        xm14t: 0,
         xm2t: 0,
         xm3t: 0,
         xm4t: 0,
@@ -579,7 +569,8 @@ var _default = {
         xm10t: 0,
         xm11t: 0,
         xm12t: 0,
-        xm13t: 0
+        xm13t: 0,
+        xm14t: 0
       };
       this.list.forEach(function (item) {
         _this2.totalMgfl += parseFloat(item.mgfl);

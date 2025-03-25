@@ -418,6 +418,10 @@
 	import {
 		statisticsQueryDetails
 	} from '@/request/api2.js';
+	import {
+		getCommonParams,
+		setCommonParams
+	} from '@/request/publicData.js'
 
 	export default {
 		components: {},
@@ -466,12 +470,23 @@
 				this.showRatioModal = false;
 			},
 			async getDetails(id) {
+				const {
+					startDate,
+					startTime,
+					endDate,
+					endTime
+				} = getCommonParams();
+				const searchKssj = `${startDate} ${startTime}`;
+				const searchJssj = `${endDate} ${endTime}`;
+
 				try {
-					const params = {
-						"id": id,
-						currentPage: this.currentPage,
-						pageSize: this.pageSize
-					};
+				const params = {
+					"id": id,
+					currentPage: this.currentPage,
+					pageSize: this.pageSize,
+					'sendDate': searchKssj,
+					'endData': searchJssj,
+				}
 					const res = await statisticsQueryDetails(params);
 					if (res.result === 1) {
 						if (this.currentPage === 1) {

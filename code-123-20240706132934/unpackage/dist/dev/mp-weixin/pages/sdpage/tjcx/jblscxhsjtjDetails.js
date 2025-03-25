@@ -161,6 +161,7 @@ exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 39));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 41));
 var _api = __webpack_require__(/*! @/request/api2.js */ 44);
+var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
@@ -633,20 +634,25 @@ var _default = {
     getDetails: function getDetails(id) {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var params, res;
+        var _getCommonParams, startDate, startTime, endDate, endTime, searchKssj, searchJssj, params, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                _getCommonParams = (0, _publicData.getCommonParams)(), startDate = _getCommonParams.startDate, startTime = _getCommonParams.startTime, endDate = _getCommonParams.endDate, endTime = _getCommonParams.endTime;
+                searchKssj = "".concat(startDate, " ").concat(startTime);
+                searchJssj = "".concat(endDate, " ").concat(endTime);
+                _context.prev = 3;
                 params = {
                   "id": id,
                   currentPage: _this.currentPage,
-                  pageSize: _this.pageSize
+                  pageSize: _this.pageSize,
+                  'sendDate': searchKssj,
+                  'endData': searchJssj
                 };
-                _context.next = 4;
+                _context.next = 7;
                 return (0, _api.statisticsQueryDetails)(params);
-              case 4:
+              case 7:
                 res = _context.sent;
                 if (res.result === 1) {
                   if (_this.currentPage === 1) {
@@ -659,18 +665,18 @@ var _default = {
                   // 这里假设后续分页信息也会返回，如果实际没有返回，可以根据需求调整
                   // 目前代码暂未处理分页相关信息，因为返回数据里没有
                 }
-                _context.next = 11;
+                _context.next = 14;
                 break;
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
-                console.error('请求错误', _context.t0);
               case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](3);
+                console.error('请求错误', _context.t0);
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[3, 11]]);
       }))();
     },
     onPullDownRefresh: function onPullDownRefresh() {

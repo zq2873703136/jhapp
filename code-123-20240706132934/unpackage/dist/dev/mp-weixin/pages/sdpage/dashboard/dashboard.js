@@ -288,14 +288,13 @@ var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
-//
 var _default = {
   components: {},
   props: {},
   data: function data() {
     return {
       userName: '',
-      company: '混凝土',
+      company: '水电八局引江补汉1标',
       department: ''
     };
   },

@@ -23,7 +23,7 @@
             <text class="self-start text_2">Hi  {{ userName }} ！</text>
             <view class="mt-20 flex-col self-stretch">
               <view class="flex-row items-center">
-                <text class="font text_3">{{company}}公司</text>
+                <text class="font text_3">{{company}}</text>
                 <text class="font text_3 text_4">|</text>
                 <text class="font text_3">{{department}}</text>
               </view>
@@ -76,19 +76,19 @@
             class="image_10"
             src="../../../static/page03/530292bbb18ea7cff45b80c1df9e218c.png"
           />
-          <text class="mt-16 font_2 text_6">基本级配单</text>
+          <text class="mt-16 font_2 text_6">基本级配单列表</text>
         </view>
         <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/jbpbd/LaboratoryCreated')">
           <image
             class="image_10"
             src="../../../static/page03/907eb29e029f4eef674a6a2eec517cc7.png"
           />
-          <text class="mt-14 font_2 text_6">新增配比单</text>
+          <text class="mt-14 font_2 text_6">新增基本级配单</text>
         </view>
 
 
 
-        <view class="flex-col items-start grid-item_2" @click="push('/pages/sdpage/card/index')">
+<!--        <view class="flex-col items-start grid-item_2" @click="push('/pages/sdpage/card/index')">
           <image
             class="image_10"
             src="../../../static/page03/8d8de440c6f8e53066f35976bb696a4d.png"
@@ -111,14 +111,13 @@
           />
           <text class="mt-14 font_2 text_6">调度车辆管理</text>
         </view>
-
-        <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/vehicle/VehicleCreated')">
+		<view class="flex-col items-start grid-item" @click="push('/pages/sdpage/vehicle/VehicleCreated')">
           <image
             class="image_10"
             src="../../../static/page03/b48a3f695f4da2e87892440ee0c4c6cd.png"
           />
           <text class="font_2 text_6 mt-15">新增调度车辆</text>
-        </view>
+        </view> -->
         <view class="flex-col items-start grid-item" @click="push('/pages/sdpage/tjcx/jblscxhsjtj')">
           <image
             class="image_10"
@@ -159,7 +158,7 @@
     data() {
       return {
 		  userName:'',
-		  company:'混凝土',
+		  company:'水电八局引江补汉1标',
 		  department:''
 	  };
     },

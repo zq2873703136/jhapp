@@ -68,8 +68,8 @@ export default {
       company: '',
       userName: "",
       pwd: "",
-      companyNameList: ["水电", "火芽"],//, "测试"
-      companyPathList: ["水电", "火芽"],// , "测试"
+      companyNameList: ["水电八局引江补汉1标", "火芽"],//, "测试"
+      companyPathList: ["水电八局引江补汉1标", "火芽"],// , "测试"
       pickerIndex: 0,
     };
   },
@@ -98,7 +98,7 @@ try {
       } else if (this.companyName === '测试') {
         res = await managerLogin3(user);
         redirectUrl = '/pages_bd/dashboard/dashboard';
-      } else if (this.companyName === '水电') {
+      } else if (this.companyName === '水电八局引江补汉1标') {
         res = await managerLogin2(user);
         redirectUrl = '/pages/sdpage/dashboard/dashboard';
       } else {

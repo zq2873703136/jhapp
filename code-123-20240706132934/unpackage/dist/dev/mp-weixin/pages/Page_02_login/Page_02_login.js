@@ -199,9 +199,9 @@ var _default = {
       company: '',
       userName: "",
       pwd: "",
-      companyNameList: ["水电", "火芽"],
+      companyNameList: ["水电八局引江补汉1标", "火芽"],
       //, "测试"
-      companyPathList: ["水电", "火芽"],
+      companyPathList: ["水电八局引江补汉1标", "火芽"],
       // , "测试"
       pickerIndex: 0
     };
@@ -257,7 +257,7 @@ var _default = {
                 _context.next = 29;
                 break;
               case 20:
-                if (!(_this.companyName === '水电')) {
+                if (!(_this.companyName === '水电八局引江补汉1标')) {
                   _context.next = 27;
                   break;
                 }

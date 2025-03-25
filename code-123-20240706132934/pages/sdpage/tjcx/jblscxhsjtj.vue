@@ -13,7 +13,7 @@
 						@change="onStartDateChange">
 						<view class="filter-input">{{ startDate }}</view>
 					</picker>
-					<picker mode="time" :value="startTime.split(':').slice(0, 2).join(':')" @change="onStartTimeChange">
+					<picker mode="time" :value="startTime" @change="onStartTimeChange">
 						<view class="filter-input">{{ startTime }}</view>
 					</picker>
 				</view>
@@ -397,7 +397,6 @@
 				this.totalItem = {
 					xm0t: 0,
 					xm1t: 0,
-					xm14t: 0,
 					xm2t: 0,
 					xm3t: 0,
 					xm4t: 0,
@@ -409,7 +408,8 @@
 					xm10t: 0,
 					xm11t: 0,
 					xm12t: 0,
-					xm13t: 0
+					xm13t: 0,
+					xm14t: 0
 				};
 				this.list.forEach(item => {
 					this.totalMgfl += parseFloat(item.mgfl);
