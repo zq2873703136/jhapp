@@ -747,7 +747,7 @@ var _default = {
                     title: '创建成功'
                   });
                   setTimeout(function () {
-                    uni.redirectTo({
+                    uni.reLaunch({
                       url: '/pages/sdpage/jbpbd/index'
                     });
                   }, 500);
@@ -775,7 +775,7 @@ var _default = {
     },
     returnList: function returnList() {
       console.log('返回任务单列表');
-      uni.redirectTo({
+      uni.reLaunch({
         url: '/pages/sdpage/jbpbd/index'
       });
     }

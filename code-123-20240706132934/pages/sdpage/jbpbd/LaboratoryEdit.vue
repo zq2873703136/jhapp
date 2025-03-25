@@ -637,7 +637,7 @@
 							title: '修改成功'
 						});
 						setTimeout(() => {
-							uni.redirectTo({
+							uni.reLaunch({
 								url: '/pages/sdpage/jbpbd/index'
 							});
 						}, 500)
@@ -666,7 +666,7 @@
 			},
 			returnList() {
 				console.log('返回任务单列表');
-				uni.redirectTo({
+				uni.reLaunch({
 					url: '/pages/sdpage/jbpbd/index'
 				});
 			}

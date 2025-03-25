@@ -303,7 +303,7 @@ export default {
                     await cardSave({ id: this.kid, sybz: "1",kh1:this.kh1 });
                     setTimeout(() => {
                         // 跳转到车辆列表页面
-                        uni.redirectTo({
+                        uni.reLaunch({
                             url: '/pages/sdpage/vehicle/index'
                         });
                     }, 500);
@@ -474,7 +474,7 @@ export default {
         // 返回车辆列表页面
         returnList() {
             console.log('返回任务单列表');
-            uni.redirectTo({
+            uni.reLaunch({
                 url: '/pages/sdpage/vehicle/index'
             });
         }

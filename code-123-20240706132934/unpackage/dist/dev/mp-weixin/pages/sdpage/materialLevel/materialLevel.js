@@ -292,7 +292,7 @@ var _default = {
     },
     returnList: function returnList() {
       // uni.navigateBack(1)
-      uni.redirectTo({
+      uni.reLaunch({
         url: '/pages/sdpage/dashboard/dashboard'
       });
     }

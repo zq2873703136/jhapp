@@ -256,7 +256,7 @@ var _default = {
   methods: {
     back: function back() {
       // uni.navigateBack(1)
-      uni.redirectTo({
+      uni.reLaunch({
         url: '/pages/sdpage/dashboard/dashboard'
       });
     },

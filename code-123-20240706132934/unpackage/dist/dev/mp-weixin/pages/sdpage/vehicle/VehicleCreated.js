@@ -336,7 +336,7 @@ var _default = {
               case 20:
                 setTimeout(function () {
                   // 跳转到车辆列表页面
-                  uni.redirectTo({
+                  uni.reLaunch({
                     url: '/pages/sdpage/vehicle/index'
                   });
                 }, 500);
@@ -605,7 +605,7 @@ var _default = {
     // 返回车辆列表页面
     returnList: function returnList() {
       console.log('返回任务单列表');
-      uni.redirectTo({
+      uni.reLaunch({
         url: '/pages/sdpage/vehicle/index'
       });
     }
