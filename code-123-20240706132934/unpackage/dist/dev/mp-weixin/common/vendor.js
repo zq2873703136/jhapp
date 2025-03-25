@@ -10165,6 +10165,7 @@ exports.taskSheetSave = taskSheetSave;
 exports.vehicleDelete = vehicleDelete;
 exports.vehicleQuery = vehicleQuery;
 exports.vehicleSave = vehicleSave;
+exports.weighbridgeGroupingQuery = weighbridgeGroupingQuery;
 var _index = __webpack_require__(/*! ./index2.js */ 45);
 function managerLogin2(data) {
   return (0, _index.request)('/hydropower/manager/login', data, 'post');
@@ -10231,6 +10232,11 @@ function selectMaterialInventory(data) {
 // 日报统计
 function statisticsDailyNewspaper(data) {
   return (0, _index.request)('/hydropower/hydropower/statistics/dailyNewspaper', data, 'POST');
+}
+
+// 地磅数据管理
+function weighbridgeGroupingQuery(data) {
+  return (0, _index.request)('/hydropower/hydropower/weighbridge/groupingQuery', data, 'POST');
 }
 
 /***/ }),

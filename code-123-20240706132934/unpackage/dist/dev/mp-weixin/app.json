@@ -18,7 +18,8 @@
     "pages/sdpage/tjcx/jblscxhsjtj",
     "pages/sdpage/tjcx/jblscxhsjtjDetails",
     "pages/sdpage/materialLevel/materialLevel",
-    "pages/sdpage/tjcxrb/rb"
+    "pages/sdpage/tjcxrb/rb",
+    "pages/sdpage/weighbridge/weighbridge"
   ],
   "subPackages": [
     {

@@ -139,6 +139,13 @@
 		  />
 		  <text class="font_2 text_6 mt-15">粉料库存</text>
 		</view>
+		<view class="flex-col items-start grid-item_2" @click="push('/pages/sdpage/weighbridge/weighbridge')">
+		          <image
+		            class="image_10"
+		            src="../../../static/page03/f53082c3724c81b77a3456859c8d3735.png"
+		          />
+		          <text class="mt-14 font_2 text_7">地磅数据管理</text>
+		        </view>
       </view>
     </view>
   </view>

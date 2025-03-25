@@ -81,3 +81,8 @@ export function selectMaterialInventory(data){
 export function statisticsDailyNewspaper(data){
 	return request('/hydropower/hydropower/statistics/dailyNewspaper', data, 'POST')
 }
+
+// 地磅数据管理
+export function weighbridgeGroupingQuery(data){
+	return request('/hydropower/hydropower/weighbridge/groupingQuery', data, 'POST')
+}

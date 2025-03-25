@@ -4,7 +4,7 @@
 		<view class="fixed-query-area">
 			<image @click="back" class="image_4 pos_3"
 				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
-			<text class="text_2 pos_2">搅拌楼生产消耗数据统计</text>
+			<text class="text_2 pos_2">地磅数据管理</text>
 			<view class="filter-container">
 				<!-- 开始时间 -->
 				<view class="picker-group">
@@ -36,7 +36,7 @@
 			<view class="flex-col justify-start list-item" style="margin-top: 70rpx;">
 				<view class="flex-col section_4">
 					<text class="self-start font text_3">合计 &nbsp;&nbsp;&nbsp;<text class="self-start font text_3"
-							style="margin-left: 20rpx;">总方量：{{ totalMgfl }}</text></text>
+							style="margin-left: 20rpx;">车数：{{ totalCs }}  当日数量：{{ totalDrsl }}  累计：{{ totalBylj }}</text></text>
 				</view>
 			</view>
 			<view class="flex-col list">
@@ -46,34 +46,37 @@
 						<view class="mt-16 data-group">
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">任务单号：</text>{{ item.kz }}</text>
+									<text><text class="title-green">材料名称：</text>{{ item.clmc }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">砼标号：</text>{{ item.tbh }}</text>
+									<text><text class="title-green">材料规格：</text>{{ item.clggxh }}</text>
 								</view>
 							</view>
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">塌落度：</text>{{ item.tld }}</text>
+									<text><text class="title-green">车数：</text>{{ item.cs }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">方量(m³)：</text>{{ item.mgfl }}</text>
+									<text><text class="title-green">当日数量：</text>{{ item.drsl }}</text>
 								</view>
 							</view>
 							<!-- 第三行 -->
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">用户名称：</text>{{ item.yhmc }}</text>
+									<text><text class="title-green">累计：</text>{{ item.bylj }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">产品单位：</text>{{ item.gbdw }}</text>
 								</view>
 							</view>
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">工程名称：</text>{{ item.gcmc }}</text>
+									<text><text class="title-green">进货单位：</text>{{ item.gysmc }}</text>
 								</view>
 							</view>
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">施工部位：</text>{{ item.sgbw }}</text>
+									<text><text class="title-green">备注：</text>{{ item.bz?item.bz:'' }}</text>
 								</view>
 							</view>
 						</view>
@@ -88,7 +91,7 @@
 
 <script>
 	import {
-		statisticsDailyNewspaper
+		weighbridgeGroupingQuery
 	} from '@/request/api2.js'
 	import {
 		getCommonParams,
@@ -122,7 +125,10 @@
 				pageSize: 10,
 				loading: false,
 				totalMgfl: 0, // 新增：用于存储总方量
-				tjlx: '项目名称',
+				totalCs:0,// 总车数
+				totalDrsl:0,// 总 当日数量
+				totalBylj:0, // 总 累计
+				tjlx: '进货单位',
 			}
 		},
 		onLoad() {
@@ -153,7 +159,7 @@
 						'sendDate': searchKssj,
 						'endData': searchJssj,
 					}
-					const res = await statisticsDailyNewspaper(params);
+					const res = await weighbridgeGroupingQuery(params);
 					console.log(res, 'res');
 					if (this.currentPage === 1) {
 						this.list = res.data;
@@ -165,7 +171,7 @@
 					const seen = new Set();
 					this.list.forEach(item => {
 						const key =
-						`${item.kz}_${item.tbh}_${item.tld}_${item.yhmc}_${item.gcmc}_${item.sgbw}`;
+						`${item.clmc}_${item.clggxh}_${item.gysmc}`;
 						if (!seen.has(key)) {
 							seen.add(key);
 							uniqueList.push(item);
@@ -220,12 +226,18 @@
 				this.endTime = e.detail.value + ":59";
 			},
 			calculateTotals() {
-				this.totalMgfl = 0;
+				this.totalCs = 0;
+				this.totalDrsl = 0;
+				this.totalBylj = 0;
 				this.list.forEach(item => {
-					this.totalMgfl += parseFloat(item.mgfl);
+					this.totalCs += parseFloat(item.cs);
+					this.totalDrsl += parseFloat(item.drsl);
+					this.totalBylj += parseFloat(item.bylj);
 				});
 				// 对总方量进行四舍五入，保留两位小数
-				this.totalMgfl = parseFloat(this.totalMgfl.toFixed(2));
+				this.totalCs = parseFloat(this.totalCs.toFixed(2));
+				this.totalDrsl = parseFloat(this.totalDrsl.toFixed(2));
+				this.totalBylj = parseFloat(this.totalBylj.toFixed(2));
 			}
 		},
 	};
@@ -464,11 +476,12 @@
 
 
 	.data-row:nth-child(1) .data-item,
-	.data-row:nth-child(2) .data-item {
+	.data-row:nth-child(2) .data-item,
+	.data-row:nth-child(3) .data-item{
 		width: 50%;
 	}
 
-	.data-row:nth-child(3) .data-item,
+	
 	.data-row:nth-child(4) .data-item,
 	.data-row:nth-child(5) .data-item {
 		width: 100%;
