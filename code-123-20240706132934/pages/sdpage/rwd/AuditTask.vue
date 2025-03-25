@@ -101,7 +101,7 @@
                     <text class="value">{{ taskInfo.jbsj || '' }}</text>
                 </view>
                 <view class="ratio-detail-item">
-                    <text class="label">大石：</text>
+                    <text class="label">瓜米石：</text>
                     <text class="value">{{ taskInfo.ds || '' }}</text>
                 </view>
                 <view class="ratio-detail-item">
@@ -153,11 +153,11 @@
                     <text class="value">{{ taskInfo.wjj1 || '' }}</text>
                 </view>
                 <view class="ratio-detail-item">
-                    <text class="label">外加剂2：</text>
+                    <text class="label">引气剂：</text>
                     <text class="value">{{ taskInfo.wjj2 || '' }}</text>
                 </view>
                 <view class="ratio-detail-item">
-                    <text class="label">外加剂3：</text>
+                    <text class="label">减水剂3：</text>
                     <text class="value">{{ taskInfo.wjj3 || '' }}</text>
                 </view>
                 <view class="ratio-detail-item">

@@ -115,7 +115,7 @@
 				<view class="material-list">
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
-							<text class="font label">大石</text>
+							<text class="font label">瓜米石</text>
 							<input class="mt-12 input-number" v-model.number="form2.ds" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'ds')" />
 							<view v-if="form2.dsError" class="error-tip">{{form2.dsError}}</view>
@@ -205,7 +205,7 @@
 							<view v-if="form2.wjj1Error" class="error-tip">{{form2.wjj1Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
-							<text class="font label">外加剂2</text>
+							<text class="font label">引气剂</text>
 							<input class="mt-12 input-number" v-model.number="form2.wjj2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj2')" />
 							<view v-if="form2.wjj2Error" class="error-tip">{{form2.wjj2Error}}</view>
@@ -213,7 +213,7 @@
 					</view>
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
-							<text class="font label">外加剂3</text>
+							<text class="font label">减水剂</text>
 							<input class="mt-12 input-number" v-model.number="form2.wjj3" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj3')" />
 							<view v-if="form2.wjj3Error" class="error-tip">{{form2.wjj3Error}}</view>
@@ -442,7 +442,7 @@
 			},
 			validatePositiveNumber(field) {
 				const fieldMap = {
-					ds: '大石',
+					ds: '瓜米石',
 					zs1: '中石1',
 					zs2: '中石2',
 					xs: '小石',
@@ -455,8 +455,8 @@
 					fmh2: '粉煤灰2',
 					s: '水',
 					wjj1: '外加剂1',
-					wjj2: '外加剂2',
-					wjj3: '外加剂3',
+					wjj2: '引气剂',
+					wjj3: '减水剂',
 					rl: '容量'
 				};
 				const value = this.form2[field];

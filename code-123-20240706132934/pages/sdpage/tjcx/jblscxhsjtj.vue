@@ -42,7 +42,7 @@
 						<view class="data-row"></view>
 						<view class="data-row">
 							<view class="data-item">
-								<text class="title-green">大石：</text>
+								<text class="title-green">瓜米石：</text>
 							</view>
 							<view class="data-item">
 								<text class="title-green">中石1：</text>
@@ -59,7 +59,7 @@
 								<text class="data-item">{{ totalItem.xm1t }}</text>
 							</view>
 							<view class="data-item">
-								<text class="data-item">{{ totalItem.xm14t }}</text>
+								<text class="data-item">{{ totalItem.xm2t }}</text>
 							</view>
 						</view>
 						<view class="data-row">
@@ -75,13 +75,13 @@
 						</view>
 						<view class="data-row">
 							<view class="data-item">
-								<text class="data-item">{{ totalItem.xm2t }}</text>
-							</view>
-							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm3t }}</text>
 							</view>
 							<view class="data-item">
-								<text class="data-item">{{ totalItem.xm4t }}</text>
+								<text class="data-item">{{ totalItem.xm5t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm5t }}</text>
 							</view>
 						</view>
 						<view class="data-row">
@@ -97,21 +97,21 @@
 						</view>
 						<view class="data-row">
 							<view class="data-item">
-								<text class="data-item">{{ totalItem.xm5t }}</text>
-							</view>
-							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm6t }}</text>
 							</view>
 							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm7t }}</text>
 							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm8t }}</text>
+							</view>
 						</view>
 						<view class="data-row">
 							<view class="data-item">
-								<text><text class="title-green">粉煤灰：</text> </text>
+								<text><text class="title-green">粉煤灰1：</text> </text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">矿粉：</text> </text>
+								<text><text class="title-green">粉煤灰2：</text> </text>
 							</view>
 							<view class="data-item">
 								<text><text class="title-green">水：</text> </text>
@@ -119,13 +119,13 @@
 						</view>
 						<view class="data-row">
 							<view class="data-item">
-								<text class="data-item">{{ totalItem.xm8t }}</text>
-							</view>
-							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm9t }}</text>
 							</view>
 							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm10t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm11t }}</text>
 							</view>
 						</view>
 						<view class="data-row">
@@ -133,21 +133,21 @@
 								<text><text class="title-green">外加剂1：</text> </text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">外加剂2：</text> </text>
+								<text><text class="title-green">引气剂：</text> </text>
 							</view>
 							<view class="data-item">
-								<text><text class="title-green">外加剂3：</text> </text>
+								<text><text class="title-green">减水剂：</text> </text>
 							</view>
 						</view>
 						<view class="data-row">
-							<view class="data-item">
-								<text class="data-item">{{ totalItem.xm11t }}</text>
-							</view>
 							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm12t }}</text>
 							</view>
 							<view class="data-item">
 								<text class="data-item">{{ totalItem.xm13t }}</text>
+							</view>
+							<view class="data-item">
+								<text class="data-item">{{ totalItem.xm14t }}</text>
 							</view>
 						</view>
 					</view>
@@ -184,57 +184,57 @@
 							<!-- 第四行 -->
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">大石：</text>{{ item.xm0t }}</text>
+									<text><text class="title-green">瓜米石：</text>{{ item.xm0t }}</text>
 								</view>
 								<view class="data-item">
 									<text><text class="title-green">中石1：</text>{{ item.xm1t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">中石2：</text>{{ item.xm14t }}</text>
+									<text><text class="title-green">中石2：</text>{{ item.xm2t }}</text>
 								</view>
 							</view>
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">小石：</text>{{ item.xm2t }}</text>
+									<text><text class="title-green">小石：</text>{{ item.xm3t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">砂：</text>{{ item.xm3t }}</text>
+									<text><text class="title-green">砂：</text>{{ item.xm4t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">砂2：</text>{{ item.xm4t }}</text>
-								</view>
-							</view>
-							<view class="data-row">
-								<view class="data-item">
-									<text><text class="title-green">冰：</text>{{ item.xm5t }}</text>
-								</view>
-								<view class="data-item">
-									<text><text class="title-green">水泥1：</text>{{ item.xm6t }}</text>
-								</view>
-								<view class="data-item">
-									<text><text class="title-green">水泥2：</text>{{ item.xm7t }}</text>
+									<text><text class="title-green">砂2：</text>{{ item.xm5t }}</text>
 								</view>
 							</view>
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">粉煤灰：</text>{{ item.xm8t }}</text>
+									<text><text class="title-green">冰：</text>{{ item.xm6t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">矿粉：</text>{{ item.xm9t }}</text>
+									<text><text class="title-green">水泥1：</text>{{ item.xm7t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">水：</text>{{ item.xm10t }}</text>
+									<text><text class="title-green">水泥2：</text>{{ item.xm8t }}</text>
 								</view>
 							</view>
 							<view class="data-row">
 								<view class="data-item">
-									<text><text class="title-green">外加剂1：</text>{{ item.xm11t }}</text>
+									<text><text class="title-green">粉煤灰1：</text>{{ item.xm9t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">外加剂2：</text>{{ item.xm12t }}</text>
+									<text><text class="title-green">粉煤灰2：</text>{{ item.xm10t }}</text>
 								</view>
 								<view class="data-item">
-									<text><text class="title-green">外加剂3：</text>{{ item.xm13t }}</text>
+									<text><text class="title-green">水：</text>{{ item.xm11t }}</text>
+								</view>
+							</view>
+							<view class="data-row">
+								<view class="data-item">
+									<text><text class="title-green">外加剂1：</text>{{ item.xm12t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">引气剂：</text>{{ item.xm13t }}</text>
+								</view>
+								<view class="data-item">
+									<text><text class="title-green">减水剂：</text>{{ item.xm14t }}</text>
 								</view>
 							</view>
 						</view>

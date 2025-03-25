@@ -12,13 +12,13 @@
 				<view class="info-row">
 					<view class="info-item">
 						<text class="label">日期</text>
-						<text class="value">{{ taskInfo.kssj }}</text>
+						<text class="value" style="margin-left: -60rpx;">{{ searchKssj }}</text>
 					</view>
 					<view class="info-item">
 					</view>
 					<view class="info-item">
 						<text class="label">至</text>
-						<text class="value">{{ taskInfo.jssj }}</text>
+						<text class="value" style="margin-left: -70rpx;">{{ searchJssj }}</text>
 					</view>
 				</view>
 				<view class="info-row">
@@ -94,14 +94,13 @@
 					</view>
 				</view>
 				<!-- 理论消耗和实际消耗部分 -->
-				<!-- 第一行：空，大石，中石1，中石2，小石 -->
 				<view class="info-row">
 					<view class="info-item">
 						<text class="label green-label">罐方量: <text class="label">{{ item.mgfl }}</text> </text>
 
 					</view>
 					<view class="info-item">
-						<text class="label green-label">大石</text>
+						<text class="label green-label">瓜米石</text>
 					</view>
 					<view class="info-item">
 						<text class="label green-label">中石1</text>
@@ -125,10 +124,10 @@
 						<text class="value">{{ item.xm1 }}</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm14 }}</text>
+						<text class="value">{{ item.xm2 }}</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm2 }}</text>
+						<text class="value">{{ item.xm3 }}</text>
 					</view>
 				</view>
 				<!-- 第三行：实际用量，实际用量的值 -->
@@ -143,10 +142,10 @@
 						<text class="value">{{ item.xm1t }}</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm14t }}</text>
+						<text class="value">{{ item.xm2t }}</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm2t }}</text>
+						<text class="value">{{ item.xm3t }}</text>
 					</view>
 				</view>
 				<!-- 第四行：空 -->
@@ -180,9 +179,6 @@
 						<text class="label green-label">理论用量</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm3 }}</text>
-					</view>
-					<view class="info-item">
 						<text class="value">{{ item.xm4 }}</text>
 					</view>
 					<view class="info-item">
@@ -191,14 +187,14 @@
 					<view class="info-item">
 						<text class="value">{{ item.xm6 }}</text>
 					</view>
+					<view class="info-item">
+						<text class="value">{{ item.xm7 }}</text>
+					</view>
 				</view>
 				<!-- 第三行：实际用量，实际用量的值 -->
 				<view class="info-row">
 					<view class="info-item">
 						<text class="label green-label">实际用量</text>
-					</view>
-					<view class="info-item">
-						<text class="value">{{ item.xm3t }}</text>
 					</view>
 					<view class="info-item">
 						<text class="value">{{ item.xm4t }}</text>
@@ -209,6 +205,9 @@
 					<view class="info-item">
 						<text class="value">{{ item.xm6t }}</text>
 					</view>
+					<view class="info-item">
+						<text class="value">{{ item.xm7t }}</text>
+					</view>
 				</view>
 				<!-- 第四行：空 -->
 				<view class="info-row">
@@ -216,8 +215,6 @@
 						<!-- 占位 -->
 					</view>
 				</view>
-				<!-- 水泥2、粉煤灰、矿粉、水等类似结构 -->
-				<!-- 第一行：空，水泥2，粉煤灰，矿粉，水 -->
 				<view class="info-row">
 					<view class="info-item">
 						<!-- 占位 -->
@@ -226,10 +223,10 @@
 						<text class="label green-label">水泥2</text>
 					</view>
 					<view class="info-item">
-						<text class="label green-label">粉煤灰</text>
+						<text class="label green-label">粉煤灰1</text>
 					</view>
 					<view class="info-item">
-						<text class="label green-label">矿粉</text>
+						<text class="label green-label">粉煤灰2</text>
 					</view>
 					<view class="info-item">
 						<text class="label green-label">水</text>
@@ -241,9 +238,6 @@
 						<text class="label green-label">理论用量</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm7 }}</text>
-					</view>
-					<view class="info-item">
 						<text class="value">{{ item.xm8 }}</text>
 					</view>
 					<view class="info-item">
@@ -252,14 +246,14 @@
 					<view class="info-item">
 						<text class="value">{{ item.xm10 }}</text>
 					</view>
+					<view class="info-item">
+						<text class="value">{{ item.xm11 }}</text>
+					</view>
 				</view>
 				<!-- 第三行：实际用量，实际用量的值 -->
 				<view class="info-row">
 					<view class="info-item">
 						<text class="label green-label">实际用量</text>
-					</view>
-					<view class="info-item">
-						<text class="value">{{ item.xm7t }}</text>
 					</view>
 					<view class="info-item">
 						<text class="value">{{ item.xm8t }}</text>
@@ -270,6 +264,9 @@
 					<view class="info-item">
 						<text class="value">{{ item.xm10t }}</text>
 					</view>
+					<view class="info-item">
+						<text class="value">{{ item.xm11t }}</text>
+					</view>
 				</view>
 				<!-- 第四行：空 -->
 				<view class="info-row">
@@ -277,8 +274,6 @@
 						<!-- 占位 -->
 					</view>
 				</view>
-				<!-- 外加剂1、外加剂2、外加剂3 -->
-				<!-- 第一行：空，外加剂1，外加剂2，外加剂3 -->
 				<view class="info-row">
 					<view class="info-item">
 						<!-- 占位 -->
@@ -287,10 +282,10 @@
 						<text class="label green-label">外加剂1</text>
 					</view>
 					<view class="info-item">
-						<text class="label green-label">外加剂2</text>
+						<text class="label green-label">引气剂</text>
 					</view>
 					<view class="info-item">
-						<text class="label green-label">外加剂3</text>
+						<text class="label green-label">减水剂</text>
 					</view>
 				</view>
 				<!-- 第二行：理论用量，理论用量的值 -->
@@ -299,13 +294,13 @@
 						<text class="label green-label">理论用量</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm11 }}</text>
-					</view>
-					<view class="info-item">
 						<text class="value">{{ item.xm12 }}</text>
 					</view>
 					<view class="info-item">
 						<text class="value">{{ item.xm13 }}</text>
+					</view>
+					<view class="info-item">
+						<text class="value">{{ item.xm14 }}</text>
 					</view>
 				</view>
 				<!-- 第三行：实际用量，实际用量的值 -->
@@ -314,13 +309,13 @@
 						<text class="label green-label">实际用量</text>
 					</view>
 					<view class="info-item">
-						<text class="value">{{ item.xm11t }}</text>
-					</view>
-					<view class="info-item">
 						<text class="value">{{ item.xm12t }}</text>
 					</view>
 					<view class="info-item">
 						<text class="value">{{ item.xm13t }}</text>
+					</view>
+					<view class="info-item">
+						<text class="value">{{ item.xm14t }}</text>
 					</view>
 				</view>
 				<!-- 第四行：空 -->
@@ -339,7 +334,7 @@
 				</view>
 				<view class="total-info-row">
 					<view class="total-info-item">
-						<text class="total-label green-label">大石</text>
+						<text class="total-label green-label">瓜米石</text>
 						<text class="total-value">{{ totalUsage.xm0t }}</text>
 					</view>
 					<view class="total-info-item">
@@ -348,63 +343,63 @@
 					</view>
 					<view class="total-info-item">
 						<text class="total-label green-label">中石2</text>
-						<text class="total-value">{{ totalUsage.xm14t }}</text>
+						<text class="total-value">{{ totalUsage.xm2t }}</text>
 					</view>
 				</view>
 				<view class="total-info-row">
 					<view class="total-info-item">
 						<text class="total-label green-label">小石</text>
-						<text class="total-value">{{ totalUsage.xm2t }}</text>
-					</view>
-					<view class="total-info-item">
-						<text class="total-label green-label">砂</text>
 						<text class="total-value">{{ totalUsage.xm3t }}</text>
 					</view>
 					<view class="total-info-item">
-						<text class="total-label green-label">砂2</text>
+						<text class="total-label green-label">砂</text>
 						<text class="total-value">{{ totalUsage.xm4t }}</text>
+					</view>
+					<view class="total-info-item">
+						<text class="total-label green-label">砂2</text>
+						<text class="total-value">{{ totalUsage.xm5t }}</text>
 					</view>
 				</view>
 				<view class="total-info-row">
 					<view class="total-info-item">
 						<text class="total-label green-label">冰</text>
-						<text class="total-value">{{ totalUsage.xm5t }}</text>
-					</view>
-					<view class="total-info-item">
-						<text class="total-label green-label">水泥1</text>
 						<text class="total-value">{{ totalUsage.xm6t }}</text>
 					</view>
 					<view class="total-info-item">
-						<text class="total-label green-label">水泥2</text>
+						<text class="total-label green-label">水泥1</text>
 						<text class="total-value">{{ totalUsage.xm7t }}</text>
+					</view>
+					<view class="total-info-item">
+						<text class="total-label green-label">水泥2</text>
+						<text class="total-value">{{ totalUsage.xm8t }}</text>
 					</view>
 				</view>
 				<view class="total-info-row">
 					<view class="total-info-item">
-						<text class="total-label green-label">粉煤灰</text>
-						<text class="total-value">{{ totalUsage.xm8t }}</text>
-					</view>
-					<view class="total-info-item">
-						<text class="total-label green-label">矿粉</text>
+						<text class="total-label green-label">粉煤灰1</text>
 						<text class="total-value">{{ totalUsage.xm9t }}</text>
 					</view>
 					<view class="total-info-item">
-						<text class="total-label green-label">水</text>
+						<text class="total-label green-label">粉煤灰2</text>
 						<text class="total-value">{{ totalUsage.xm10t }}</text>
+					</view>
+					<view class="total-info-item">
+						<text class="total-label green-label">水</text>
+						<text class="total-value">{{ totalUsage.xm11t }}</text>
 					</view>
 				</view>
 				<view class="total-info-row">
 					<view class="total-info-item">
 						<text class="total-label green-label">外加剂1</text>
-						<text class="total-value">{{ totalUsage.xm11t }}</text>
-					</view>
-					<view class="total-info-item">
-						<text class="total-label green-label">外加剂2</text>
 						<text class="total-value">{{ totalUsage.xm12t }}</text>
 					</view>
 					<view class="total-info-item">
-						<text class="total-label green-label">外加剂3</text>
+						<text class="total-label green-label">引气剂</text>
 						<text class="total-value">{{ totalUsage.xm13t }}</text>
+					</view>
+					<view class="total-info-item">
+						<text class="total-label green-label">减水剂</text>
+						<text class="total-value">{{ totalUsage.xm14t }}</text>
 					</view>
 				</view>
 			</view>
@@ -438,7 +433,6 @@
 				totalUsage: {
 					xm0t: 0,
 					xm1t: 0,
-					xm14t: 0,
 					xm2t: 0,
 					xm3t: 0,
 					xm4t: 0,
@@ -450,9 +444,13 @@
 					xm10t: 0,
 					xm11t: 0,
 					xm12t: 0,
-					xm13t: 0
+					xm13t: 0,
+					xm14t: 0
 				},
-				taskInfo: {}
+				taskInfo: {},
+				searchKssj:'',
+				searchJssj:'',
+				
 			};
 		},
 		onLoad(options) {
@@ -476,16 +474,16 @@
 					endDate,
 					endTime
 				} = getCommonParams();
-				const searchKssj = `${startDate} ${startTime}`;
-				const searchJssj = `${endDate} ${endTime}`;
-
+				this.searchKssj = `${startDate} ${startTime}`;
+				this.searchJssj = `${endDate} ${endTime}`;
+				
 				try {
 				const params = {
 					"id": id,
 					currentPage: this.currentPage,
 					pageSize: this.pageSize,
-					'sendDate': searchKssj,
-					'endData': searchJssj,
+					'sendDate': this.searchKssj,
+					'endData': this.searchJssj,
 				}
 					const res = await statisticsQueryDetails(params);
 					if (res.result === 1) {
@@ -496,8 +494,6 @@
 						}
 						// 计算各材料实际用量的合计
 						this.calculateTotalUsage();
-						// 这里假设后续分页信息也会返回，如果实际没有返回，可以根据需求调整
-						// 目前代码暂未处理分页相关信息，因为返回数据里没有
 					}
 				} catch (error) {
 					console.error('请求错误', error);
@@ -513,8 +509,6 @@
 				}
 			},
 			onReachBottom() {
-				// 这里假设后续分页信息会返回，目前先简单处理
-				// 如果实际没有分页信息，需要和后端确认
 				if(this.$route){
 				this.currentPage++;
 				const taskInfo = JSON.parse(this.$route.query.data);
@@ -542,7 +536,6 @@
 				this.totalUsage = {
 					xm0t: 0,
 					xm1t: 0,
-					xm14t: 0,
 					xm2t: 0,
 					xm3t: 0,
 					xm4t: 0,
@@ -554,13 +547,13 @@
 					xm10t: 0,
 					xm11t: 0,
 					xm12t: 0,
-					xm13t: 0
+					xm13t: 0,
+					xm14t: 0
 				};
 				this.taskInfoList.forEach(item => {
 					// 对每个数据进行有效性检查并累加
 					this.totalUsage.xm0t += this.parseValidNumber(item.xm0t);
 					this.totalUsage.xm1t += this.parseValidNumber(item.xm1t);
-					this.totalUsage.xm14t += this.parseValidNumber(item.xm14t);
 					this.totalUsage.xm2t += this.parseValidNumber(item.xm2t);
 					this.totalUsage.xm3t += this.parseValidNumber(item.xm3t);
 					this.totalUsage.xm4t += this.parseValidNumber(item.xm4t);
@@ -573,6 +566,7 @@
 					this.totalUsage.xm11t += this.parseValidNumber(item.xm11t);
 					this.totalUsage.xm12t += this.parseValidNumber(item.xm12t);
 					this.totalUsage.xm13t += this.parseValidNumber(item.xm13t);
+					this.totalUsage.xm14t += this.parseValidNumber(item.xm14t);
 				});
 				// 对合计结果进行四舍五入，保留两位小数
 				for (let key in this.totalUsage) {

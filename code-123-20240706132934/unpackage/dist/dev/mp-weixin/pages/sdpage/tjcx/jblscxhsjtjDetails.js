@@ -573,11 +573,6 @@ var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
-//
-//
-//
-//
-//
 var _default = {
   components: {},
   props: {},
@@ -600,7 +595,6 @@ var _default = {
       totalUsage: {
         xm0t: 0,
         xm1t: 0,
-        xm14t: 0,
         xm2t: 0,
         xm3t: 0,
         xm4t: 0,
@@ -612,9 +606,12 @@ var _default = {
         xm10t: 0,
         xm11t: 0,
         xm12t: 0,
-        xm13t: 0
+        xm13t: 0,
+        xm14t: 0
       },
-      taskInfo: {}
+      taskInfo: {},
+      searchKssj: '',
+      searchJssj: ''
     };
   },
   onLoad: function onLoad(options) {
@@ -634,21 +631,21 @@ var _default = {
     getDetails: function getDetails(id) {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var _getCommonParams, startDate, startTime, endDate, endTime, searchKssj, searchJssj, params, res;
+        var _getCommonParams, startDate, startTime, endDate, endTime, params, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _getCommonParams = (0, _publicData.getCommonParams)(), startDate = _getCommonParams.startDate, startTime = _getCommonParams.startTime, endDate = _getCommonParams.endDate, endTime = _getCommonParams.endTime;
-                searchKssj = "".concat(startDate, " ").concat(startTime);
-                searchJssj = "".concat(endDate, " ").concat(endTime);
+                _this.searchKssj = "".concat(startDate, " ").concat(startTime);
+                _this.searchJssj = "".concat(endDate, " ").concat(endTime);
                 _context.prev = 3;
                 params = {
                   "id": id,
                   currentPage: _this.currentPage,
                   pageSize: _this.pageSize,
-                  'sendDate': searchKssj,
-                  'endData': searchJssj
+                  'sendDate': _this.searchKssj,
+                  'endData': _this.searchJssj
                 };
                 _context.next = 7;
                 return (0, _api.statisticsQueryDetails)(params);
@@ -662,8 +659,6 @@ var _default = {
                   }
                   // 计算各材料实际用量的合计
                   _this.calculateTotalUsage();
-                  // 这里假设后续分页信息也会返回，如果实际没有返回，可以根据需求调整
-                  // 目前代码暂未处理分页相关信息，因为返回数据里没有
                 }
                 _context.next = 14;
                 break;
@@ -689,8 +684,6 @@ var _default = {
       }
     },
     onReachBottom: function onReachBottom() {
-      // 这里假设后续分页信息会返回，目前先简单处理
-      // 如果实际没有分页信息，需要和后端确认
       if (this.$route) {
         this.currentPage++;
         var taskInfo = JSON.parse(this.$route.query.data);
@@ -719,7 +712,6 @@ var _default = {
       this.totalUsage = {
         xm0t: 0,
         xm1t: 0,
-        xm14t: 0,
         xm2t: 0,
         xm3t: 0,
         xm4t: 0,
@@ -731,13 +723,13 @@ var _default = {
         xm10t: 0,
         xm11t: 0,
         xm12t: 0,
-        xm13t: 0
+        xm13t: 0,
+        xm14t: 0
       };
       this.taskInfoList.forEach(function (item) {
         // 对每个数据进行有效性检查并累加
         _this2.totalUsage.xm0t += _this2.parseValidNumber(item.xm0t);
         _this2.totalUsage.xm1t += _this2.parseValidNumber(item.xm1t);
-        _this2.totalUsage.xm14t += _this2.parseValidNumber(item.xm14t);
         _this2.totalUsage.xm2t += _this2.parseValidNumber(item.xm2t);
         _this2.totalUsage.xm3t += _this2.parseValidNumber(item.xm3t);
         _this2.totalUsage.xm4t += _this2.parseValidNumber(item.xm4t);
@@ -750,6 +742,7 @@ var _default = {
         _this2.totalUsage.xm11t += _this2.parseValidNumber(item.xm11t);
         _this2.totalUsage.xm12t += _this2.parseValidNumber(item.xm12t);
         _this2.totalUsage.xm13t += _this2.parseValidNumber(item.xm13t);
+        _this2.totalUsage.xm14t += _this2.parseValidNumber(item.xm14t);
       });
       // 对合计结果进行四舍五入，保留两位小数
       for (var key in this.totalUsage) {

@@ -110,10 +110,9 @@
 					</view>
 				</view>
 				<view class="material-list">
-					<!-- 大石 & 中石1 -->
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
-							<text class="font text_6 label">大石</text>
+							<text class="font text_6 label">瓜米石</text>
 							<input class="mt-12 font_2 input-number" v-model.number="ds" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'ds')" />
 							<view v-if="dsError" class="error-tip">{{dsError}}</view>
@@ -185,7 +184,6 @@
 							<view v-if="fmh1Error" class="error-tip">{{fmh1Error}}</view>
 						</view>
 					</view>
-					<!-- 粉煤灰2 & 水 -->
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">粉煤灰2</text>
@@ -200,7 +198,6 @@
 							<view v-if="sError" class="error-tip">{{sError}}</view>
 						</view>
 					</view>
-					<!-- 外加剂1 & 外加剂2 -->
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font text_6 label">外加剂1</text>
@@ -209,16 +206,15 @@
 							<view v-if="wjj1Error" class="error-tip">{{wjj1Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
-							<text class="font text_6 label">外加剂2</text>
+							<text class="font text_6 label">引气剂</text>
 							<input class="mt-12 font_2 input-number" v-model.number="wjj2" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj2')" />
 							<view v-if="wjj2Error" class="error-tip">{{wjj2Error}}</view>
 						</view>
 					</view>
-					<!-- 外加剂3 & 容量 -->
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
-							<text class="font text_6 label">外加剂3</text>
+							<text class="font text_6 label">减水剂</text>
 							<input class="mt-12 font_2 input-number" v-model.number="wjj3" type="digit" inputmode="decimal"
 								@input="filterNonNumeric($event, 'wjj3')" />
 							<view v-if="wjj3Error" class="error-tip">{{wjj3Error}}</view>
@@ -417,7 +413,7 @@
 			},
 			validatePositiveNumber(field) {
 				const fieldMap = {
-					ds: '大石',
+					ds: '瓜米石',
 					zs1: '中石1',
 					zs2: '中石2',
 					xs: '小石',
@@ -430,8 +426,8 @@
 					fmh2: '粉煤灰2',
 					s: '水',
 					wjj1: '外加剂1',
-					wjj2: '外加剂2',
-					wjj3: '外加剂3',
+					wjj2: '引气剂',
+					wjj3: '减水剂',
 					rl: '容量'
 				};
 				const value = this[field];

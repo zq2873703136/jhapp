@@ -356,7 +356,7 @@ var _default = {
     },
     validatePositiveNumber: function validatePositiveNumber(field) {
       var fieldMap = {
-        ds: '大石',
+        ds: '瓜米石',
         zs1: '中石1',
         zs2: '中石2',
         xs: '小石',
@@ -369,8 +369,8 @@ var _default = {
         fmh2: '粉煤灰2',
         s: '水',
         wjj1: '外加剂1',
-        wjj2: '外加剂2',
-        wjj3: '外加剂3',
+        wjj2: '引气剂',
+        wjj3: '减水剂',
         rl: '容量'
       };
       var value = this.form2[field];
