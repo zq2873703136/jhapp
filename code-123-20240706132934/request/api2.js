@@ -86,3 +86,12 @@ export function statisticsDailyNewspaper(data){
 export function weighbridgeGroupingQuery(data){
 	return request('/hydropower/hydropower/weighbridge/groupingQuery', data, 'POST')
 }
+
+// 调度
+export function diaoduQuery(data){
+	return request('/hydropower/hydropower/diaodu/query', data, 'POST')
+}
+
+export function diaoduSave(data){
+	return request('/hydropower/hydropower/diaodu/save', data, 'POST')
+}
