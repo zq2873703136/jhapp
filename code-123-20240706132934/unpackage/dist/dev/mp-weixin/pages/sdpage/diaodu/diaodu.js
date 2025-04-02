@@ -159,131 +159,32 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 39));
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 41));
 var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _methods;
 var _default = {
   components: {},
   props: {},
   data: function data() {
     var now = new Date();
-    var year = now.getFullYear();
-    var month = String(now.getMonth() + 1).padStart(2, '0');
-    var day = String(now.getDate()).padStart(2, '0');
-    var hours = String(now.getHours()).padStart(2, '0');
-    var minutes = String(now.getMinutes()).padStart(2, '0');
-    var seconds = String(now.getSeconds()).padStart(2, '0');
-    var _getCommonParams = (0, _publicData.getCommonParams)(),
-      startDate = _getCommonParams.startDate,
-      startTime = _getCommonParams.startTime,
-      endDate = _getCommonParams.endDate,
-      endTime = _getCommonParams.endTime;
+    var start = new Date(now);
+    start.setMonth(start.getMonth() - 1);
+    var end = new Date(now);
+    end.setDate(end.getDate() + 5);
+    var formatDate = function formatDate(date) {
+      var year = date.getFullYear();
+      var month = String(date.getMonth() + 1).padStart(2, '0');
+      var day = String(date.getDate()).padStart(2, '0');
+      return "".concat(year, "-").concat(month, "-").concat(day);
+    };
     return {
       list: [],
-      startDate: startDate || "".concat(year, "-").concat(month, "-").concat(day),
-      startTime: startTime || "00:00:00",
-      endDate: endDate || "".concat(year, "-").concat(month, "-").concat(day),
-      endTime: endTime || "23:59:59",
+      startDate: formatDate(start),
+      startTime: '00:00:00',
+      endDate: formatDate(end),
+      endTime: '23:59:59',
       currentPage: 1,
       pageSize: 10,
       loading: false,
@@ -291,7 +192,10 @@ var _default = {
       // 新增：用于存储总方量
       totalItem: null,
       // 用于存储合计数据的对象
-      userName: ''
+      userName: '',
+      signStatusOptions: ['未签单', '已签单'],
+      signStatusIndex: 0,
+      cbh: ''
     };
   },
   onLoad: function onLoad() {
@@ -303,18 +207,18 @@ var _default = {
     this.getList();
     uni.stopPullDownRefresh();
   },
-  methods: {
+  methods: (_methods = {
+    onEndDateChange: function onEndDateChange(e) {
+      this.endDate = e.mp.detail.value;
+    },
+    onSignStatusChange: function onSignStatusChange(e) {
+      this.signStatusIndex = e.mp.detail.value;
+    },
     zhuangtaifun: function zhuangtaifun(item) {
       if (item.sfqr == 1) {
-        return "已确认";
+        return "已签单";
       }
-      if (item.qxbz == 1) {
-        return "已取消";
-      }
-      if (item.wcbz == 1) {
-        return "已完成";
-      }
-      return '未确认';
+      return '未签单';
     },
     back: function back() {
       // uni.navigateBack(1)
@@ -326,89 +230,97 @@ var _default = {
       console.log(item, 'item');
       item.kssj = this.startDate;
       item.jssj = this.endDate;
-      (0, _publicData.setCommonParams)({
-        startDate: this.startDate,
-        startTime: this.startTime,
-        endDate: this.endDate,
-        endTime: this.endTime
-      });
       uni.navigateTo({
         url: '/pages/sdpage/diaodu/confirmDiaodu?data=' + JSON.stringify(item)
       });
     },
-    getList: function getList() {
+    scanQrCode: function scanQrCode() {
       var _this = this;
+      uni.scanCode({
+        onlyFromCamera: true,
+        success: function success(res) {
+          console.log('扫描结果:', res.result);
+          _this.cbh = res.result;
+          uni.showToast({
+            title: res.result
+          });
+          _this.currentPage = 1;
+          _this.getList();
+        },
+        fail: function fail(err) {
+          console.error('扫描失败:', err);
+          uni.showToast({
+            title: '扫描失败，请重试',
+            icon: "error"
+          });
+        }
+      });
+    },
+    getList: function getList() {
+      var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
         var searchKssj, searchJssj, params, res, uniqueList, seen;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.loading = true;
+                _this2.loading = true;
                 (0, _publicData.getUserInfo)().then(function (res) {
                   console.log('res:::', res);
-                  // this.department = res.data.departmentName
-                  _this.userName = res.data.username;
-                  // console.log('this.userName', this.userName)
+                  _this2.userName = res.data.username;
                 });
                 _context.prev = 2;
-                searchKssj = "".concat(_this.startDate, " ").concat(_this.startTime);
-                searchJssj = "".concat(_this.endDate, " ").concat(_this.endTime);
+                searchKssj = "".concat(_this2.startDate, " ").concat(_this2.startTime);
+                searchJssj = "".concat(_this2.endDate, " ").concat(_this2.endTime);
                 params = {
-                  currentPage: _this.currentPage,
-                  pageSize: _this.pageSize,
+                  currentPage: _this2.currentPage,
+                  pageSize: _this2.pageSize,
                   'sendDate': searchKssj,
                   'endData': searchJssj,
-                  'sjxm': _this.userName
+                  // 'sjxm': this.userName,
+                  'sfqr': _this2.signStatusIndex,
+                  'cbh': _this2.cbh
                 };
                 _context.next = 8;
                 return (0, _api.diaoduQuery)(params);
               case 8:
                 res = _context.sent;
                 console.log(res, 'res');
-                if (_this.currentPage === 1) {
-                  _this.list = res.data;
+                if (_this2.currentPage === 1) {
+                  _this2.list = res.data;
                 } else {
-                  _this.list = _this.list.concat(res.data);
+                  _this2.list = _this2.list.concat(res.data);
                 }
-                // 根据 kz_gcmc_yhmc 去重
                 uniqueList = [];
                 seen = new Set();
-                _this.list.forEach(function (item) {
+                _this2.list.forEach(function (item) {
                   var key = "".concat(item.xh);
                   if (!seen.has(key)) {
                     seen.add(key);
                     uniqueList.push(item);
                   }
                 });
-                _this.list = uniqueList;
-                _this.currentPage++;
-                _this.calculateTotals(); // 计算合计
-                _context.next = 22;
+                _this2.list = uniqueList;
+                _this2.currentPage++;
+                _context.next = 21;
                 break;
-              case 19:
-                _context.prev = 19;
+              case 18:
+                _context.prev = 18;
                 _context.t0 = _context["catch"](2);
                 console.error('请求错误', _context.t0);
-              case 22:
-                _context.prev = 22;
-                _this.loading = false;
-                return _context.finish(22);
-              case 25:
+              case 21:
+                _context.prev = 21;
+                _this2.loading = false;
+                return _context.finish(21);
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 19, 22, 25]]);
+        }, _callee, null, [[2, 18, 21, 24]]);
       }))();
     },
     search: function search() {
-      (0, _publicData.setCommonParams)({
-        startDate: this.startDate,
-        startTime: this.startTime,
-        endDate: this.endDate,
-        endTime: this.endTime
-      });
       this.currentPage = 1;
       this.getList();
     },
@@ -417,65 +329,17 @@ var _default = {
         this.getList();
       }
     },
-    formalData3: function formalData3(date) {
-      console.log(date);
-      var year = date.getFullYear();
-      var month = (date.getMonth() + 1).toString().padStart(2, "0"); // 月份是从0开始的
-      var day = date.getDate().toString().padStart(2, "0");
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var seconds = date.getSeconds();
-      // const milliseconds = date.getMilliseconds();
-      return "".concat(year, "-").concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes, ":").concat(seconds);
-    },
     onStartDateChange: function onStartDateChange(e) {
       this.startDate = e.detail.value;
     },
     onStartTimeChange: function onStartTimeChange(e) {
       this.startTime = e.detail.value + ":00";
-    },
-    onEndDateChange: function onEndDateChange(e) {
-      this.endDate = e.detail.value;
-    },
-    onEndTimeChange: function onEndTimeChange(e) {
-      this.endTime = e.detail.value + ":59";
-    },
-    calculateTotals: function calculateTotals() {
-      var _this2 = this;
-      this.totalMgfl = 0;
-      this.totalItem = {
-        xm0t: 0,
-        xm1t: 0,
-        xm2t: 0,
-        xm3t: 0,
-        xm4t: 0,
-        xm5t: 0,
-        xm6t: 0,
-        xm7t: 0,
-        xm8t: 0,
-        xm9t: 0,
-        xm10t: 0,
-        xm11t: 0,
-        xm12t: 0,
-        xm13t: 0,
-        xm14t: 0
-      };
-      this.list.forEach(function (item) {
-        _this2.totalMgfl += parseFloat(item.mgfl);
-        var materialKeys = Object.keys(_this2.totalItem);
-        materialKeys.forEach(function (key) {
-          _this2.totalItem[key] += parseFloat(item[key]);
-        });
-      });
-      // 对总方量进行四舍五入，保留两位小数
-      this.totalMgfl = parseFloat(this.totalMgfl.toFixed(2));
-      // 对每种材料的合计进行四舍五入，保留两位小数
-      var materialKeys = Object.keys(this.totalItem);
-      materialKeys.forEach(function (key) {
-        _this2.totalItem[key] = parseFloat(_this2.totalItem[key].toFixed(2));
-      });
     }
-  }
+  }, (0, _defineProperty2.default)(_methods, "onEndDateChange", function onEndDateChange(e) {
+    this.endDate = e.detail.value;
+  }), (0, _defineProperty2.default)(_methods, "onEndTimeChange", function onEndTimeChange(e) {
+    this.endTime = e.detail.value + ":59";
+  }), _methods)
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))

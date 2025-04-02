@@ -1,6 +1,5 @@
 <template>
 	<view class="page">
-		<!-- 固定在顶部的查询区域 -->
 		<view class="fixed-query-area">
 			<image @click="returnList" class="image_4 pos_3"
 				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
@@ -11,30 +10,44 @@
 				<view class="flex-col list">
 					<view class="flex-col justify-start list-item">
 						<view class="flex-col section_4">
+									<view class="data-item">
+										<text class="title-green">确认车编号：{{ inputCarNumber }}</text>
+									</view>
 							<view class="mt-16 data-group">
 								<view class="data-row">
 									<view class="data-item">
 										<text class="data-item"><text
 												class="title-green">流水号：</text>{{ taskInfo.xh }}</text>
 									</view>
+								</view>
+								<view class="data-row">
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">砼标号：</text>{{ taskInfo.tbh }}</text>
+									</view>
+								</view>
+								<view class="data-row">
 									<view class="data-item">
 										<text class="data-item"><text
 												class="title-green">车道号：</text>{{ taskInfo.cdh }}</text>
 									</view>
-									<view class="data-item">
-										<text class="data-item"><text
-												class="title-green">任务单号：</text>{{ taskInfo.rwdh }}</text>
-									</view>
+								</view>
+								<view class="data-row">
 									<view class="data-item">
 										<text class="data-item"><text
 												class="title-green">配比编号：</text>{{ taskInfo.pbbh }}</text>
 									</view>
 								</view>
-
 								<view class="data-row">
 									<view class="data-item">
 										<text class="data-item"><text
 												class="title-green">用户名称：</text>{{ taskInfo.yhmc }}</text>
+									</view>
+								</view>
+								<view class="data-row">
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">任务单号：</text>{{ taskInfo.rwdh }}</text>
 									</view>
 								</view>
 								<view class="data-row">
@@ -75,8 +88,22 @@
 						</view>
 					</view>
 				</view>
-				<button v-if="taskInfo.wcbz==1 && taskInfo.sfqr==0" @click="updateZtSave()">确认</button>
+				<button v-if="taskInfo.sfqr==0" @click="inputCarNumberFun()">输入车编号</button>
+				<view class="data-row"></view><view class="data-row"></view><view class="data-row"></view>
+				<button v-if="taskInfo.sfqr==0"  @click="scanQrCode">扫描二维码获取车编号</button>
+				<view class="data-row"></view><view class="data-row"></view><view class="data-row"></view>
+				<button v-if="inputCarNumber" style="color: #dfdfdf;background-color: red;"  @click="updateZtSave()">确认</button>
 			</scroll-view>
+		</view>
+		<view v-if="showInputModal" class="modal-mask">
+			<view class="modal-container">
+				<view class="modal-title">确认车编号</view>
+				<input v-model="inputCarNumber" class="modal-input" placeholder="请输入车编号" />
+				<view class="modal-buttons">
+					<view class="modal-button modal-cancel" @click="cancelInput">取消</view>
+					<view class="modal-button modal-confirm" @click="confirmInput">确认</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -84,44 +111,34 @@
 <script>
 	import {
 		diaoduSave
-	} from '@/request/api2.js'
+	} from '@/request/api2.js';
 
 	import {
-		getCommonParams,
-		setCommonParams,
 		getUserInfo,
 		setUserInfo
-	} from '@/request/publicData.js'
-
+	} from '@/request/publicData.js';
 
 	export default {
 		data() {
 			return {
 				taskInfo: {},
 				userName: '',
-			}
+				inputCarNumber: '',
+				showInputModal: false
+			};
 		},
 		onLoad(options) {
 			this.currentPage = 1;
 			// 从路由参数中获取任务单信息
 			this.taskInfo = JSON.parse(options.data);
-			console.log('taskInfo', this.taskInfo)
+			console.log('taskInfo', this.taskInfo);
 		},
 		methods: {
 			zhuangtaifun(item) {
 				if (item.sfqr == 1) {
-					return "已确认"
+					return "已确认";
 				}
-				if (item.qxbz == 1) {
-					return "已取消"
-				}
-				if (item.wcbz == 1) {
-					return "待确认"
-				}
-				if (item.wcfl == 0) {
-					return "已取消"
-				}
-				return '未确认'
+				return '未确认';
 			},
 			returnList() {
 				console.log('返回任务单列表');
@@ -129,27 +146,89 @@
 					url: '/pages/sdpage/diaodu/diaodu'
 				});
 			},
+			inputCarNumberFun(){
+				this.showInputModal = true;
+			},
 			async updateZtSave() {
-				if(this.taskInfo.wcfl==0){
+				if (this.taskInfo.wcfl === 0) {
 					uni.showToast({
 						title: '方量为0 不允许确认',
 						icon: "error"
 					});
-					return false;
+					return;
 				}
-				getUserInfo().then((res) => {
-					console.log('res:::', res)
-					// this.department = res.data.departmentName
-					this.userName = res.data.username
-					// console.log('this.userName', this.userName)
-					this.taskInfo.sjxm = this.userName
-					this.taskInfo.sfqr = '1'
-					diaoduSave(this.taskInfo);
-				})
-
+				if (!this.taskInfo.rwdh) {
+					uni.showToast({
+						title: '任务单号不允许为空',
+						icon: "error"
+					});
+					return;
+				}
+				try {
+					const userInfo = await getUserInfo();
+					this.userName = userInfo.data.username;
+					this.taskInfo.sjxm = this.userName;
+					this.taskInfo.sfqr = 1;
+					const response = await diaoduSave(this.taskInfo);
+					console.log('response::',response)
+					if (!response.success) {
+						uni.showToast({
+							title: response.data.errorMsg,
+							icon: "error"
+						});
+					} else {
+						uni.showToast({
+							title: '确认成功'
+						});
+						this.inputCarNumber = '';
+					}
+				} catch (error) {
+					console.error('请求出错:', error);
+					uni.showToast({
+						title: '网络请求出错，请稍后重试',
+						icon: "error"
+					});
+				}
+			},
+			async confirmInput() {
+				this.showInputModal = true;
+				
+				if (this.inputCarNumber === this.taskInfo.cbh) {
+					this.showInputModal = false;
+				} else {
+					uni.showToast({
+						title: '输入的车编号不匹配',
+						icon: "error"
+					});
+				}
+			},
+			cancelInput() {
+				this.showInputModal = false;
+				this.inputCarNumber = '';
+			},
+			scanQrCode() {
+				uni.scanCode({
+					onlyFromCamera: true,
+					success: (res) => {
+						console.log('扫描结果:', res.result);
+						// 这里可以添加处理扫描结果的逻辑，例如将结果赋值给某个变量
+						// 示例：this.scanResult = res.result;
+						this.inputCarNumber = res.result
+						uni.showToast({
+							title: res.result
+						});
+					},
+					fail: (err) => {
+						console.error('扫描失败:', err);
+						uni.showToast({
+							title: '扫描失败，请重试',
+							icon: "error"
+						});
+					}
+				});
 			}
 		}
-	}
+	};
 </script>
 
 <style>
@@ -405,5 +484,61 @@
 
 	.title-green {
 		color: green;
+	}
+
+	/* 自定义模态框样式 */
+	.modal-mask {
+		position: fixed;
+		z-index: 9998;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.modal-container {
+		width: 80%;
+		background-color: #fff;
+		border-radius: 10px;
+		padding: 20px;
+	}
+
+	.modal-title {
+		text-align: center;
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
+
+	.modal-input {
+		width: 80%;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		margin-bottom: 20px;
+	}
+
+	.modal-buttons {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.modal-button {
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	.modal-confirm {
+		background-color: #2855ae;
+		color: #fff;
+	}
+
+	.modal-cancel {
+		background-color: #ccc;
 	}
 </style>

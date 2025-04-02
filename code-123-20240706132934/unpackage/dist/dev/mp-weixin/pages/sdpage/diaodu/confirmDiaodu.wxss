@@ -218,3 +218,52 @@
 	color: green;
 }
 
+/* 自定义模态框样式 */
+.modal-mask {
+	position: fixed;
+	z-index: 9998;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal-container {
+	width: 80%;
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 20px;
+}
+.modal-title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.modal-input {
+	width: 80%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.modal-buttons {
+	display: flex;
+	justify-content: space-around;
+}
+.modal-button {
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.modal-confirm {
+	background-color: #2855ae;
+	color: #fff;
+}
+.modal-cancel {
+	background-color: #ccc;
+}
+

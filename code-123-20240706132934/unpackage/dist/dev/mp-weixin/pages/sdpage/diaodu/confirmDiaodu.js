@@ -238,11 +238,40 @@ var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
       taskInfo: {},
-      userName: ''
+      userName: '',
+      inputCarNumber: '',
+      showInputModal: false
     };
   },
   onLoad: function onLoad(options) {
@@ -256,15 +285,6 @@ var _default = {
       if (item.sfqr == 1) {
         return "已确认";
       }
-      if (item.qxbz == 1) {
-        return "已取消";
-      }
-      if (item.wcbz == 1) {
-        return "待确认";
-      }
-      if (item.wcfl == 0) {
-        return "已取消";
-      }
       return '未确认';
     },
     returnList: function returnList() {
@@ -273,14 +293,18 @@ var _default = {
         url: '/pages/sdpage/diaodu/diaodu'
       });
     },
+    inputCarNumberFun: function inputCarNumberFun() {
+      this.showInputModal = true;
+    },
     updateZtSave: function updateZtSave() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var userInfo, response;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.taskInfo.wcfl == 0)) {
+                if (!(_this.taskInfo.wcfl === 0)) {
                   _context.next = 3;
                   break;
                 }
@@ -288,24 +312,109 @@ var _default = {
                   title: '方量为0 不允许确认',
                   icon: "error"
                 });
-                return _context.abrupt("return", false);
+                return _context.abrupt("return");
               case 3:
-                (0, _publicData.getUserInfo)().then(function (res) {
-                  console.log('res:::', res);
-                  // this.department = res.data.departmentName
-                  _this.userName = res.data.username;
-                  // console.log('this.userName', this.userName)
-                  _this.taskInfo.sjxm = _this.userName;
-                  _this.taskInfo.sfqr = '1';
-                  (0, _api.diaoduSave)(_this.taskInfo);
+                if (_this.taskInfo.rwdh) {
+                  _context.next = 6;
+                  break;
+                }
+                uni.showToast({
+                  title: '任务单号不允许为空',
+                  icon: "error"
                 });
-              case 4:
+                return _context.abrupt("return");
+              case 6:
+                _context.prev = 6;
+                _context.next = 9;
+                return (0, _publicData.getUserInfo)();
+              case 9:
+                userInfo = _context.sent;
+                _this.userName = userInfo.data.username;
+                _this.taskInfo.sjxm = _this.userName;
+                _this.taskInfo.sfqr = 1;
+                _context.next = 15;
+                return (0, _api.diaoduSave)(_this.taskInfo);
+              case 15:
+                response = _context.sent;
+                console.log('response::', response);
+                if (!response.success) {
+                  uni.showToast({
+                    title: response.data.errorMsg,
+                    icon: "error"
+                  });
+                } else {
+                  uni.showToast({
+                    title: '确认成功'
+                  });
+                  _this.inputCarNumber = '';
+                }
+                _context.next = 24;
+                break;
+              case 20:
+                _context.prev = 20;
+                _context.t0 = _context["catch"](6);
+                console.error('请求出错:', _context.t0);
+                uni.showToast({
+                  title: '网络请求出错，请稍后重试',
+                  icon: "error"
+                });
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[6, 20]]);
       }))();
+    },
+    confirmInput: function confirmInput() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.showInputModal = true;
+                if (_this2.inputCarNumber === _this2.taskInfo.cbh) {
+                  _this2.showInputModal = false;
+                } else {
+                  uni.showToast({
+                    title: '输入的车编号不匹配',
+                    icon: "error"
+                  });
+                }
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    cancelInput: function cancelInput() {
+      this.showInputModal = false;
+      this.inputCarNumber = '';
+    },
+    scanQrCode: function scanQrCode() {
+      var _this3 = this;
+      uni.scanCode({
+        onlyFromCamera: true,
+        success: function success(res) {
+          console.log('扫描结果:', res.result);
+          // 这里可以添加处理扫描结果的逻辑，例如将结果赋值给某个变量
+          // 示例：this.scanResult = res.result;
+          _this3.inputCarNumber = res.result;
+          uni.showToast({
+            title: res.result
+          });
+        },
+        fail: function fail(err) {
+          console.error('扫描失败:', err);
+          uni.showToast({
+            title: '扫描失败，请重试',
+            icon: "error"
+          });
+        }
+      });
     }
   }
 };
