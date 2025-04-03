@@ -2,8 +2,9 @@
 
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
-			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<view class="clickable-area" @click="returnList()"></view>
+
+		<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		<text class="text_2 pos_2">编辑识别卡</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -16,12 +17,12 @@
 				<text class="font text_3">序号</text>
 				<text class="mt-12 font_2 text_4">{{form2.kxh}}</text>
 			</view>
-			
+
 			<view class="divider view"></view>
 			<view class="flex-col group_2">
 				<view class="flex-col items-start input group_4">
 					<text class="font text_6">识别卡号</text>
-<!-- 					<input class="mt-12 font_2" v-model="form2.kh1" /> -->
+					<!-- 					<input class="mt-12 font_2" v-model="form2.kh1" /> -->
 					<text class="mt-12 font_2 text_4">{{form2.kh1}}</text>
 				</view>
 				<view class="flex-col items-start input group_4">
@@ -32,9 +33,9 @@
 					<text class="font text_6">备注</text>
 					<input class="mt-12 font_2" v-model="form2.bz" />
 				</view>
-			
+
 			</view>
-			
+
 			<view class="divider_2 divider"></view>
 			<view class="flex-col group_8">
 				<view class="flex-row justify-end section_4" @click="save">
@@ -59,28 +60,28 @@
 		props: {},
 		data() {
 			return {
-			form2: {
-				kh1: '',
-				cph: '',
-				bz:'',
-				id:'',
+				form2: {
+					kh1: '',
+					cph: '',
+					bz: '',
+					id: '',
 				}
 			};
 		},
 		onLoad(query) {
-			console.log(query,'query');
+			console.log(query, 'query');
 			if (query.data) {
-				console.log(query.data,'query.data');
+				console.log(query.data, 'query.data');
 				const res = JSON.parse(query.data)
-				console.log(res,'res');
-				console.log(res.ghrq,'res.ghrq');
+				console.log(res, 'res');
+				console.log(res.ghrq, 'res.ghrq');
 				this.form2 = {
 					...this.form2,
 					...res
 				}
-				console.log(this.form2,'this.form2');
+				console.log(this.form2, 'this.form2');
 			}
-			
+
 		},
 		methods: {
 			async save() {
@@ -89,7 +90,7 @@
 						id: this.form2.id,
 						kh1: this.form2.kh1,
 						cph: this.form2.cph,
-						bz:this.form2.bz,
+						bz: this.form2.bz,
 					})
 					console.log('res', res)
 					if (res.success) {
@@ -140,6 +141,19 @@
 
 	.ml-107 {
 		margin-left: 214rpx;
+	}
+
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
 	}
 
 	.page {

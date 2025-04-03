@@ -1,123 +1,139 @@
 <template>
-    <view class="flex-col justify-start relative page">
-        <view class="section"></view>
-        <image @click="returnList()" class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
-        <text class="text_2 pos_2">新增识别卡号</text>
-        <image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
-        <image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-        <image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-        <image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-        <image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
-        <image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
-        <view class="flex-col section_3 pos_10">
-            <view class="flex-col group_2">
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">识别卡号</text>
-                    <input class="mt-12 font_2" v-model="kh1" required />
-                    <span v-if="!kh1" class="error-tip">识别卡号必填</span>
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">车牌号</text>
-                    <input class="mt-12 font_2" v-model="cph" />
-                </view>
-                <view class="flex-col items-start input group_4">
-                    <text class="font text_6">备注</text>
-                    <input class="mt-12 font_2" v-model="bz" />
-                </view>
-            </view>
-            <view class="divider_2 divider"></view>
-            <view class="flex-col group_8">
-                <view class="flex-row justify-end section_4" @click.prevent="save">
-                    <text class="self-start font_3 text_12">保存</text>
-                    <image class="self-center image_8 ml-107" src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
-                </view>
-                <view class="mt-10 section_5"></view>
-            </view>
-        </view>
-    </view>
+	<view class="flex-col justify-start relative page">
+		<view class="section"></view>
+		<view class="clickable-area" @click="returnList()"></view>
+
+		<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<text class="text_2 pos_2">新增识别卡号</text>
+		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
+		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+		<image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+		<image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+		<image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
+		<image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
+		<view class="flex-col section_3 pos_10">
+			<view class="flex-col group_2">
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">识别卡号</text>
+					<input class="mt-12 font_2" v-model="kh1" required />
+					<span v-if="!kh1" class="error-tip">识别卡号必填</span>
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">车牌号</text>
+					<input class="mt-12 font_2" v-model="cph" />
+				</view>
+				<view class="flex-col items-start input group_4">
+					<text class="font text_6">备注</text>
+					<input class="mt-12 font_2" v-model="bz" />
+				</view>
+			</view>
+			<view class="divider_2 divider"></view>
+			<view class="flex-col group_8">
+				<view class="flex-row justify-end section_4" @click.prevent="save">
+					<text class="self-start font_3 text_12">保存</text>
+					<image class="self-center image_8 ml-107"
+						src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
+				</view>
+				<view class="mt-10 section_5"></view>
+			</view>
+		</view>
+	</view>
 </template>
 
 
 
 <script>
-import {
-    cardSave
-} from '@/request/api2.js';
+	import {
+		cardSave
+	} from '@/request/api2.js';
 
-export default {
-    components: {},
-    props: {},
-    data() {
-        return {
-            kh1: '',
-            cph: '',
-            bz: ''
-        };
-    },
-    methods: {
-        async save() {
-            if (!this.kh1) {
-                uni.showToast({
-                    title: '识别卡号必填',
-                    icon: 'none'
-                });
-                return;
-            }
-            try {
-                await cardSave({
-                    kh1: this.kh1,
-                    cph: this.cph,
-                    sybz: '0',
-                    bz: this.bz
-                }).then(res => {
-                    console.log('then res', res);
-                    if (res.success) {
-                        uni.showToast({
-                            title: '创建成功'
-                        });
-                        setTimeout(() => {
-                            this.returnList();
-                        }, 500);
-                    } else {
-                        uni.showToast({
-                            title: res.errorMsg,
-                            icon: "error"
-                        });
-                    }
-                }).catch(error => {
-                    console.log('识别卡号不允许重复');
-                });
-            } catch (e) {
-                //TODO handle the exception
-                uni.showToast({
-                    title: '创建失败'
-                });
-            }
-        },
-        bindDateChange(e) {
-            this.ghrq = e.detail.value;
-            console.log('ghrqghrqghrq', this.ghrq);
-        },
-        bindDateChange2(e) {
-            this.planDate = e.detail.value;
-        },
-        bindPickerChange3(e) {
-            this.jzfs = e.detail.value;
-            this.pumpingType = this.pickerRange[this.jzfs];
-        },
-        returnList() {
-            console.log('返回任务单列表');
-            uni.reLaunch({
-                url: '/pages/sdpage/card/index'
-            });
-        }
-    }
-};
+	export default {
+		components: {},
+		props: {},
+		data() {
+			return {
+				kh1: '',
+				cph: '',
+				bz: ''
+			};
+		},
+		methods: {
+			async save() {
+				if (!this.kh1) {
+					uni.showToast({
+						title: '识别卡号必填',
+						icon: 'none'
+					});
+					return;
+				}
+				try {
+					await cardSave({
+						kh1: this.kh1,
+						cph: this.cph,
+						sybz: '0',
+						bz: this.bz
+					}).then(res => {
+						console.log('then res', res);
+						if (res.success) {
+							uni.showToast({
+								title: '创建成功'
+							});
+							setTimeout(() => {
+								this.returnList();
+							}, 500);
+						} else {
+							uni.showToast({
+								title: res.errorMsg,
+								icon: "error"
+							});
+						}
+					}).catch(error => {
+						console.log('识别卡号不允许重复');
+					});
+				} catch (e) {
+					//TODO handle the exception
+					uni.showToast({
+						title: '创建失败'
+					});
+				}
+			},
+			bindDateChange(e) {
+				this.ghrq = e.detail.value;
+				console.log('ghrqghrqghrq', this.ghrq);
+			},
+			bindDateChange2(e) {
+				this.planDate = e.detail.value;
+			},
+			bindPickerChange3(e) {
+				this.jzfs = e.detail.value;
+				this.pumpingType = this.pickerRange[this.jzfs];
+			},
+			returnList() {
+				console.log('返回任务单列表');
+				uni.reLaunch({
+					url: '/pages/sdpage/card/index'
+				});
+			}
+		}
+	};
 </script>
 
 
 
 <style scoped lang="css">
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
+	}
+
 	.ml-5 {
 		margin-left: 10rpx;
 	}
@@ -403,10 +419,10 @@ export default {
 		background-color: #d3d3d300;
 		height: 32rpx;
 	}
-	
+
 	.error-tip {
-	    color: red;
-	    font-size: 20rpx;
-	    margin-top: 5rpx;
+		color: red;
+		font-size: 20rpx;
+		margin-top: 5rpx;
 	}
 </style>

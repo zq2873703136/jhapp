@@ -1,8 +1,9 @@
 <template>
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
-			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<view class="clickable-area" @click="returnList()"></view>
+
+		<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		<text class="text_2 pos_2">编辑调度车辆</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -44,7 +45,8 @@
 					<text class="font text_6"><text style="color: red;">*</text>车载方量</text>
 				</view>
 				<view class="flex-8 items-start input-field">
-					<input class="mt-12 font_2" v-model="form2.czfl" type="digit" inputmode="decimal" @input="handleCzflInput" />
+					<input class="mt-12 font_2" v-model="form2.czfl" type="digit" inputmode="decimal"
+						@input="handleCzflInput" />
 					<view v-if="czflError" class="error-tip">{{czflError}}</view>
 				</view>
 			</view>
@@ -286,6 +288,19 @@
 		color: red;
 		font-size: 20rpx;
 		margin-top: 4rpx;
+	}
+
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
 	}
 
 	.ml-5 {
