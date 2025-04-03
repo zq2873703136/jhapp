@@ -1,7 +1,9 @@
 <template>
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
+		<view class="clickable-area" @click="returnList()"></view>
+ 
+		<image  class="image_4 pos_3"
 			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		<text class="text_2 pos_2">编辑配比单</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
@@ -122,16 +124,16 @@
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font label">中石1</text>
-							<input class="mt-12 input-number" v-model.number="form2.zs1" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'zs1')" />
+							<input class="mt-12 input-number" v-model.number="form2.zs1" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'zs1')" />
 							<view v-if="form2.zs1Error" class="error-tip">{{form2.zs1Error}}</view>
 						</view>
 					</view>
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font label">中石2</text>
-							<input class="mt-12 input-number" v-model.number="form2.zs2" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'zs2')" />
+							<input class="mt-12 input-number" v-model.number="form2.zs2" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'zs2')" />
 							<view v-if="form2.zs2Error" class="error-tip">{{form2.zs2Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
@@ -164,30 +166,30 @@
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font label">水泥1</text>
-							<input class="mt-12 input-number" v-model.number="form2.sn1" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event,'sn1')" />
+							<input class="mt-12 input-number" v-model.number="form2.sn1" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event,'sn1')" />
 							<view v-if="form2.sn1Error" class="error-tip">{{form2.sn1Error}}</view>
 						</view>
 					</view>
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font label">水泥2</text>
-							<input class="mt-12 input-number" v-model.number="form2.sn2" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event,'sn2')" />
+							<input class="mt-12 input-number" v-model.number="form2.sn2" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event,'sn2')" />
 							<view v-if="form2.sn2Error" class="error-tip">{{form2.sn2Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font label">粉煤灰1</text>
-							<input class="mt-12 input-number" v-model.number="form2.fmh1" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'fmh1')" />
+							<input class="mt-12 input-number" v-model.number="form2.fmh1" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'fmh1')" />
 							<view v-if="form2.fmh1Error" class="error-tip">{{form2.fmh1Error}}</view>
 						</view>
 					</view>
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font label">粉煤灰2</text>
-							<input class="mt-12 input-number" v-model.number="form2.fmh2" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'fmh2')" />
+							<input class="mt-12 input-number" v-model.number="form2.fmh2" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'fmh2')" />
 							<view v-if="form2.fmh2Error" class="error-tip">{{form2.fmh2Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
@@ -200,27 +202,28 @@
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font label">外加剂1</text>
-							<input class="mt-12 input-number" v-model.number="form2.wjj1" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'wjj1')" />
+							<input class="mt-12 input-number" v-model.number="form2.wjj1" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'wjj1')" />
 							<view v-if="form2.wjj1Error" class="error-tip">{{form2.wjj1Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font label">引气剂</text>
-							<input class="mt-12 input-number" v-model.number="form2.wjj2" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'wjj2')" />
+							<input class="mt-12 input-number" v-model.number="form2.wjj2" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'wjj2')" />
 							<view v-if="form2.wjj2Error" class="error-tip">{{form2.wjj2Error}}</view>
 						</view>
 					</view>
 					<view class="flex-row items-center group_4">
 						<view class="flex-1 material-item">
 							<text class="font label">减水剂</text>
-							<input class="mt-12 input-number" v-model.number="form2.wjj3" type="digit" inputmode="decimal"
-								@input="filterNonNumeric($event, 'wjj3')" />
+							<input class="mt-12 input-number" v-model.number="form2.wjj3" type="digit"
+								inputmode="decimal" @input="filterNonNumeric($event, 'wjj3')" />
 							<view v-if="form2.wjj3Error" class="error-tip">{{form2.wjj3Error}}</view>
 						</view>
 						<view class="flex-1 material-item">
 							<text class="font label">容量</text>
-							<input class="mt-12 input-number" v-model.number="form2.rl" type="digit" inputmode="decimal" disabled />
+							<input class="mt-12 input-number" v-model.number="form2.rl" type="digit" inputmode="decimal"
+								disabled />
 							<view v-if="form2.rlError" class="error-tip">{{form2.rlError}}</view>
 						</view>
 					</view>
@@ -678,6 +681,19 @@
 
 
 <style scoped lang="css">
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
+	}
+
 	.ml-5 {
 		margin-left: 10rpx;
 	}

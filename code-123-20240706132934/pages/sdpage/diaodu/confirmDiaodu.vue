@@ -1,11 +1,13 @@
 <template>
 	<view class="page">
 		<view class="fixed-query-area">
-			<image @click="returnList" class="image_4 pos_3"
+			<view class="clickable-area" @click="returnList"></view>
+			
+			<image class="image_4 pos_3"
 				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
 			<text class="text_2 pos_2">车辆调度详情</text>
 		</view>
-		<view style="margin-top: 400rpx;">
+		<view style="margin-top: 200rpx;">
 			<scroll-view :scroll-y="true">
 				<view class="flex-col list">
 					<view class="flex-col justify-start list-item">
@@ -74,6 +76,22 @@
 									<view class="data-item">
 										<text class="data-item"><text
 												class="title-green">车载方量：</text>{{ taskInfo.czfl }}</text>
+									</view>
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">施工方式：</text>{{ taskInfo.sgff }}</text>
+									</view>
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">运距：</text>{{ taskInfo.yj }}</text>
+									</view>
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">搅拌楼号：</text>{{ taskInfo.jblh }}</text>
+									</view>
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">塌落度：</text>{{ taskInfo.tld }}</text>
 									</view>
 									<view class="data-item">
 										<text class="data-item"><text
@@ -251,6 +269,19 @@
 		padding-top: 80rpx;
 		padding-bottom: 20rpx;
 	}
+
+.clickable-area {
+    position: absolute;
+    /* 根据图片的位置和大小调整 */
+    left: 20rpx; 
+    top: 100rpx; 
+    width: 80rpx; 
+    height: 80rpx; 
+    z-index: 101; /* 确保在图片之上 */
+    /* 透明背景 */
+    background-color: transparent; 
+}
+
 
 	.image_4 {
 		width: 24rpx;

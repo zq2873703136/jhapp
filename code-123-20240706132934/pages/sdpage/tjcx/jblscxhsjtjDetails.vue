@@ -1,8 +1,9 @@
 <template>
 	<view class="page">
 		<view class="header">
-			<image @click="returnList()" class="image_4 pos_3"
-				src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+			<view class="clickable-area" @click="returnList()"></view>
+
+			<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		</view>
 		<view class="task-info pos_10">
 			<view class="header2">
@@ -448,9 +449,9 @@
 					xm14t: 0
 				},
 				taskInfo: {},
-				searchKssj:'',
-				searchJssj:'',
-				
+				searchKssj: '',
+				searchJssj: '',
+
 			};
 		},
 		onLoad(options) {
@@ -476,15 +477,15 @@
 				} = getCommonParams();
 				this.searchKssj = `${startDate} ${startTime}`;
 				this.searchJssj = `${endDate} ${endTime}`;
-				
+
 				try {
-				const params = {
-					"id": id,
-					currentPage: this.currentPage,
-					pageSize: this.pageSize,
-					'sendDate': this.searchKssj,
-					'endData': this.searchJssj,
-				}
+					const params = {
+						"id": id,
+						currentPage: this.currentPage,
+						pageSize: this.pageSize,
+						'sendDate': this.searchKssj,
+						'endData': this.searchJssj,
+					}
 					const res = await statisticsQueryDetails(params);
 					if (res.result === 1) {
 						if (this.currentPage === 1) {
@@ -500,8 +501,8 @@
 				}
 			},
 			onPullDownRefresh() {
-				console.log('this.$route.query',this.$route)
-				if(this.$route){
+				console.log('this.$route.query', this.$route)
+				if (this.$route) {
 					const taskInfo = JSON.parse(this.$route.query.data);
 					this.currentPage = 1;
 					this.getDetails(taskInfo.id);
@@ -509,10 +510,10 @@
 				}
 			},
 			onReachBottom() {
-				if(this.$route){
-				this.currentPage++;
-				const taskInfo = JSON.parse(this.$route.query.data);
-				this.getDetails(taskInfo.id);
+				if (this.$route) {
+					this.currentPage++;
+					const taskInfo = JSON.parse(this.$route.query.data);
+					this.getDetails(taskInfo.id);
 				}
 			},
 			returnList() {
@@ -607,6 +608,19 @@
 		width: 24rpx;
 		height: 42rpx;
 		margin-right: 10rpx;
+	}
+
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
 	}
 
 	/* 返回图标定位样式 */
@@ -707,7 +721,8 @@
 	.info-item.sgbw-item {
 		width: 70%;
 	}
-	.info-item.yhmc-item{
+
+	.info-item.yhmc-item {
 		width: 50%;
 	}
 

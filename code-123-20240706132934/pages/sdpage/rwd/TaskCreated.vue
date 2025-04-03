@@ -1,192 +1,204 @@
 <template>
-    <view class="flex-col justify-start relative page">
-        <!-- 页面头部背景 -->
-        <view class="section"></view>
-        <!-- 返回列表按钮 -->
-        <image @click="returnList()" class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
-        <!-- 页面标题 -->
-        <text class="text_2 pos_2">新增任务单</text>
-        <!-- 一些装饰性小图标 -->
-        <image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
-        <image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-        <image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-        <image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
-        <image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
-        <image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
-        <!-- 表单主体部分 -->
-        <view class="flex-col section_3 pos_10">
-            <view class="divider view"></view>
-            <!-- 供货日期表单项 -->
-            <view class="flex-col group_2">
-                <text class="self-start font text_5"><text style="color: red;">*</text>供货日期</text>
-                <view class="flex-row justify-between self-stretch group_3">
-                    <view class="self-start font_2">
-                        <picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31" @change="bindDateChange">
-                            <view>{{ghrq || '请选择日期'}}</view>
-                        </picker>
-                    </view>
-                    <image class="self-center image_7" src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
-                </view>
-                <view v-if="ghrqError" class="error-tip">{{ghrqError}}</view>
-            </view>
-            <!-- 其他表单项 -->
-            <view class="flex-col group_2">
-				<view class="flex-row items-start group_4">
-				    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-				        <view class="flex-row justify-between align-items-center">
-				            <text class="font text_6 label-text">任务单号</text>
-				        </view>
-				    </view>
-				    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-				        <input class="mt-2 font_2" v-model="rwdh" disabled="true"  />
-				    </view>
+	<view class="flex-col justify-start relative page">
+		<view class="section"></view>
+		<view class="clickable-area" @click="returnList()"></view>
+
+		<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<!-- 页面标题 -->
+		<text class="text_2 pos_2">新增任务单</text>
+		<!-- 一些装饰性小图标 -->
+		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
+		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+		<image class="image_5 pos_6" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+		<image class="image_5 pos_8" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
+		<image class="image_6 pos_7" src="../../../static/page08/3f9b3ec9fa1a2becdff9f3b8ad5c736f.png" />
+		<image class="image_5 pos_9" src="../../../static/page08/191dcdb6738075ad67bf9ccdee71d4ca.png" />
+		<!-- 表单主体部分 -->
+		<view class="flex-col section_3 pos_10">
+			<view class="divider view"></view>
+			<!-- 供货日期表单项 -->
+			<view class="flex-col group_2">
+				<text class="self-start font text_5"><text style="color: red;">*</text>供货日期</text>
+				<view class="flex-row justify-between self-stretch group_3">
+					<view class="self-start font_2">
+						<picker mode="date" :value="ghrq" start="1900-01-01" end="2100-12-31" @change="bindDateChange">
+							<view>{{ghrq || '请选择日期'}}</view>
+						</picker>
+					</view>
+					<image class="self-center image_7"
+						src="../../../static/page08/a1ca844a9f5e07be9471329ffa0f6568.png" />
 				</view>
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center">
-                            <text class="font text_6 label-text">合同编号</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="htbh" />
-                    </view>
-                </view>
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('yhdw')">
-                            <text class="font text_6 label-text">用户单位</text>
-                            <text class="text_6">{{ isPickerOpen.yhdw? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="yhdw" @input="handleYhdwInput" />
-                    </view>
-                </view>
-                <!-- 工程名称 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('gcmc')">
-                            <text class="font text_6 label-text">工程名称</text>
-                            <text class="text_6">{{ isPickerOpen.gcmc? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="gcmc" @input="handleGcmcInput" />
-                    </view>
-                </view>
-                <!-- 工程地址 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('gcdz')">
-                            <text class="font text_6 label-text">工程地址</text>
-                            <text class="text_6">{{ isPickerOpen.gcdz? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="gcdz" @input="handleGcdzInput" />
-                    </view>
-                </view>
-                <!-- 工程部位 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('gcbw')">
-                            <text class="font text_6 label-text">工程部位</text>
-                            <text class="text_6">{{ isPickerOpen.gcbw? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="gcbw" @input="handleGcbwInput" />
-                    </view>
-                </view>
-                <!-- 强度等级 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('qddj')">
-                            <text class="font text_6 label-text">强度等级</text>
-                            <text class="text_6">{{ isPickerOpen.qddj? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="qddj" @input="handleQddjInput" />
-                    </view>
-                </view>
-                <!-- 计划方量 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <text class="font text_6 label-text">计划方量</text>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="jhfl" type="digit" inputmode="decimal" @input="filterNonNumeric($event, 'jhfl')" />
-                        <view v-if="jhflError" class="error-tip">{{jhflError}}</view>
-                    </view>
-                </view>
-                <!-- 运距 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <text class="font text_6 label-text">运距</text>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="yj" type="digit" inputmode="decimal" @input="filterNonNumeric($event, 'yj')" />
-                        <view v-if="yjError" class="error-tip">{{yjError}}</view>
-                    </view>
-                </view>
-                <!-- 浇筑方式 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('jzfs')">
-                            <text class="font text_6 label-text">浇筑方式</text>
-                            <text class="text_6">{{ isPickerOpen.jzfs? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="jzfs" @input="handleJzfsInput" />
-                    </view>
-                </view>
-                <!-- 坍落度 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('tld')">
-                            <text class="font text_6 label-text">坍落度</text>
-                            <text class="text_6">{{ isPickerOpen.tld? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="tld" @input="handleTldInput" />
-                    </view>
-                </view>
-                <!-- 最大粒径 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <view class="flex-row justify-between align-items-center picker-trigger" @click="togglePicker('zdlj')">
-                            <text class="font text_6 label-text">最大粒径</text>
-                            <text class="text_6">{{ isPickerOpen.zdlj? 'v' : '>' }}</text>
-                        </view>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="zdlj" @input="handleZdljInput" />
-                    </view>
-                </view>
-                <!-- 备注 -->
-                <view class="flex-row items-start group_4">
-                    <view class="flex-1" style="flex: 2; display: flex; align-items: center;">
-                        <text class="font text_6 label-text">备注</text>
-                    </view>
-                    <view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-                        <input class="mt-2 font_2" v-model="bz" />
-                    </view>
-                </view>
-            </view>
-            <view class="divider_2 divider"></view>
-            <!-- 保存按钮区域 -->
-            <view class="flex-col group_8">
-                <view class="flex-row justify-end section_4" @click="save">
-                    <text class="self-start font_3 text_12">保存</text>
-                    <image class="self-center image_8 ml-107" src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
-                </view>
-                <view class="mt-10 section_5"></view>
-            </view>
-        </view>
-    </view>
+				<view v-if="ghrqError" class="error-tip">{{ghrqError}}</view>
+			</view>
+			<!-- 其他表单项 -->
+			<view class="flex-col group_2">
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center">
+							<text class="font text_6 label-text">任务单号</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="rwdh" disabled="true" />
+					</view>
+				</view>
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center">
+							<text class="font text_6 label-text">合同编号</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="htbh" />
+					</view>
+				</view>
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('yhdw')">
+							<text class="font text_6 label-text">用户单位</text>
+							<text class="text_6">{{ isPickerOpen.yhdw? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="yhdw" @input="handleYhdwInput" />
+					</view>
+				</view>
+				<!-- 工程名称 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('gcmc')">
+							<text class="font text_6 label-text">工程名称</text>
+							<text class="text_6">{{ isPickerOpen.gcmc? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="gcmc" @input="handleGcmcInput" />
+					</view>
+				</view>
+				<!-- 工程地址 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('gcdz')">
+							<text class="font text_6 label-text">工程地址</text>
+							<text class="text_6">{{ isPickerOpen.gcdz? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="gcdz" @input="handleGcdzInput" />
+					</view>
+				</view>
+				<!-- 工程部位 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('gcbw')">
+							<text class="font text_6 label-text">工程部位</text>
+							<text class="text_6">{{ isPickerOpen.gcbw? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="gcbw" @input="handleGcbwInput" />
+					</view>
+				</view>
+				<!-- 强度等级 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('qddj')">
+							<text class="font text_6 label-text">强度等级</text>
+							<text class="text_6">{{ isPickerOpen.qddj? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="qddj" @input="handleQddjInput" />
+					</view>
+				</view>
+				<!-- 计划方量 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<text class="font text_6 label-text">计划方量</text>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="jhfl" type="digit" inputmode="decimal"
+							@input="filterNonNumeric($event, 'jhfl')" />
+						<view v-if="jhflError" class="error-tip">{{jhflError}}</view>
+					</view>
+				</view>
+				<!-- 运距 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<text class="font text_6 label-text">运距</text>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="yj" type="digit" inputmode="decimal"
+							@input="filterNonNumeric($event, 'yj')" />
+						<view v-if="yjError" class="error-tip">{{yjError}}</view>
+					</view>
+				</view>
+				<!-- 浇筑方式 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('jzfs')">
+							<text class="font text_6 label-text">浇筑方式</text>
+							<text class="text_6">{{ isPickerOpen.jzfs? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="jzfs" @input="handleJzfsInput" />
+					</view>
+				</view>
+				<!-- 坍落度 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('tld')">
+							<text class="font text_6 label-text">坍落度</text>
+							<text class="text_6">{{ isPickerOpen.tld? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="tld" @input="handleTldInput" />
+					</view>
+				</view>
+				<!-- 最大粒径 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<view class="flex-row justify-between align-items-center picker-trigger"
+							@click="togglePicker('zdlj')">
+							<text class="font text_6 label-text">最大粒径</text>
+							<text class="text_6">{{ isPickerOpen.zdlj? 'v' : '>' }}</text>
+						</view>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="zdlj" @input="handleZdljInput" />
+					</view>
+				</view>
+				<!-- 备注 -->
+				<view class="flex-row items-start group_4">
+					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
+						<text class="font text_6 label-text">备注</text>
+					</view>
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
+						<input class="mt-2 font_2" v-model="bz" />
+					</view>
+				</view>
+			</view>
+			<view class="divider_2 divider"></view>
+			<!-- 保存按钮区域 -->
+			<view class="flex-col group_8">
+				<view class="flex-row justify-end section_4" @click="save">
+					<text class="self-start font_3 text_12">保存</text>
+					<image class="self-center image_8 ml-107"
+						src="../../../static/page08/f320e96e76ce634f8bda0439ccc78b69.png" />
+				</view>
+				<view class="mt-10 section_5"></view>
+			</view>
+		</view>
+	</view>
 </template>
 
 
@@ -411,10 +423,10 @@
 					this.ghrqError = '供货日期为必填项';
 					return;
 				}
-                if (!this.jhfl) {
-                    this.jhflError = '计划方量为必填项';
-                    return;
-                }
+				if (!this.jhfl) {
+					this.jhflError = '计划方量为必填项';
+					return;
+				}
 				try {
 					const res = await taskSheetSave({
 						rwdh: this.rwdh,
@@ -555,315 +567,328 @@
 
 
 <style scoped lang="css">
-  .ml-5 {
-    margin-left: 10rpx;
-  }
+	.ml-5 {
+		margin-left: 10rpx;
+	}
 
-  .ml-107 {
-    margin-left: 214rpx;
-  }
+	.ml-107 {
+		margin-left: 214rpx;
+	}
 
-  .page {
-    background-color: #ffffff;
-    background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
-  }
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
+	}
 
-  .section {
-    background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
-    width: 750rpx;
-    height: 1624rpx;
-  }
+	.page {
+		background-color: #ffffff;
+		background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
+		width: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: 100%;
+	}
 
-  .section_2 {
-    padding: 26rpx 28rpx 36rpx 36rpx;
-    background-color: #ffffff00;
-  }
+	.section {
+		background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
+		width: 750rpx;
+		height: 1624rpx;
+	}
 
-  .pos {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-  }
+	.section_2 {
+		padding: 26rpx 28rpx 36rpx 36rpx;
+		background-color: #ffffff00;
+	}
 
-  .text {
-    color: #ffffff;
-    font-size: 30rpx;
-    font-family: Avenir LT Std;
-    line-height: 21.78rpx;
-  }
+	.pos {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+	}
 
-  .image {
-    width: 34rpx;
-    height: 22rpx;
-  }
+	.text {
+		color: #ffffff;
+		font-size: 30rpx;
+		font-family: Avenir LT Std;
+		line-height: 21.78rpx;
+	}
 
-  .image_2 {
-    width: 30rpx;
-    height: 22rpx;
-  }
+	.image {
+		width: 34rpx;
+		height: 22rpx;
+	}
 
-  .image_3 {
-    width: 48rpx;
-    height: 22rpx;
-  }
+	.image_2 {
+		width: 30rpx;
+		height: 22rpx;
+	}
 
-  .image_4 {
-    width: 24rpx;
-    height: 42rpx;
-  }
+	.image_3 {
+		width: 48rpx;
+		height: 22rpx;
+	}
 
-  .pos_3 {
-    position: absolute;
-    left: 32rpx;
-    top: 111rpx;
-  }
+	.image_4 {
+		width: 24rpx;
+		height: 42rpx;
+	}
 
-  .text_2 {
-    color: #ffffff;
-    font-size: 36rpx;
-    font-family: Source Sans Pro;
-    line-height: 33.16rpx;
-  }
+	.pos_3 {
+		position: absolute;
+		left: 32rpx;
+		top: 111rpx;
+	}
 
-  .pos_2 {
-    position: absolute;
-    left: 86rpx;
-    top: 106rpx;
-  }
+	.text_2 {
+		color: #ffffff;
+		font-size: 36rpx;
+		font-family: Source Sans Pro;
+		line-height: 33.16rpx;
+	}
 
-  .image_5 {
-    opacity: 0.35;
-    width: 6rpx;
-    height: 6rpx;
-  }
+	.pos_2 {
+		position: absolute;
+		left: 86rpx;
+		top: 106rpx;
+	}
 
-  .pos_4 {
-    position: absolute;
-    left: 67.1rpx;
-    top: 153.02rpx;
-  }
+	.image_5 {
+		opacity: 0.35;
+		width: 6rpx;
+		height: 6rpx;
+	}
 
-  .pos_5 {
-    position: absolute;
-    right: 79.94rpx;
-    top: 149.98rpx;
-  }
+	.pos_4 {
+		position: absolute;
+		left: 67.1rpx;
+		top: 153.02rpx;
+	}
 
-  .pos_6 {
-    position: absolute;
-    right: 249.12rpx;
-    top: 156.36rpx;
-  }
+	.pos_5 {
+		position: absolute;
+		right: 79.94rpx;
+		top: 149.98rpx;
+	}
 
-  .pos_8 {
-    position: absolute;
-    left: 324.72rpx;
-    top: 176.54rpx;
-  }
+	.pos_6 {
+		position: absolute;
+		right: 249.12rpx;
+		top: 156.36rpx;
+	}
 
-  .image_6 {
-    opacity: 0.35;
-    width: 26rpx;
-    height: 26rpx;
-  }
+	.pos_8 {
+		position: absolute;
+		left: 324.72rpx;
+		top: 176.54rpx;
+	}
 
-  .pos_7 {
-    position: absolute;
-    right: 108.32rpx;
-    top: 159.38rpx;
-  }
+	.image_6 {
+		opacity: 0.35;
+		width: 26rpx;
+		height: 26rpx;
+	}
 
-  .pos_9 {
-    position: absolute;
-    left: 36rpx;
-    top: 212.94rpx;
-  }
+	.pos_7 {
+		position: absolute;
+		right: 108.32rpx;
+		top: 159.38rpx;
+	}
 
-  .section_3 {
-    background-image: url('../../../static/page08/85eaf09bd543c66b1287def37e55cdf5.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
+	.pos_9 {
+		position: absolute;
+		left: 36rpx;
+		top: 212.94rpx;
+	}
 
-  .pos_10 {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 226rpx;
-  }
+	.section_3 {
+		background-image: url('../../../static/page08/85eaf09bd543c66b1287def37e55cdf5.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
 
-  .group {
-    padding: 32rpx 32rpx;
-  }
+	.pos_10 {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 226rpx;
+	}
 
-  .font {
-    font-size: 22rpx;
-    font-family: Source Sans Pro;
-    line-height: 18rpx;
-    color: #a5a5a5;
-  }
+	.group {
+		padding: 32rpx 32rpx;
+	}
 
-  .text_3 {
-    line-height: 20rpx;
-  }
+	.font {
+		font-size: 22rpx;
+		font-family: Source Sans Pro;
+		line-height: 18rpx;
+		color: #a5a5a5;
+	}
 
-  .font_2 {
-    font-size: 26rpx;
-    font-family: Source Sans Pro;
-    line-height: 20rpx;
-    font-weight: 600;
-    color: #313131;
-  }
+	.text_3 {
+		line-height: 20rpx;
+	}
 
-  .text_4 {
-    color: #979797;
-    line-height: 18rpx;
-  }
+	.font_2 {
+		font-size: 26rpx;
+		font-family: Source Sans Pro;
+		line-height: 20rpx;
+		font-weight: 600;
+		color: #313131;
+	}
 
-  .group_2 {
-    margin-top: 18rpx;
-    padding: 0 32rpx;
-  }
+	.text_4 {
+		color: #979797;
+		line-height: 18rpx;
+	}
 
-  .text_5 {
-    line-height: 18rpx;
-  }
+	.group_2 {
+		margin-top: 18rpx;
+		padding: 0 32rpx;
+	}
 
-  .group_3 {
-    padding: 12rpx 0;
-    border-bottom: solid 1rpx #e1e3e8;
-  }
+	.text_5 {
+		line-height: 18rpx;
+	}
 
-  .image_7 {
-    margin-right: 8rpx;
-    width: 28rpx;
-    height: 30rpx;
-  }
+	.group_3 {
+		padding: 12rpx 0;
+		border-bottom: solid 1rpx #e1e3e8;
+	}
 
-  .group_4 {
-    padding: 12rpx 0;
-    border-bottom: solid 1rpx #e1e3e8;
-    display: flex;
-    align-items: center;
-  }
+	.image_7 {
+		margin-right: 8rpx;
+		width: 28rpx;
+		height: 30rpx;
+	}
 
-  .group_4 input {
-    flex: 1;
-    box-sizing: border-box;
-    height: auto;
-    padding: 5rpx 0;
-    font-size: 26rpx;
-    line-height: normal;
-  }
+	.group_4 {
+		padding: 12rpx 0;
+		border-bottom: solid 1rpx #e1e3e8;
+		display: flex;
+		align-items: center;
+	}
 
-  .text_6 {
-    line-height: 16rpx;
-  }
+	.group_4 input {
+		flex: 1;
+		box-sizing: border-box;
+		height: auto;
+		padding: 5rpx 0;
+		font-size: 26rpx;
+		line-height: normal;
+	}
 
-  .group_5 {
-    padding: 40rpx 32rpx 36rpx;
-  }
+	.text_6 {
+		line-height: 16rpx;
+	}
 
-  .text_7 {
-    line-height: 20rpx;
-  }
+	.group_5 {
+		padding: 40rpx 32rpx 36rpx;
+	}
 
-  .group_6 {
-    margin: 0 32rpx;
-    padding: 36rpx 0 24rpx;
-    border-top: solid 1rpx #e1e3e8;
-    border-bottom: solid 1rpx #e1e3e8;
-  }
+	.text_7 {
+		line-height: 20rpx;
+	}
 
-  .text_8 {
-    line-height: 20rpx;
-  }
+	.group_6 {
+		margin: 0 32rpx;
+		padding: 36rpx 0 24rpx;
+		border-top: solid 1rpx #e1e3e8;
+		border-bottom: solid 1rpx #e1e3e8;
+	}
 
-  .font_3 {
-    font-size: 30rpx;
-    font-family: Source Sans Pro;
-    line-height: 26rpx;
-    font-weight: 600;
-    color: #313131;
-  }
+	.text_8 {
+		line-height: 20rpx;
+	}
 
-  .text_9 {
-    line-height: 28rpx;
-  }
+	.font_3 {
+		font-size: 30rpx;
+		font-family: Source Sans Pro;
+		line-height: 26rpx;
+		font-weight: 600;
+		color: #313131;
+	}
 
-  .group_7 {
-    padding: 52rpx 32rpx 38rpx;
-  }
+	.text_9 {
+		line-height: 28rpx;
+	}
 
-  .text_10 {
-    line-height: 20rpx;
-  }
+	.group_7 {
+		padding: 52rpx 32rpx 38rpx;
+	}
 
-  .text_11 {
-    line-height: 26rpx;
-  }
+	.text_10 {
+		line-height: 20rpx;
+	}
 
-  .divider_2 {
-    margin: 0 32rpx;
-  }
+	.text_11 {
+		line-height: 26rpx;
+	}
 
-  .divider {
-    background-color: #e1e3e8;
-    height: 1rpx;
-  }
+	.divider_2 {
+		margin: 0 32rpx;
+	}
 
-  .view {
-    margin: 0 32rpx;
-  }
+	.divider {
+		background-color: #e1e3e8;
+		height: 1rpx;
+	}
 
-  .group_8 {
-    margin-top: 84rpx;
-  }
+	.view {
+		margin: 0 32rpx;
+	}
 
-  .section_4 {
-    margin: 0 32rpx;
-    padding: 22rpx 40rpx 26rpx;
-    background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
+	.group_8 {
+		margin-top: 84rpx;
+	}
 
-  .text_12 {
-    color: #ffffff;
-  }
+	.section_4 {
+		margin: 0 32rpx;
+		padding: 22rpx 40rpx 26rpx;
+		background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
 
-  .image_8 {
-    width: 48rpx;
-    height: 30rpx;
-  }
+	.text_12 {
+		color: #ffffff;
+	}
 
-  .section_5 {
-    background-color: #d3d3d300;
-    height: 22rpx;
-  }
+	.image_8 {
+		width: 48rpx;
+		height: 30rpx;
+	}
 
-  .error-tip {
-    color: red;
-    font-size: 18rpx;
-    margin-top: 3rpx;
-  }
+	.section_5 {
+		background-color: #d3d3d300;
+		height: 22rpx;
+	}
 
-  .picker-trigger {
-    padding: 12rpx 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
+	.error-tip {
+		color: red;
+		font-size: 18rpx;
+		margin-top: 3rpx;
+	}
 
-  .label-text {
-    font-size: 28rpx;
-    margin-right: 10rpx;
-    display: flex;
-    align-items: center;
-  }
+	.picker-trigger {
+		padding: 12rpx 0;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+	}
+
+	.label-text {
+		font-size: 28rpx;
+		margin-right: 10rpx;
+		display: flex;
+		align-items: center;
+	}
 </style>

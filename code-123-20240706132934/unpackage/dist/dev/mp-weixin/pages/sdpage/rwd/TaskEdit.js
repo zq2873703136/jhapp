@@ -102,7 +102,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.getColor(_vm.phbsfsh)
+  var m0 = _vm.getColor(_vm.form2.phbsfsh)
   _vm.$mp.data = Object.assign(
     {},
     {

@@ -1,10 +1,25 @@
 <template>
 	<view class="page">
-		<!-- 固定在顶部的查询区域 -->
 		<view class="fixed-query-area">
-			<image @click="back" class="image_4 pos_3"
-				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
+			<view class="clickable-area" @click="back()"></view>
+
+			<image class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
 			<text class="text_2 pos_2">任务单列表</text>
+			<view class="date-picker-container">
+				<view class="picker-group">
+					<text>开始时间</text>
+					<picker mode="date" :value="startDate" start="2000-01-01" end="2100-12-31"
+						@change="onStartDateChange">
+						<view class="filter-input date-picker">{{ startDate }}</view>
+					</picker>
+				</view>
+				<view class="picker-group">
+					<text>结束时间</text>
+					<picker mode="date" :value="endDate" start="2000-01-01" end="2100-12-31" @change="onEndDateChange">
+						<view class="filter-input date-picker">{{ endDate }}</view>
+					</picker>
+				</view>
+			</view>
 			<view class="filter-container">
 				<input v-model="searchRwdh" placeholder="请输入任务单号" class="filter-input" />
 				<button @click="search" class="filter-button">查询</button>
@@ -31,7 +46,8 @@
 									<text class="ml-6 self-start font_2">{{ formalData(item.gmtCreated) }}</text>
 								</view>
 								<text class="self-stretch font_3 text_4">供货日期：{{formalData2(item.ghrq)}}</text>
-								<text class="self-stretch font_3" :style="{'color': getColor(item.phbsfsh)}">状态：{{item.phbsfsh==1?'已审核':'未审核'}}</text>
+								<text class="self-stretch font_3"
+									:style="{'color': getColor(item.phbsfsh)}">状态：{{item.phbsfsh==1?'已审核':'未审核'}}</text>
 								<text class="self-start font_3">施工单位：{{item.yhdw}}</text>
 							</view>
 
@@ -64,6 +80,18 @@
 		components: {},
 		props: {},
 		data() {
+			const now = new Date();
+			const start = new Date(now);
+			start.setMonth(start.getMonth() - 1);
+			const end = new Date(now);
+			end.setDate(end.getDate() + 5);
+
+			const formatDate = (date) => {
+				const year = date.getFullYear();
+				const month = String(date.getMonth() + 1).padStart(2, '0');
+				const day = String(date.getDate()).padStart(2, '0');
+				return `${year}-${month}-${day}`;
+			};
 			return {
 				list: [],
 				searchRwdh: '',
@@ -72,17 +100,21 @@
 				loading: false,
 				sfyqxsh: false,
 				userRole: '',
+				startDate: formatDate(start),
+				startTime: '00:00:00',
+				endDate: formatDate(end),
+				endTime: '23:59:59',
 			}
 		},
 		computed: {
 			isAdminOrAuditor() {
 				getUserInfo().then((res) => {
-					console.log('角色权限：：',res.data.roles)
+					console.log('角色权限：：', res.data.roles)
 					console.log('isAdminOrAuditor  getUserInfo:::')
 					this.userRole = res.data.roles.toString();
 					console.log('角色权限toString后', this.userRole)
 					// 判断用户是否为超级管理员或者审核员
-					this.sfyqxsh = (this.userRole.indexOf('审核员')>-1 || this.userRole.indexOf('超级管理员')>-1);
+					this.sfyqxsh = (this.userRole.indexOf('审核员') > -1 || this.userRole.indexOf('超级管理员') > -1);
 				})
 			},
 		},
@@ -101,13 +133,13 @@
 					url: '/pages/sdpage/dashboard/dashboard'
 				})
 			},
-			      getColor(score) {
-			        if (score == 0 || score == null) {
-			          return 'red';
-			        } else {
-			          return 'green';
-			        }
-			      },
+			getColor(score) {
+				if (score == 0 || score == null) {
+					return 'red';
+				} else {
+					return 'green';
+				}
+			},
 			pushDetail(item) {
 				console.log(item, 'item');
 				uni.navigateTo({
@@ -117,10 +149,14 @@
 			async getList() {
 				this.loading = true
 				try {
+					const searchKssj = `${this.startDate} ${this.startTime}`;
+					const searchJssj = `${this.endDate} ${this.endTime}`;
 					const params = {
 						rwdh: this.searchRwdh,
 						currentPage: this.currentPage,
-						pageSize: this.pageSize
+						pageSize: this.pageSize,
+						'sendDate': searchKssj,
+						'endData': searchJssj,
 					}
 					const res = await taskSheetQuery(params)
 					console.log(res, 'res');
@@ -193,12 +229,18 @@
 					}
 				});
 			},
-			auditTask(item){
+			auditTask(item) {
 				console.log(item, '审核');
 				uni.navigateTo({
 					url: '/pages/sdpage/rwd/AuditTask' + '?data=' + JSON.stringify(item)
 				})
-			}
+			},
+			onStartDateChange(e) {
+				this.startDate = e.detail.value;
+			},
+			onStartTimeChange(e) {
+				this.startTime = e.detail.value + ":00";
+			},
 		},
 	};
 </script>
@@ -211,6 +253,19 @@
 		overflow: hidden;
 		height: 100vh;
 		position: relative;
+	}
+
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
 	}
 
 	.fixed-query-area {
@@ -254,6 +309,55 @@
 		justify-content: center;
 		padding: 20rpx;
 		padding-top: 100rpx;
+	}
+
+	.date-picker-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 20rpx;
+		margin-bottom: 20rpx;
+		margin-top: 106rpx;
+	}
+
+	.picker-group {
+		flex: 1;
+		margin: 0 10rpx;
+		position: relative;
+	}
+
+	.picker-group text {
+		display: block;
+		font-size: 24rpx;
+		color: #666;
+		margin-bottom: 8rpx;
+	}
+
+	.date-picker {
+		height: 60rpx;
+		line-height: 60rpx;
+		border: 1px solid #e5e5e5;
+		border-radius: 8rpx;
+		padding: 0 16rpx;
+		background-color: #fff;
+		font-size: 24rpx;
+		color: #333;
+	}
+
+	.filter-container {
+		padding-top: 40rpx;
+		/* 调整输入框区域上边距 */
+	}
+
+	/* 统一输入框样式 */
+	.filter-input {
+		height: 60rpx;
+		line-height: 60rpx;
+		border-radius: 8rpx;
+		padding: 0 16rpx;
+		font-size: 24rpx;
+		border: 1px solid #e5e5e5;
+		background-color: #fff;
 	}
 
 	.filter-input {
@@ -324,7 +428,7 @@
 	}
 
 	.scroll-content {
-		padding-top: 326rpx;
+		padding-top: 466rpx;
 		height: 100vh;
 		box-sizing: border-box;
 	}
@@ -423,12 +527,13 @@
 		line-height: 1;
 		white-space: nowrap;
 	}
-	
-	
+
+
 	.justify-between {
-	    justify-content: space-between;
+		justify-content: space-between;
 	}
+
 	.button-container {
-	    align-items: flex-end;
+		align-items: flex-end;
 	}
 </style>

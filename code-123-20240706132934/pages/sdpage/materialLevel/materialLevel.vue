@@ -1,8 +1,8 @@
 <template>
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
-			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<view class="clickable-area" @click="returnList()"></view>
+		<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		<text class="text_2 pos_2">粉料库存</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -102,7 +102,7 @@
 		props: {},
 		data() {
 			return {
-				materialInventory:{
+				materialInventory: {
 					bhllevel1: "4.10",
 					bhllevel2: "9.95",
 					bhllevel3: "8.58",
@@ -123,14 +123,14 @@
 			this.getSelectMaterialInventory();
 		},
 		methods: {
-			async getSelectMaterialInventory(){
+			async getSelectMaterialInventory() {
 				console.log('查询数据')
 				const res = await selectMaterialInventory();
 				console.log(res)
 				this.materialInventory = res.data
-				console.log('this.materialInventory',this.materialInventory)
-				console.log('this.materialInventory.bhllevel1',this.materialInventory.bhllevel1)
-				
+				console.log('this.materialInventory', this.materialInventory)
+				console.log('this.materialInventory.bhllevel1', this.materialInventory.bhllevel1)
+
 			},
 			returnList() {
 				// uni.navigateBack(1)
@@ -144,13 +144,6 @@
 
 
 <style scoped lang="css">
-	.ml-5 {
-		margin-left: 10rpx;
-	}
-
-	.ml-107 {
-		margin-left: 214rpx;
-	}
 
 	.page {
 		background-color: #ffffff;
@@ -161,16 +154,25 @@
 		height: 100%;
 	}
 
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
+	}
+
 	.section {
 		background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);
 		width: 750rpx;
 		height: 1624rpx;
 	}
 
-	.section_2 {
-		padding: 26rpx 28rpx 36rpx 36rpx;
-		background-color: #ffffff00;
-	}
 
 	.pos {
 		position: absolute;
@@ -191,15 +193,6 @@
 		height: 22rpx;
 	}
 
-	.image_2 {
-		width: 30rpx;
-		height: 22rpx;
-	}
-
-	.image_3 {
-		width: 48rpx;
-		height: 22rpx;
-	}
 
 	.image_4 {
 		width: 24rpx;
@@ -286,19 +279,13 @@
 		top: 226rpx;
 	}
 
-	.group {
-		padding: 32rpx 32rpx;
-	}
+
 
 	.font {
 		font-size: 28rpx;
 		font-family: Source Sans Pro;
 		line-height: 18rpx;
 		color: #a5a5a5;
-	}
-
-	.text_3 {
-		line-height: 20rpx;
 	}
 
 	.font_2 {
@@ -319,20 +306,6 @@
 		padding: 0 32rpx;
 	}
 
-	.text_5 {
-		line-height: 18rpx;
-	}
-
-	.group_3 {
-		padding: 12rpx 0;
-		border-bottom: solid 1rpx #e1e3e8;
-	}
-
-	.image_7 {
-		margin-right: 8rpx;
-		width: 28rpx;
-		height: 30rpx;
-	}
 
 	.group_4 {
 		padding: 45rpx 0;
@@ -345,105 +318,8 @@
 		line-height: 16rpx;
 	}
 
-	.group_5 {
-		padding: 40rpx 32rpx 36rpx;
-	}
-
-	.text_7 {
-		line-height: 20rpx;
-	}
-
-	.group_6 {
-		margin: 0 32rpx;
-		padding: 36rpx 0 24rpx;
-		border-top: solid 1rpx #e1e3e8;
-		border-bottom: solid 1rpx #e1e3e8;
-	}
-
-	.text_8 {
-		line-height: 20rpx;
-	}
-
-	.font_3 {
-		font-size: 30rpx;
-		font-family: Source Sans Pro;
-		line-height: 26rpx;
-		font-weight: 600;
-		color: #313131;
-	}
-
-	.text_9 {
-		line-height: 28rpx;
-	}
-
-	.group_7 {
-		padding: 52rpx 32rpx 38rpx;
-	}
-
-	.text_10 {
-		line-height: 20rpx;
-	}
-
-	.text_11 {
-		line-height: 26rpx;
-	}
-
-	.divider_2 {
-		margin: 0 32rpx;
-	}
-
-	.divider {
-		background-color: #e1e3e8;
-		height: 1rpx;
-	}
 
 	.view {
 		margin: 0 32rpx;
-	}
-
-	.group_8 {
-		margin-top: 84rpx;
-	}
-
-	.section_4 {
-		margin: 0 32rpx;
-		padding: 22rpx 40rpx 26rpx;
-		background-image: url('../../../static/page08/a9b6e8eec8650efba9c066420aa572b9.png');
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-	}
-
-	.text_12 {
-		color: #ffffff;
-	}
-
-	.image_8 {
-		width: 48rpx;
-		height: 30rpx;
-	}
-
-	.section_5 {
-		background-color: #d3d3d300;
-		height: 22rpx;
-	}
-
-	.error-tip {
-		color: red;
-		font-size: 18rpx;
-		margin-top: 3rpx;
-	}
-
-	.picker-trigger {
-		padding: 12rpx 0;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-	}
-
-	.label-text {
-		font-size: 28rpx;
-		margin-right: 10rpx;
-		display: flex;
-		align-items: center;
 	}
 </style>

@@ -218,10 +218,37 @@ var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   props: {},
   data: function data() {
+    var now = new Date();
+    var start = new Date(now);
+    start.setMonth(start.getMonth() - 1);
+    var end = new Date(now);
+    end.setDate(end.getDate() + 5);
+    var formatDate = function formatDate(date) {
+      var year = date.getFullYear();
+      var month = String(date.getMonth() + 1).padStart(2, '0');
+      var day = String(date.getDate()).padStart(2, '0');
+      return "".concat(year, "-").concat(month, "-").concat(day);
+    };
     return {
       list: [],
       searchRwdh: '',
@@ -229,7 +256,11 @@ var _default = {
       pageSize: 10,
       loading: false,
       sfyqxsh: false,
-      userRole: ''
+      userRole: '',
+      startDate: formatDate(start),
+      startTime: '00:00:00',
+      endDate: formatDate(end),
+      endTime: '23:59:59'
     };
   },
   computed: {
@@ -276,21 +307,25 @@ var _default = {
     getList: function getList() {
       var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var params, res;
+        var searchKssj, searchJssj, params, res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _this2.loading = true;
                 _context.prev = 1;
+                searchKssj = "".concat(_this2.startDate, " ").concat(_this2.startTime);
+                searchJssj = "".concat(_this2.endDate, " ").concat(_this2.endTime);
                 params = {
                   rwdh: _this2.searchRwdh,
                   currentPage: _this2.currentPage,
-                  pageSize: _this2.pageSize
+                  pageSize: _this2.pageSize,
+                  'sendDate': searchKssj,
+                  'endData': searchJssj
                 };
-                _context.next = 5;
+                _context.next = 7;
                 return (0, _api.taskSheetQuery)(params);
-              case 5:
+              case 7:
                 res = _context.sent;
                 console.log(res, 'res');
                 if (_this2.currentPage === 1) {
@@ -299,22 +334,22 @@ var _default = {
                   _this2.list = _this2.list.concat(res.data);
                 }
                 _this2.currentPage++;
-                _context.next = 14;
+                _context.next = 16;
                 break;
-              case 11:
-                _context.prev = 11;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](1);
                 console.error('数据请求失败', _context.t0);
-              case 14:
-                _context.prev = 14;
+              case 16:
+                _context.prev = 16;
                 _this2.loading = false;
-                return _context.finish(14);
-              case 17:
+                return _context.finish(16);
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 11, 14, 17]]);
+        }, _callee, null, [[1, 13, 16, 19]]);
       }))();
     },
     search: function search() {
@@ -417,6 +452,12 @@ var _default = {
       uni.navigateTo({
         url: '/pages/sdpage/rwd/AuditTask' + '?data=' + JSON.stringify(item)
       });
+    },
+    onStartDateChange: function onStartDateChange(e) {
+      this.startDate = e.detail.value;
+    },
+    onStartTimeChange: function onStartTimeChange(e) {
+      this.startTime = e.detail.value + ":00";
     }
   }
 };

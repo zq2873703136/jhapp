@@ -1,7 +1,9 @@
 <template>
     <view class="page">
         <view class="fixed-query-area">
-            <image @click="back" class="image_4 pos_3"
+			<view class="clickable-area" @click="back"></view>
+			
+            <image class="image_4 pos_3"
                    src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
             <text class="text_2 pos_2">车辆调度</text>
             <view class="filter-container">
@@ -44,8 +46,8 @@
                             <view class="data-row"></view>
                             <view class="data-row"></view>
                             <view class="data-item">
-                                <text class="data-item self-start font text_3"><text
-                                        class="title-green">车编号：</text>{{ item.cbh }}</text>
+                                <text class="data-item self-start font text_3" style="font-weight: 900;"><text
+                                        class="title-green" style="font-weight: 900;">车编号：</text>{{ item.cbh }}</text>
                             </view>
                             <view class="data-row">
                                 <view class="data-item">
@@ -57,6 +59,12 @@
                                 <view class="data-item">
                                     <text class="data-item"><text class="title-green">完成方量：</text>{{ item.wcfl }}</text>
                                 </view>
+								<view class="data-item">
+								    <text class="data-item"><text class="title-green">时间：</text>{{ item.sj }}</text>
+								</view>
+								<view class="data-item" v-show="signStatusIndex==1">
+								    <text class="data-item"><text class="title-green">签单：</text>{{ item.sjxm }}</text>
+								</view>
                             </view>
                             <view class="data-row">
                                 <view class="data-item">
@@ -195,6 +203,19 @@ export default {
 
                 const res = await diaoduQuery(params);
                 console.log(res, 'res');
+				if(!res.success){
+					uni.showToast({
+						title: res.errorMsg,
+						icon: "error"
+					});
+					setTimeout(function(){
+						if(res.errorMsg=="无效token"){
+							uni.reLaunch({
+							    url: '/pages/Page_02_login/Page_02_login'
+							});
+						}
+					},500)
+				}
                 if (this.currentPage === 1) {
                     this.list = res.data;
                 } else {
@@ -251,7 +272,17 @@ export default {
     height: 100vh;
     position: relative;
 }
-
+.clickable-area {
+    position: absolute;
+    /* 根据图片的位置和大小调整 */
+    left: 20rpx; 
+    top: 100rpx; 
+    width: 80rpx; 
+    height: 80rpx; 
+    z-index: 101; /* 确保在图片之上 */
+    /* 透明背景 */
+    background-color: transparent; 
+}
 .fixed-query-area {
     position: fixed;
     top: 0;

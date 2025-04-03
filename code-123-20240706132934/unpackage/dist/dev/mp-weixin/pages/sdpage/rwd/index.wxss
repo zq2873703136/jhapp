@@ -7,6 +7,18 @@
 	height: 100vh;
 	position: relative;
 }
+.clickable-area.data-v-7bd6858c {
+	position: absolute;
+	/* 根据图片的位置和大小调整 */
+	left: 20rpx;
+	top: 100rpx;
+	width: 80rpx;
+	height: 80rpx;
+	z-index: 101;
+	/* 确保在图片之上 */
+	/* 透明背景 */
+	background-color: transparent;
+}
 .fixed-query-area.data-v-7bd6858c {
 	position: fixed;
 	top: 0;
@@ -43,6 +55,50 @@
 	justify-content: center;
 	padding: 20rpx;
 	padding-top: 100rpx;
+}
+.date-picker-container.data-v-7bd6858c {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20rpx;
+	margin-bottom: 20rpx;
+	margin-top: 106rpx;
+}
+.picker-group.data-v-7bd6858c {
+	flex: 1;
+	margin: 0 10rpx;
+	position: relative;
+}
+.picker-group text.data-v-7bd6858c {
+	display: block;
+	font-size: 24rpx;
+	color: #666;
+	margin-bottom: 8rpx;
+}
+.date-picker.data-v-7bd6858c {
+	height: 60rpx;
+	line-height: 60rpx;
+	border: 1px solid #e5e5e5;
+	border-radius: 8rpx;
+	padding: 0 16rpx;
+	background-color: #fff;
+	font-size: 24rpx;
+	color: #333;
+}
+.filter-container.data-v-7bd6858c {
+	padding-top: 40rpx;
+	/* 调整输入框区域上边距 */
+}
+
+/* 统一输入框样式 */
+.filter-input.data-v-7bd6858c {
+	height: 60rpx;
+	line-height: 60rpx;
+	border-radius: 8rpx;
+	padding: 0 16rpx;
+	font-size: 24rpx;
+	border: 1px solid #e5e5e5;
+	background-color: #fff;
 }
 .filter-input.data-v-7bd6858c {
 	flex: 1;
@@ -102,7 +158,7 @@
 	top: 212.94rpx;
 }
 .scroll-content.data-v-7bd6858c {
-	padding-top: 326rpx;
+	padding-top: 466rpx;
 	height: 100vh;
 	box-sizing: border-box;
 }
@@ -188,9 +244,9 @@
 	white-space: nowrap;
 }
 .justify-between.data-v-7bd6858c {
-    justify-content: space-between;
+	justify-content: space-between;
 }
 .button-container.data-v-7bd6858c {
-    align-items: flex-end;
+	align-items: flex-end;
 }
 

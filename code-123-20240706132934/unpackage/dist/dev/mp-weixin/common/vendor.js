@@ -10281,9 +10281,13 @@ function request(url) {
   // 另一个本地  192.168.31.218
   // const base_url = 'http://192.168.31.218:9095'
   // 测试机外网访问
-  // const base_url = 'https://erp.hzjianghe.cn'
+  var base_url = 'https://erp.hzjianghe.cn';
+  // 测试机外网访问
+  // const base_url = 'http://61.174.243.28:15538'
+  // 测试机内网访问
+  // const base_url = 'http://192.168.3.38:9095'
   // 正式接口
-  var base_url = 'https://yjbh.hzjianghe.cn';
+  // const base_url = 'https://yjbh.hzjianghe.cn'
   // 发起网络请求  
   return new Promise(function (resolve, reject) {
     console.log('服务器地址', base_url);

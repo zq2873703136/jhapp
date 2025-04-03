@@ -1,9 +1,9 @@
 <template>
 	<view class="page">
-		<!-- 固定在顶部的查询区域 -->
 		<view class="fixed-query-area">
-			<image @click="back" class="image_4 pos_3"
-				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
+			<view class="clickable-area" @click="back"></view>
+
+			<image class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
 			<text class="text_2 pos_2">地磅数据管理</text>
 			<view class="filter-container">
 				<!-- 开始时间 -->
@@ -36,7 +36,8 @@
 			<view class="flex-col justify-start list-item" style="margin-top: 70rpx;">
 				<view class="flex-col section_4">
 					<text class="self-start font text_3">合计 &nbsp;&nbsp;&nbsp;<text class="self-start font text_3"
-							style="margin-left: 20rpx;">车数：{{ totalCs }}  当日数量：{{ totalDrsl }}  累计：{{ totalBylj }}</text></text>
+							style="margin-left: 20rpx;">车数：{{ totalCs }} 当日数量：{{ totalDrsl }}
+							累计：{{ totalBylj }}</text></text>
 				</view>
 			</view>
 			<view class="flex-col list">
@@ -125,9 +126,9 @@
 				pageSize: 10,
 				loading: false,
 				totalMgfl: 0, // 新增：用于存储总方量
-				totalCs:0,// 总车数
-				totalDrsl:0,// 总 当日数量
-				totalBylj:0, // 总 累计
+				totalCs: 0, // 总车数
+				totalDrsl: 0, // 总 当日数量
+				totalBylj: 0, // 总 累计
 				tjlx: '进货单位',
 			}
 		},
@@ -171,7 +172,7 @@
 					const seen = new Set();
 					this.list.forEach(item => {
 						const key =
-						`${item.clmc}_${item.clggxh}_${item.gysmc}`;
+							`${item.clmc}_${item.clggxh}_${item.gysmc}`;
 						if (!seen.has(key)) {
 							seen.add(key);
 							uniqueList.push(item);
@@ -314,6 +315,19 @@
 		margin-bottom: 5rpx;
 	}
 
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
+	}
+
 	.filter-input {
 		flex: 1;
 		padding: 20rpx;
@@ -336,6 +350,7 @@
 		line-height: 1;
 		white-space: nowrap;
 		margin-top: 10rpx;
+		width: 180rpx;
 	}
 
 	.self-start.font.text_3 {
@@ -477,11 +492,11 @@
 
 	.data-row:nth-child(1) .data-item,
 	.data-row:nth-child(2) .data-item,
-	.data-row:nth-child(3) .data-item{
+	.data-row:nth-child(3) .data-item {
 		width: 50%;
 	}
 
-	
+
 	.data-row:nth-child(4) .data-item,
 	.data-row:nth-child(5) .data-item {
 		width: 100%;

@@ -286,6 +286,19 @@ var _default = {
               case 8:
                 res = _context.sent;
                 console.log(res, 'res');
+                if (!res.success) {
+                  uni.showToast({
+                    title: res.errorMsg,
+                    icon: "error"
+                  });
+                  setTimeout(function () {
+                    if (res.errorMsg == "无效token") {
+                      uni.reLaunch({
+                        url: '/pages/Page_02_login/Page_02_login'
+                      });
+                    }
+                  }, 500);
+                }
                 if (_this2.currentPage === 1) {
                   _this2.list = res.data;
                 } else {
@@ -302,22 +315,22 @@ var _default = {
                 });
                 _this2.list = uniqueList;
                 _this2.currentPage++;
-                _context.next = 21;
+                _context.next = 22;
                 break;
-              case 18:
-                _context.prev = 18;
+              case 19:
+                _context.prev = 19;
                 _context.t0 = _context["catch"](2);
                 console.error('请求错误', _context.t0);
-              case 21:
-                _context.prev = 21;
+              case 22:
+                _context.prev = 22;
                 _this2.loading = false;
-                return _context.finish(21);
-              case 24:
+                return _context.finish(22);
+              case 25:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 18, 21, 24]]);
+        }, _callee, null, [[2, 19, 22, 25]]);
       }))();
     },
     search: function search() {

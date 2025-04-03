@@ -60,6 +60,18 @@
 	color: #333;
 	margin-bottom: 5rpx;
 }
+.clickable-area.data-v-c233cdf6 {
+	position: absolute;
+	/* 根据图片的位置和大小调整 */
+	left: 20rpx;
+	top: 100rpx;
+	width: 80rpx;
+	height: 80rpx;
+	z-index: 101;
+	/* 确保在图片之上 */
+	/* 透明背景 */
+	background-color: transparent;
+}
 .filter-input.data-v-c233cdf6 {
 	flex: 1;
 	padding: 20rpx;
@@ -81,6 +93,7 @@
 	line-height: 1;
 	white-space: nowrap;
 	margin-top: 10rpx;
+	width: 180rpx;
 }
 .self-start.font.text_3.data-v-c233cdf6 {
 	font-size: 28rpx;
@@ -197,7 +210,7 @@
 }
 .data-row:nth-child(1) .data-item.data-v-c233cdf6,
 .data-row:nth-child(2) .data-item.data-v-c233cdf6,
-.data-row:nth-child(3) .data-item.data-v-c233cdf6{
+.data-row:nth-child(3) .data-item.data-v-c233cdf6 {
 	width: 50%;
 }
 .data-row:nth-child(4) .data-item.data-v-c233cdf6,

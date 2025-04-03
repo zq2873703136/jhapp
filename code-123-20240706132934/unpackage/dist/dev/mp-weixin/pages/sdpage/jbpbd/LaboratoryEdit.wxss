@@ -1,4 +1,16 @@
 
+.clickable-area.data-v-1de58ad0 {
+	position: absolute;
+	/* 根据图片的位置和大小调整 */
+	left: 20rpx;
+	top: 100rpx;
+	width: 80rpx;
+	height: 80rpx;
+	z-index: 101;
+	/* 确保在图片之上 */
+	/* 透明背景 */
+	background-color: transparent;
+}
 .ml-5.data-v-1de58ad0 {
 	margin-left: 10rpx;
 }

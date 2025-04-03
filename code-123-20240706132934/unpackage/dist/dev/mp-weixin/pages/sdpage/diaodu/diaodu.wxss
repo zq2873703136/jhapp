@@ -7,6 +7,17 @@
     height: 100vh;
     position: relative;
 }
+.clickable-area.data-v-42eb660e {
+    position: absolute;
+    /* 根据图片的位置和大小调整 */
+    left: 20rpx; 
+    top: 100rpx; 
+    width: 80rpx; 
+    height: 80rpx; 
+    z-index: 101; /* 确保在图片之上 */
+    /* 透明背景 */
+    background-color: transparent;
+}
 .fixed-query-area.data-v-42eb660e {
     position: fixed;
     top: 0;
@@ -218,14 +229,12 @@
     flex-wrap: wrap;
     margin-bottom: 10rpx;
 }
-
 /* 除前三行外的数据项每行三等分 */
 .data-row:not(:nth-child(-n+3)) .data-item.data-v-42eb660e {
     box-sizing: border-box;
     padding: 0 5rpx;
     width: 100%;
 }
-
 /* 前三行的数据项样式 */
 .data-row:nth-child(-n+3) .data-item.data-v-42eb660e {
     box-sizing: border-box;
@@ -234,7 +243,6 @@
 .title-green.data-v-42eb660e {
     color: green;
 }
-
 /* 新增样式，使是否签单和车编号为左右结构 */
 .picker-group-horizontal.data-v-42eb660e {
     flex-direction: row;

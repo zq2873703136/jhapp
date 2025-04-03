@@ -357,6 +357,9 @@ var _api = __webpack_require__(/*! @/request/api2.js */ 44);
 //
 //
 //
+//
+//
+//
 var _default = {
   components: {},
   props: {},
@@ -452,7 +455,6 @@ var _default = {
         this.taskInfo.wjj3 = ratio.wjj3;
         this.taskInfo.rl = ratio.rl;
         this.taskInfo.phbsfsh = 1;
-        this.taskSave('审核任务单');
       }
     },
     showRatioInfoZWWSH: function showRatioInfoZWWSH() {
@@ -478,7 +480,6 @@ var _default = {
       this.taskInfo.wjj2 = '';
       this.taskInfo.wjj3 = '';
       this.taskInfo.rl = '';
-      this.taskSave('置为未审核');
     },
     returnList: function returnList() {
       console.log('返回任务单列表');
@@ -490,7 +491,7 @@ var _default = {
       try {
         var res = (0, _api.taskSheetSave)(this.taskInfo);
         uni.showToast({
-          title: titleStr + '成功'
+          title: '成功'
         });
       } catch (e) {
         uni.showToast({

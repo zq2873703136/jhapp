@@ -5,6 +5,18 @@
 .ml-107.data-v-2237d605 {
 	margin-left: 214rpx;
 }
+.clickable-area.data-v-2237d605 {
+	position: absolute;
+	/* 根据图片的位置和大小调整 */
+	left: 20rpx;
+	top: 100rpx;
+	width: 80rpx;
+	height: 80rpx;
+	z-index: 101;
+	/* 确保在图片之上 */
+	/* 透明背景 */
+	background-color: transparent;
+}
 .page.data-v-2237d605 {
 	background-color: #ffffff;
 	background-image: linear-gradient(334.3deg, #2855ae 32.2%, #7292cf 133.9%);

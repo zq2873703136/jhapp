@@ -587,6 +587,7 @@
 
 
 
+
 /* 页面整体样式 */
 .page.data-v-a5ec0aa2 {
 	padding: 20rpx;
@@ -605,6 +606,18 @@
 	width: 24rpx;
 	height: 42rpx;
 	margin-right: 10rpx;
+}
+.clickable-area.data-v-a5ec0aa2 {
+	position: absolute;
+	/* 根据图片的位置和大小调整 */
+	left: 20rpx;
+	top: 100rpx;
+	width: 80rpx;
+	height: 80rpx;
+	z-index: 101;
+	/* 确保在图片之上 */
+	/* 透明背景 */
+	background-color: transparent;
 }
 /* 返回图标定位样式 */
 .pos_3.data-v-a5ec0aa2 {
@@ -691,7 +704,7 @@
 .info-item.sgbw-item.data-v-a5ec0aa2 {
 	width: 70%;
 }
-.info-item.yhmc-item.data-v-a5ec0aa2{
+.info-item.yhmc-item.data-v-a5ec0aa2 {
 	width: 50%;
 }
 /* 配比按钮样式 */

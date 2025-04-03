@@ -1,9 +1,9 @@
 <template>
 	<view class="page">
-		<!-- 固定在顶部的查询区域 -->
 		<view class="fixed-query-area">
-			<image @click="back" class="image_4 pos_3"
-				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
+			<view class="clickable-area" @click="back"></view>
+
+			<image class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
 			<text class="text_2 pos_2">搅拌楼生产消耗数据统计</text>
 			<view class="filter-container">
 				<!-- 开始时间 -->
@@ -165,7 +165,7 @@
 					const seen = new Set();
 					this.list.forEach(item => {
 						const key =
-						`${item.kz}_${item.tbh}_${item.tld}_${item.yhmc}_${item.gcmc}_${item.sgbw}`;
+							`${item.kz}_${item.tbh}_${item.tld}_${item.yhmc}_${item.gcmc}_${item.sgbw}`;
 						if (!seen.has(key)) {
 							seen.add(key);
 							uniqueList.push(item);
@@ -274,6 +274,19 @@
 		position: absolute;
 		left: 86rpx;
 		top: 106rpx;
+	}
+
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
 	}
 
 	.filter-container {

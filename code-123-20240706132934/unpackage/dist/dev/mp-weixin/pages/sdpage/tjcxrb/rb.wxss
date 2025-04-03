@@ -37,6 +37,18 @@
 	left: 86rpx;
 	top: 106rpx;
 }
+.clickable-area.data-v-fbe78224 {
+	position: absolute;
+	/* 根据图片的位置和大小调整 */
+	left: 20rpx;
+	top: 100rpx;
+	width: 80rpx;
+	height: 80rpx;
+	z-index: 101;
+	/* 确保在图片之上 */
+	/* 透明背景 */
+	background-color: transparent;
+}
 .filter-container.data-v-fbe78224 {
 	display: flex;
 	flex-wrap: wrap;

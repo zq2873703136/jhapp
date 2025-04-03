@@ -1,8 +1,9 @@
 <template>
 	<view class="flex-col justify-start relative page">
 		<view class="section"></view>
-		<image @click="returnList()" class="image_4 pos_3"
-			src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
+		<view class="clickable-area" @click="returnList()"></view>
+
+		<image class="image_4 pos_3" src="../../../static/page08/f3e6fccca575fc715964e18bcd57f45a.png" />
 		<text class="text_2 pos_2">编辑任务单</text>
 		<image class="image_5 pos_4" src="../../../static/page08/fa3babe67a5849c8174f1ef2cfde632c.png" />
 		<image class="image_5 pos_5" src="../../../static/page08/aa53eb42545139139d2995ddcdc05da7.png" />
@@ -36,7 +37,8 @@
 					<view class="flex-1" style="flex: 2; display: flex; align-items: center;">
 						<text class="font text_6">配比是否审核</text>
 					</view>
-					<view class="flex-1" style="flex: 8; margin-left: 10rpx;" :style="{'color': getColor( phbsfsh)}">
+					<view class="flex-1" style="flex: 8; margin-left: 10rpx;"
+						:style="{'color': getColor( form2.phbsfsh)}">
 						{{ form2.phbsfsh == 1 ? '已审核':'未审核'}}
 					</view>
 				</view>
@@ -139,7 +141,8 @@
 						<text class="font text_6">运距</text>
 					</view>
 					<view class="flex-1" style="flex: 8; margin-left: 10rpx;">
-						<input class="mt-8 font_2" v-model="form2.yj" type="digit" inputmode="decimal" @input="filterNonNumeric($event, 'yj')" />
+						<input class="mt-8 font_2" v-model="form2.yj" type="digit" inputmode="decimal"
+							@input="filterNonNumeric($event, 'yj')" />
 						<view v-if="yjError" class="error-tip">{{yjError}}</view>
 					</view>
 				</view>
@@ -569,6 +572,19 @@
 
 	.ml-107 {
 		margin-left: 214rpx;
+	}
+
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
 	}
 
 	.page {
