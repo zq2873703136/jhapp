@@ -170,9 +170,9 @@ var _default = {
   data: function data() {
     var now = new Date();
     var start = new Date(now);
-    start.setMonth(start.getMonth() - 1);
+    start.setMonth(start.getMonth() - 0);
     var end = new Date(now);
-    end.setDate(end.getDate() + 5);
+    end.setDate(end.getDate() + 0);
     var formatDate = function formatDate(date) {
       var year = date.getFullYear();
       var month = String(date.getMonth() + 1).padStart(2, '0');

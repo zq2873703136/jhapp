@@ -283,6 +283,14 @@ var _publicData = __webpack_require__(/*! @/request/publicData.js */ 48);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -301,9 +309,9 @@ var _default = {
   methods: {
     zhuangtaifun: function zhuangtaifun(item) {
       if (item.sfqr == 1) {
-        return "已确认";
+        return "已签单";
       }
-      return '未确认';
+      return '未签单';
     },
     returnList: function returnList() {
       console.log('返回任务单列表');
@@ -317,7 +325,7 @@ var _default = {
     updateZtSave: function updateZtSave() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var userInfo, response;
+        var formatDate, userInfo, response;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -343,16 +351,26 @@ var _default = {
                 return _context.abrupt("return");
               case 6:
                 _context.prev = 6;
-                _context.next = 9;
+                formatDate = function formatDate(date) {
+                  var year = date.getFullYear();
+                  var month = String(date.getMonth() + 1).padStart(2, '0');
+                  var day = String(date.getDate()).padStart(2, '0');
+                  var hours = String(date.getHours()).padStart(2, '0');
+                  var minutes = String(date.getMinutes()).padStart(2, '0');
+                  var seconds = String(date.getSeconds()).padStart(2, '0');
+                  return "".concat(year, "-").concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes, ":").concat(seconds);
+                };
+                _context.next = 10;
                 return (0, _publicData.getUserInfo)();
-              case 9:
+              case 10:
                 userInfo = _context.sent;
                 _this.userName = userInfo.data.username;
                 _this.taskInfo.sjxm = _this.userName;
                 _this.taskInfo.sfqr = 1;
-                _context.next = 15;
+                _this.taskInfo.qdsj = formatDate(new Date());
+                _context.next = 17;
                 return (0, _api.diaoduSave)(_this.taskInfo);
-              case 15:
+              case 17:
                 response = _context.sent;
                 console.log('response::', response);
                 if (!response.success) {
@@ -366,22 +384,22 @@ var _default = {
                   });
                   _this.inputCarNumber = '';
                 }
-                _context.next = 24;
+                _context.next = 26;
                 break;
-              case 20:
-                _context.prev = 20;
+              case 22:
+                _context.prev = 22;
                 _context.t0 = _context["catch"](6);
                 console.error('请求出错:', _context.t0);
                 uni.showToast({
                   title: '网络请求出错，请稍后重试',
                   icon: "error"
                 });
-              case 24:
+              case 26:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[6, 20]]);
+        }, _callee, null, [[6, 22]]);
       }))();
     },
     confirmInput: function confirmInput() {

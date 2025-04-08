@@ -63,7 +63,7 @@
 								    <text class="data-item"><text class="title-green">时间：</text>{{ item.sj }}</text>
 								</view>
 								<view class="data-item" v-show="signStatusIndex==1">
-								    <text class="data-item"><text class="title-green">签单：</text>{{ item.sjxm }}</text>
+								    <text class="data-item"><text class="title-green">签单人：</text>{{ item.sjxm }}</text>
 								</view>
                             </view>
                             <view class="data-row">
@@ -98,9 +98,9 @@ export default {
     data() {
         const now = new Date();
         const start = new Date(now);
-        start.setMonth(start.getMonth() - 1);
+        start.setMonth(start.getMonth() - 0);
         const end = new Date(now);
-        end.setDate(end.getDate() + 5);
+        end.setDate(end.getDate() + 0);
 
         const formatDate = (date) => {
             const year = date.getFullYear();

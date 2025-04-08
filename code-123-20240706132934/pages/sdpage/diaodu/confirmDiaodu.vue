@@ -2,9 +2,8 @@
 	<view class="page">
 		<view class="fixed-query-area">
 			<view class="clickable-area" @click="returnList"></view>
-			
-			<image class="image_4 pos_3"
-				src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
+
+			<image class="image_4 pos_3" src="../../../static/page18/f3e6fccca575fc715964e18bcd57f45a.png" />
 			<text class="text_2 pos_2">车辆调度详情</text>
 		</view>
 		<view style="margin-top: 200rpx;">
@@ -12,9 +11,9 @@
 				<view class="flex-col list">
 					<view class="flex-col justify-start list-item">
 						<view class="flex-col section_4">
-									<view class="data-item">
-										<text class="title-green">确认车编号：{{ inputCarNumber }}</text>
-									</view>
+							<view class="data-item">
+								<text class="title-green">确认车编号：{{ inputCarNumber }}</text>
+							</view>
 							<view class="mt-16 data-group">
 								<view class="data-row">
 									<view class="data-item">
@@ -95,7 +94,11 @@
 									</view>
 									<view class="data-item">
 										<text class="data-item"><text
-												class="title-green">时间：</text>{{ taskInfo.sj }}</text>
+												class="title-green">发起时间：</text>{{ taskInfo.sj }}</text>
+									</view>
+									<view class="data-item">
+										<text class="data-item"><text
+												class="title-green">签单时间：</text>{{ taskInfo.qdsj }}</text>
 									</view>
 									<view class="data-item">
 										<text class="data-item"><text
@@ -107,10 +110,15 @@
 					</view>
 				</view>
 				<button v-if="taskInfo.sfqr==0" @click="inputCarNumberFun()">输入车编号</button>
-				<view class="data-row"></view><view class="data-row"></view><view class="data-row"></view>
-				<button v-if="taskInfo.sfqr==0"  @click="scanQrCode">扫描二维码获取车编号</button>
-				<view class="data-row"></view><view class="data-row"></view><view class="data-row"></view>
-				<button v-if="inputCarNumber" style="color: #dfdfdf;background-color: red;"  @click="updateZtSave()">确认</button>
+				<view class="data-row"></view>
+				<view class="data-row"></view>
+				<view class="data-row"></view>
+				<button v-if="taskInfo.sfqr==0" @click="scanQrCode">扫描二维码获取车编号</button>
+				<view class="data-row"></view>
+				<view class="data-row"></view>
+				<view class="data-row"></view>
+				<button v-if="inputCarNumber" style="color: #dfdfdf;background-color: red;"
+					@click="updateZtSave()">确认</button>
 			</scroll-view>
 		</view>
 		<view v-if="showInputModal" class="modal-mask">
@@ -154,9 +162,9 @@
 		methods: {
 			zhuangtaifun(item) {
 				if (item.sfqr == 1) {
-					return "已确认";
+					return "已签单";
 				}
-				return '未确认';
+				return '未签单';
 			},
 			returnList() {
 				console.log('返回任务单列表');
@@ -164,7 +172,7 @@
 					url: '/pages/sdpage/diaodu/diaodu'
 				});
 			},
-			inputCarNumberFun(){
+			inputCarNumberFun() {
 				this.showInputModal = true;
 			},
 			async updateZtSave() {
@@ -183,12 +191,22 @@
 					return;
 				}
 				try {
+					const formatDate = (date) => {
+						const year = date.getFullYear();
+						const month = String(date.getMonth() + 1).padStart(2, '0');
+						const day = String(date.getDate()).padStart(2, '0');
+						const hours = String(date.getHours()).padStart(2, '0');
+						const minutes = String(date.getMinutes()).padStart(2, '0');
+						const seconds = String(date.getSeconds()).padStart(2, '0');
+						return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+					};
 					const userInfo = await getUserInfo();
 					this.userName = userInfo.data.username;
 					this.taskInfo.sjxm = this.userName;
 					this.taskInfo.sfqr = 1;
+					this.taskInfo.qdsj = formatDate(new Date())
 					const response = await diaoduSave(this.taskInfo);
-					console.log('response::',response)
+					console.log('response::', response)
 					if (!response.success) {
 						uni.showToast({
 							title: response.data.errorMsg,
@@ -210,7 +228,7 @@
 			},
 			async confirmInput() {
 				this.showInputModal = true;
-				
+
 				if (this.inputCarNumber === this.taskInfo.cbh) {
 					this.showInputModal = false;
 				} else {
@@ -270,17 +288,18 @@
 		padding-bottom: 20rpx;
 	}
 
-.clickable-area {
-    position: absolute;
-    /* 根据图片的位置和大小调整 */
-    left: 20rpx; 
-    top: 100rpx; 
-    width: 80rpx; 
-    height: 80rpx; 
-    z-index: 101; /* 确保在图片之上 */
-    /* 透明背景 */
-    background-color: transparent; 
-}
+	.clickable-area {
+		position: absolute;
+		/* 根据图片的位置和大小调整 */
+		left: 20rpx;
+		top: 100rpx;
+		width: 80rpx;
+		height: 80rpx;
+		z-index: 101;
+		/* 确保在图片之上 */
+		/* 透明背景 */
+		background-color: transparent;
+	}
 
 
 	.image_4 {
