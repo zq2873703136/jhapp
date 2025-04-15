@@ -1,0 +1,219 @@
+{
+	"globalStyle": {
+		"navigationStyle": "custom"
+	},
+	"pages": [{
+			"path": "pages/Page_02_login/Page_02_login",
+			"style": {}
+		},
+
+		{
+			"path": "pages/sdpage/dashboard/dashboard",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/rwd/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/rwd/TaskCreated",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/rwd/TaskEdit",
+			"style": {
+				"navigationBarTitleText": "编辑任务单"
+			}
+		},
+		{
+			"path": "pages/sdpage/jbpbd/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/jbpbd/LaboratoryCreated",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/jbpbd/LaboratoryEdit",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/card/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/card/CardCreated",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/card/CardEdit",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/vehicle/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/vehicle/VehicleCreated",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/vehicle/VehicleEdit",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/rwd/AuditTask",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/tjcx/jblscxhsjtj",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/tjcx/jblscxhsjtjDetails",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/materialLevel/materialLevel",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/sdpage/tjcxrb/rb",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/weighbridge/weighbridge",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/diaodu/diaodu",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/diaodu/confirmDiaodu",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/sdpage/SignaturePage/SignaturePage",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		}
+	],
+	"subPackages": [{
+		"root": "pages_pc",
+		"pages": [{
+				"path": "Page_03_dashboard/Page_03_dashboard",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			},
+			{
+				"path": "Page_18_events/Page_18_events",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			},
+			{
+				"path": "Page_08_pay_online_edit/Page_08_pay_online",
+				"style": {}
+			},
+			{
+				"path": "Page_08_pay_online_add/Page_08_pay_online",
+				"style": {}
+			}, {
+				"path": "page/page1/index",
+				"style": {}
+			},
+			{
+				"path": "page/page2/index",
+				"style": {}
+			},
+			{
+				"path": "page/page3/index",
+				"style": {}
+			},
+			{
+				"path": "page/page4/index",
+				"style": {}
+			},
+			{
+				"path": "page/page5/index",
+				"style": {}
+			},
+			{
+				"path": "page/page6/index",
+				"style": {}
+			},
+			{
+				"path": "page/page7/index",
+				"style": {}
+			},
+			{
+				"path": "page/page8/index",
+				"style": {}
+			},
+			{
+				"path": "page/page9/index",
+				"style": {}
+			},
+			{
+				"path": "page/page10/index",
+				"style": {}
+			}
+		]
+	}, {
+		"root": "pages_bd",
+		"name": "pages_bd",
+		"pages": [{
+			"path": "dashboard/dashboard",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}]
+	}]
+}
